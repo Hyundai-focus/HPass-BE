@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.hyundai'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // Spring
+    implementation 'org.springframework.spring-core:5.3.27'
+    implementation 'org.springframework.spring-webmvc:5.3.27'
+    implementation 'org.springframework.spring-jdbc:5.3.27'
+    implementation 'org.springframework.spring-context:5.3.27'
+    implementation 'org.springframework.spring-tx:5.3.27'
+
+    // Lombok
+    implementation 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // MyBatis
+    implementation group: 'org.mybatis', name: 'mybatis', version: '3.5.14'
+    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '2.0.6'
+
+    // Oracle JDBC
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc11', version: '21.9.0.0'
+
+    // Jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.16.0'
+
+    // Log
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.14'
+
+    // Log4j
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.0'
+}
+
+test {
+    useJUnitPlatform()
+}
