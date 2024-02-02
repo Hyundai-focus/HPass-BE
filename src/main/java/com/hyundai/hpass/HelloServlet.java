@@ -1,9 +1,12 @@
 package com.hyundai.hpass;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.io.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
+@RequestMapping("/")
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
     private String message;
