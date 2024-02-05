@@ -50,4 +50,4 @@ jobs:
           docker rmi ${{ secrets.DOCKER_USERNAME }}/focus-be
           
           # Run the application container
-          docker run -d --name focus-be ${{ secrets.DOCKER_USERNAME }}/focus-be
+          docker run -d -p 80:8080 --name focus-be ${{ secrets.DOCKER_USERNAME }}/focus-be
