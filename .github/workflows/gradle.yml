@@ -20,6 +20,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    - name: Create database.properties
+      run: echo "${{ secrets.APPLICATION }}" > src/main/resources/database/config/database.properties
+
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
