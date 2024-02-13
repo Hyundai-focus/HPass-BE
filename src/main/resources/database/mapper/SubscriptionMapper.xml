@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.SubscriptionMapper">
+
+
+    <insert id="addSubscriber">
+        INSERT INTO SUBSCRIPTION (
+        subs_no,
+        member_no,
+        payment
+        ) VALUES (
+        subs_seq.nextval,
+        #{memberNo},
+        #{payment}
+        )
+    </insert>
+
+</mapper>
