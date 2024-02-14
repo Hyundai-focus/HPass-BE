@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.StoreMapper">
+    <select id="selectOneForFloor" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT storeNo
+        FROM (
+            SELECT store_no AS storeNo
+            FROM Store
+            WHERE store_floor = #{Floor}
+            ORDER BY DBMS_RANDOM.RANDOM()
+        )
+        WHERE ROWNUM = 1
+    </select>
+
+    <insert id="insertTodayStore" parameterType="java.lang.Long">
+        INSERT INTO TODAY_STORE(today_store_no, store_no, today_store_dt)
+        VALUES (today_store_seq.NEXTVAL, #{floor}, SYSDATE)
+    </insert>
+
+    <select id="selectTodayStore" resultType="java.lang.Long">
+        SELECT store_no
+        FROM today_store
+        WHERE TRUNC(today_store_dt) = TRUNC(SYSDATE)
+    </select>
+
+    <select id="selectFloorByStoreNo" parameterType="java.lang.Long">
+        SELECT store_floor
+        FROM store
+        WHERE store_no = #{storeNo}
+    </select>
+
+    <delete id="deleteTodayStore" parameterType="java.lang.Long">
+        DELETE FROM today_store
+        WHERE store_no = #{storeNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+    </delete>
+</mapper>
