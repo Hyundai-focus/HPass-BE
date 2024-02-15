@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyundai.hpass.domain.Store;
 import com.hyundai.hpass.dto.TodayStoreVisitResDto;
 import com.hyundai.hpass.mapper.StoreMapper;
 
@@ -32,7 +33,7 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 			storeMapper.insertTodayStore(todayStore);
 		}
 		try {
-			Thread.sleep(3000); // 연산 대기
+			Thread.sleep(10000); // 연산 대기
 		} catch (InterruptedException e) {e.printStackTrace();}
 		deleteDuplicate(); //중복 선정 방지
 	}
@@ -45,11 +46,6 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 			tuple.put(storeMapper.selectFloorByStoreNo(storeNo), storeNo);
 			floorAndStoreNoList.add(tuple);
 		}
-		floorAndStoreNoList.sort((tuple1, tuple2) -> { //정렬
-			Long floor1 = tuple1.keySet().iterator().next();
-			Long floor2 = tuple2.keySet().iterator().next();
-			return floor1.compareTo(floor2);
-		});
 		for(long i = 1L; i < 6; i++){
 			final long idx = i;
 			List<Map<Long, Long>> matchingTuples = floorAndStoreNoList.stream()
@@ -66,6 +62,29 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 	}
 	@Override
 	public List<TodayStoreVisitResDto> todayStoreVisitList(Long memberNo) {
-		return null;
+		List<TodayStoreVisitResDto> userTodayStore  = new ArrayList<>();
+		List<Long> todayList = storeMapper.selectTodayStore();
+		for (Long storeNo : todayList){
+			List<Long> userOfTodayStore = storeMapper.memberOfTodayStore(storeNo);
+			Store todayStoreInfo = storeMapper.selectTodayStoreInfo(storeNo);
+			TodayStoreVisitResDto userRes = new TodayStoreVisitResDto();
+			userRes.todayStoreVisitResDto(todayStoreInfo);
+			if(userOfTodayStore.contains(memberNo)){
+				if(userTodayStore.stream().anyMatch(dto -> dto.getStoreBrand().equals(userRes.getStoreBrand()))) continue;
+				userRes.setTodayStoreStatus(true);
+			}
+			userTodayStore.add(userRes);
+		}
+		return userTodayStore;
+	}
+
+	@Override
+	public Boolean userVisitStore(Long memberNo, Long storeNo) {
+		List<Long> userOfTodayStore = storeMapper.memberOfTodayStore(storeNo);
+		if(!userOfTodayStore.contains(memberNo)){ //아직 방문하지 않았다면 방문처리
+			storeMapper.insertTodayStoreMember(storeNo,memberNo);
+		}
+		return true; //if문 돌지 않았음 -> 이미 방문한 사람! 추가 처리하지 않고 방문 했다는 사실을 알려주는 true 반환
 	}
 }
+

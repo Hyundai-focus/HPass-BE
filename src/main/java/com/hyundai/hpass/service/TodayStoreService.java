@@ -8,5 +8,6 @@ public interface TodayStoreService {
 
 	void todayStoreList(); //오늘의 상점 선별
 	List<TodayStoreVisitResDto> todayStoreVisitList(Long memberNo); //사용자의 방문 판별 및 오늘의 상점 정보
+	Boolean userVisitStore(Long memberNo, Long storeNo); //유저 방문 처리
 
 }

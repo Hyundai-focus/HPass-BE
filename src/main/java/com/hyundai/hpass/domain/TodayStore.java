@@ -15,4 +15,5 @@ public class TodayStore {
 	private long todayStoreNo;
 	private int storeNo;
 	private LocalDate todayStoreDt;
+	private long memberNo;
 }

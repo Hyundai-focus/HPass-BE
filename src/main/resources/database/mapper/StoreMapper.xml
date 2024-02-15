@@ -35,4 +35,25 @@
         DELETE FROM today_store
         WHERE store_no = #{storeNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </delete>
+
+    <select id="memberOfTodayStore" parameterType="java.lang.Long">
+        SELECT member_no
+        FROM today_store
+        WHERE store_no = #{storeNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+    </select>
+
+    <select id="selectTodayStoreInfo" parameterType="java.lang.Long">
+        SELECT
+            store_no AS storeNo,
+            store_brand AS storeBrand,
+            store_floor AS storeFloor,
+            store_img AS storeImg
+        FROM store
+        WHERE store_no = #{storeNo}
+    </select>
+
+    <insert id="insertTodayStoreMember" parameterType="java.util.Map">
+        INSERT INTO TODAY_STORE(today_store_no, store_no, today_store_dt, member_no)
+        VALUES (today_store_seq.NEXTVAL, #{storeNo}, SYSDATE, #{memberNo})
+    </insert>
 </mapper>
