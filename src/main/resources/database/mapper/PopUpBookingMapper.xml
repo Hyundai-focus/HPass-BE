@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.PopUpBookingMapper">
+
+	<!-- 팝업스토어 기간 내 모든 예약 정보 내역 불러오기 -->
+	<select id="getBookingsWithinPopupPeriod" resultType="com.hyundai.hpass.dto.PopUpBookingDTO" parameterType="com.hyundai.hpass.dto.PopUpBookingDTO">
+        SELECT b.popup_no as popupNo, b.booking_time as bookingTime, b.booking_dt as bookingDt
+        FROM booking b
+        JOIN popup p ON b.popup_no = p.popup_no
+        WHERE p.popup_no = #{popupNo} 
+        AND p.popup_start_dt = #{popupStartDt}
+        AND p.popup_end_dt = #{popupEndDt}
+    </select>
+    
+    <!-- 특정 날짜와 시간에 해당하는 예약 정보 내역 불러오기 -->
+    <select id="getBookingByDateTime" resultType="com.hyundai.hpass.dto.PopUpBookingDTO" parameterType="com.hyundai.hpass.dto.PopUpBookingDTO">
+        SELECT popup_no as popupNo, booking_time as bookingTime, booking_dt as bookingDt FROM booking
+        WHERE popup_no = #{popupNo} AND booking_dt = #{bookingDt} AND booking_time = #{bookingTime}
+    </select>
+	
+	<!-- 예약하기 -->
+	<insert id="insertBooking" parameterType="com.hyundai.hpass.dto.PopUpBookingDTO">
+		<selectKey keyProperty="bookingNo" resultType="int" order="BEFORE">
+        	SELECT booking_seq.NEXTVAL FROM DUAL
+    	</selectKey>
+		INSERT INTO booking(booking_no, member_no, popup_no, booking_time, booking_dt)
+		SELECT #{bookingNo}, #{memberNo}, #{popupNo}, #{bookingTime}, #{bookingDt} FROM DUAL
+    	WHERE NOT EXISTS (
+        SELECT 1 FROM booking
+        WHERE popup_no = #{popupNo} AND booking_dt = #{bookingDt} AND booking_time = #{bookingTime}
+    	)
+	</insert>
+	
+	<!-- 중복 예약 방지 -->
+	<select id="isBookingAvailable" parameterType="com.hyundai.hpass.dto.PopUpBookingDTO">
+        SELECT CASE
+           WHEN COUNT(*) = 0 THEN 1 
+           ELSE 0
+        END AS is_empty
+		FROM booking 
+        WHERE popup_no = #{popupNo} AND booking_dt = #{bookingDt} AND booking_time = #{bookingTime}
+    </select>
+    
+    <!-- 예약 행을 선점 잠금으로 설정하여 트랜잭션 처리 -->
+    <select id="lockBookingRow" parameterType="com.hyundai.hpass.dto.PopUpBookingDTO" resultType="com.hyundai.hpass.dto.PopUpBookingDTO">
+        SELECT booking_no as bookingNo, member_no as memberNo, popup_no as popupNo, booking_time as bookingTime, booking_dt as bookingDt 
+        FROM booking
+        WHERE popup_no = #{popupNo}
+        AND booking_dt = #{bookingDt}
+        AND booking_time = #{bookingTime}
+        FOR UPDATE
+    </select>
+
+</mapper>
