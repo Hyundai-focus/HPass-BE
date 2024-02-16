@@ -19,8 +19,8 @@ import lombok.extern.log4j.Log4j2;
 
 
 /**
-ÀÛ¼ºÀÚ: È²¼ö¿¬
-Ã³¸® ³»¿ë: ¿¹¾à °ü·Ã API Ã³¸®
+ì‘ì„±ì: í™©ìˆ˜ì—°
+ì²˜ë¦¬ ë‚´ìš©: ì˜ˆì•½ ê´€ë ¨ API ì²˜ë¦¬
 */
 @Log4j2
 @RestController
@@ -31,7 +31,7 @@ public class PopUpController {
 	PopUpBookingService bookingService;
 	
 	/**
-	 Ã³¸® ³»¿ë: ¿¹¾à µ¥ÀÌÅÍ µî·Ï API
+	 ì²˜ë¦¬ ë‚´ìš©: ì˜ˆì•½ ë°ì´í„° ë“±ë¡ API
 	*/
 	// http://localhost:8080/popup/booking
 	@PostMapping("/booking")
@@ -46,7 +46,7 @@ public class PopUpController {
 	}
 	
 	/**
-	 Ã³¸® ³»¿ë: ÆË¾÷½ºÅä¾î ±â°£ ³» ¸ğµç ¿¹¾à Á¤º¸ ³»¿ª Á¶È¸ API
+	 ì²˜ë¦¬ ë‚´ìš©: íŒì—…ìŠ¤í† ì–´ ê¸°ê°„ ë‚´ ëª¨ë“  ì˜ˆì•½ ì •ë³´ ë‚´ì—­ ì¡°íšŒ API
 	*/
 	// http://localhost:8080/popup/booking/list?popupNo=1&popupStartDt=2024-02-05&popupEndDt=2024-02-14
 	@GetMapping("/booking/list")
@@ -60,11 +60,11 @@ public class PopUpController {
 	}
 	
 	/**
-	 Ã³¸® ³»¿ë: Æ¯Á¤ ³¯Â¥¿¡ ÇØ´çÇÏ´Â ¿¹¾à Á¤º¸ ³»¿ª Á¶È¸ API
+	 ì²˜ë¦¬ ë‚´ìš©: íŠ¹ì • ë‚ ì§œì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ ì •ë³´ ë‚´ì—­ ì¡°íšŒ API
 	*/
 	
 	/**
-	 Ã³¸® ³»¿ë: Æ¯Á¤ ³¯Â¥¿Í ½Ã°£¿¡ ÇØ´çÇÏ´Â ¿¹¾à Á¤º¸ ³»¿ª Á¶È¸ API
+	 ì²˜ë¦¬ ë‚´ìš©: íŠ¹ì • ë‚ ì§œì™€ ì‹œê°„ì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ ì •ë³´ ë‚´ì—­ ì¡°íšŒ API
 	*/
 	// http://localhost:8080/popup/booking/detail/list?popupNo=1&bookingDt=2024-02-13&bookingTime=19:00
 	@GetMapping("/booking/detail/list")

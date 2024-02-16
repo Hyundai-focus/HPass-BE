@@ -5,8 +5,8 @@ import java.util.List;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 
 /**
-ÀÛ¼ºÀÚ: È²¼ö¿¬
-Ã³¸® ³»¿ë: ÆË¾÷½ºÅä¾î ¿¹¾à µ¥ÀÌÅÍ µî·Ï
+ì‘ì„±ì: í™©ìˆ˜ì—°
+ì²˜ë¦¬ ë‚´ìš©: íŒì—…ìŠ¤í† ì–´ ì˜ˆì•½ ë°ì´í„° ë“±ë¡
 */
 public interface PopUpBookingService {
 	public List<PopUpBookingDTO> getBookingsWithinPopupPeriod(int popupNo, String popupStartDt, String popupEndDt);
