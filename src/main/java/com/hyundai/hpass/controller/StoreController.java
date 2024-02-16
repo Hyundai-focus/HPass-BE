@@ -27,7 +27,7 @@ public class StoreController {
 	public ResponseEntity<List<TodayStoreVisitResDto>> todayStoreList(
 		Authentication authentication
 	) {
-		List<TodayStoreVisitResDto> res = todayStoreService.todayStoreVisitList((long)Integer.parseInt(authentication.getName()));;
+		List<TodayStoreVisitResDto> res = todayStoreService.todayStoreVisitList((long)Integer.parseInt(authentication.getName()));
 		return ResponseEntity.ok().body(res);
 	}
 
