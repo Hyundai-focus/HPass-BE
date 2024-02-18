@@ -14,4 +14,7 @@ public class ProductUserInfoDTO {
 	private String memberName;
 	private String prodImg;
 	private String prodName;
+	private String prodBrand;
+	private String receiveDt;
+	private String receiveLoc;
 }

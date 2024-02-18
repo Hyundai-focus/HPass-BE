@@ -61,8 +61,6 @@ public class ProductServiceImplement implements ProductService {
 			return ProductUserInfoDTO.builder()
 				.status(false)
 				.memberName(name)
-				.prodImg("")
-				.prodName("")
 				.build();
 		}
 		else{
@@ -72,6 +70,9 @@ public class ProductServiceImplement implements ProductService {
 				.memberName(name)
 				.prodImg(productInfo.getProductImg())
 				.prodName(productInfo.getProductName())
+				.receiveDt(productInfo.getReceiveDt())
+				.prodBrand(productInfo.getProductBrand())
+				.receiveLoc(productInfo.getReceiveLoc())
 				.build();
 		}
 	}
