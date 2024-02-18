@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ProductUserInfoDTO {
 	private Boolean status;
 	private String memberName;
-	private String storeImg;
+	private String prodImg;
 	private String prodName;
 }

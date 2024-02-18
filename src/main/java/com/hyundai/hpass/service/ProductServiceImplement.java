@@ -60,7 +60,7 @@ public class ProductServiceImplement implements ProductService {
 			return ProductUserInfoDTO.builder()
 				.status(false)
 				.memberName("")
-				.storeImg("")
+				.prodImg("")
 				.prodName("")
 				.build();
 		}
@@ -70,7 +70,7 @@ public class ProductServiceImplement implements ProductService {
 			return ProductUserInfoDTO.builder()
 				.status(true)
 				.memberName(name)
-				.storeImg(productInfo.getProductImg())
+				.prodImg(productInfo.getProductImg())
 				.prodName(productInfo.getProductName())
 				.build();
 		}
