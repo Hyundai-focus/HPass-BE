@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hyundai.hpass.domain.Product;
 import com.hyundai.hpass.dto.ApplyProductDto;
+import com.hyundai.hpass.dto.ProductUserInfoDTO;
 import com.hyundai.hpass.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -40,10 +41,10 @@ public class ProductController {
 	}
 
 	@GetMapping("/apply")
-	public ResponseEntity<Product> getNewProductInfo(
+	public ResponseEntity<ProductUserInfoDTO> getNewProductInfo(
 		Authentication auth
 	){
-		Product res = productService.getProductHistory((long)Integer.parseInt(auth.getName()));
+		ProductUserInfoDTO res = productService.getProductHistory((long)Integer.parseInt(auth.getName()));
 		return ResponseEntity.ok().body(res);
 	}
 

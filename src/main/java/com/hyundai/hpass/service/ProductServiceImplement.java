@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hyundai.hpass.domain.Product;
 import com.hyundai.hpass.domain.ProductHistory;
+import com.hyundai.hpass.dto.ProductUserInfoDTO;
 import com.hyundai.hpass.mapper.ProductMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -53,12 +54,25 @@ public class ProductServiceImplement implements ProductService {
 	}
 
 	@Override
-	public Product getProductHistory(Long memberNo) {
+	public ProductUserInfoDTO getProductHistory(Long memberNo) {
 		ProductHistory userHis = getUserHistory(memberNo);
-		if(userHis == null) return Product.builder().build();
+		if(userHis == null){
+			return ProductUserInfoDTO.builder()
+				.status(false)
+				.memberName("")
+				.storeImg("")
+				.prodName("")
+				.build();
+		}
 		else{
 			Product productInfo = productMapper.selectProductInfo(userHis.getProductNo());
-			return productInfo;
+			String name = productMapper.selectMemberName(memberNo);
+			return ProductUserInfoDTO.builder()
+				.status(true)
+				.memberName(name)
+				.storeImg(productInfo.getProductImg())
+				.prodName(productInfo.getProductName())
+				.build();
 		}
 	}
 
