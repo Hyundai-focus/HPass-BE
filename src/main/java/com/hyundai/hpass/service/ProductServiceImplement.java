@@ -56,17 +56,17 @@ public class ProductServiceImplement implements ProductService {
 	@Override
 	public ProductUserInfoDTO getProductHistory(Long memberNo) {
 		ProductHistory userHis = getUserHistory(memberNo);
+		String name = productMapper.selectMemberName(memberNo);
 		if(userHis == null){
 			return ProductUserInfoDTO.builder()
 				.status(false)
-				.memberName("")
+				.memberName(name)
 				.prodImg("")
 				.prodName("")
 				.build();
 		}
 		else{
 			Product productInfo = productMapper.selectProductInfo(userHis.getProductNo());
-			String name = productMapper.selectMemberName(memberNo);
 			return ProductUserInfoDTO.builder()
 				.status(true)
 				.memberName(name)
