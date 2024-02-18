@@ -3,14 +3,14 @@ package com.hyundai.hpass.service;
 import java.util.List;
 
 import com.hyundai.hpass.domain.Product;
-import com.hyundai.hpass.domain.ProductHistory;
+import com.hyundai.hpass.dto.ProductUserInfoDTO;
 
 public interface ProductService {
 	List<Product> getProductList();
 
 	String applyProduct(Long productNo, Long memberNo);
 
-	Product getProductHistory(Long memberNo);
+	ProductUserInfoDTO getProductHistory(Long memberNo);
 
 	String cancelProductApply(Long memberNo);
 

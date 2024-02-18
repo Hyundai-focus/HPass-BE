@@ -17,6 +17,8 @@ public interface ProductMapper {
 
 	List<ProductHistory> selectValidUserHistory(Long memberNo);
 
+	String selectMemberName(Long memberNo);
+
 	LocalDate selectProductReceiveDt(Long productNo);
 
 	Product selectProductInfo(Long productNo);

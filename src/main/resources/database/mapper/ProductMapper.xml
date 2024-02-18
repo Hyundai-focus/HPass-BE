@@ -63,4 +63,9 @@
         WHERE product_history_no = #{productHistoryNo}
     </update>
 
+    <select id="selectMemberName" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT member_name
+        FROM member
+        WHERE member_no = ${member_no}
+    </select>
 </mapper>
