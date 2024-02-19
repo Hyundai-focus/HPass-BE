@@ -24,7 +24,6 @@ public class JWTFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             log.debug("AuthTokenFilter : request" + request);
-            System.out.println("???????:request" + request.getHeader("Authorization"));
             String accessToken = resolveToken(request);
             log.debug("AuthTokenFilter : accessToken" + accessToken);
             jwtUtil.isTokenValidate(accessToken);

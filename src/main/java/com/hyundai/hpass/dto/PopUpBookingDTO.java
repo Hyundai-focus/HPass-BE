@@ -5,37 +5,37 @@ import lombok.Data;
 @Data
 public class PopUpBookingDTO {
 	/**
-	 ¿¹¾à ¾ÆÀÌµğ
+	 ì˜ˆì•½ ì•„ì´ë””
 	 */
 	private int bookingNo;
 	
 	/**
-	 ¸â¹ö ¾ÆÀÌµğ
+	 ë©¤ë²„ ì•„ì´ë””
 	 */
 	private int memberNo;
 	
 	/**
-	 ÆË¾÷½ºÅä¾î ¾ÆÀÌµğ
+	 íŒì—…ìŠ¤í† ì–´ ì•„ì´ë””
 	 */
 	private int popupNo;
 	
 	/**
-	 ÆË¾÷½ºÅä¾î ¿¹¾à½Ã°£
+	 íŒì—…ìŠ¤í† ì–´ ì˜ˆì•½ì‹œê°„
 	 */
 	private String bookingTime;
 	
 	/**
-	 ÆË¾÷½ºÅä¾î ¿¹¾àÀÏÀÚ
+	 íŒì—…ìŠ¤í† ì–´ ì˜ˆì•½ì¼ì
 	 */
 	private String bookingDt;
 	
 	/**
-	 ÆË¾÷½ºÅä¾î ½ÃÀÛÀÏ
+	 íŒì—…ìŠ¤í† ì–´ ì‹œì‘ì¼
 	 */
 	private String popupStartDt;
 	
 	/**
-	 ÆË¾÷½ºÅä¾î Á¾·áÀÏ
+	 íŒì—…ìŠ¤í† ì–´ ì¢…ë£Œì¼
 	 */
 	private String popupEndDt;
 }

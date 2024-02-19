@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.ProductMapper">
+    <select id="selectAllProduct" resultType="com.hyundai.hpass.domain.Product">
+        SELECT
+            product_no AS productNo,
+            product_brand AS productBrand,
+            product_name AS productName,
+            product_img AS productImg,
+            stock AS stock,
+            TO_CHAR(receive_dt, 'YYYY . MM . DD') AS receiveDt,
+            receive_loc AS receiveLoc
+        FROM product
+        where receive_dt <![CDATA[>=]]> SYSDATE
+    </select>
+
+    <update id="updateProductStock">
+        UPDATE product
+        SET stock = stock - 1
+        WHERE product_no = #{productNo}
+    </update>
+
+    <insert id="insertProductHistory" parameterType="java.util.Map">
+        INSERT INTO product_history(product_history_no, member_no, product_no, product_history_dt, product_status)
+        VALUES (product_history_seq.NEXTVAL, ${memberNo}, ${productNo}, SYSDATE, 'false')
+    </insert>
+
+    <select id="selectValidUserHistory" parameterType="java.lang.Long" resultType="com.hyundai.hpass.domain.ProductHistory">
+        SELECT
+            product_history_no AS productHistoryNo,
+            product_no AS productNo,
+            member_no AS memberNo,
+            product_history_dt,
+            product_status AS productStatus
+        FROM product_history
+        WHERE product_status = 'false' AND member_no = ${memberNo}
+    </select>
+
+    <select id="selectProductReceiveDt" parameterType="java.lang.Long" resultType="java.time.LocalDate">
+        SELECT receive_dt
+        FROM product
+        WHERE product_no = ${productNo}
+    </select>
+
+    <select id="selectProductInfo" parameterType="java.lang.Long" resultType="com.hyundai.hpass.domain.Product">
+        SELECT
+            product_no AS productNo,
+            product_brand AS productBrand,
+            product_name AS productName,
+            product_img AS productImg,
+            stock AS stock,
+            receive_dt AS receiveDt,
+            receive_loc AS receiveLoc
+        FROM product
+        WHERE product_no = ${productNo}
+    </select>
+
+    <update id="updateProductHistoryStatus">
+        UPDATE product_history
+        SET product_status = #{status}
+        WHERE product_history_no = #{productHistoryNo}
+    </update>
+
+    <select id="selectMemberName" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT member_name
+        FROM member
+        WHERE member_no = ${member_no}
+    </select>
+</mapper>
