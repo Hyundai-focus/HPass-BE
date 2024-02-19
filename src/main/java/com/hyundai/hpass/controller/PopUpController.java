@@ -25,7 +25,6 @@ import lombok.extern.log4j.Log4j2;
 */
 @Log4j2
 @RestController
-@RequestMapping("/popup")
 public class PopUpController {
 	
 	@Autowired
@@ -35,7 +34,7 @@ public class PopUpController {
 	 처리 내용: 예약 데이터 등록 API
 	*/
 	// http://localhost:8080/popup/booking
-	@PostMapping("/booking")
+	@PostMapping("popup/booking")
 	public ResponseEntity<String> insert(Authentication authentication, @RequestBody PopUpBookingDTO dto) {
 		try {
 			dto.setMemberNo(Integer.parseInt(authentication.getName()));
@@ -51,8 +50,9 @@ public class PopUpController {
 	 처리 내용: 팝업스토어 기간 내 모든 예약 정보 내역 조회 API
 	*/
 	// http://localhost:8080/popup/booking/list?popupNo=1&popupStartDt=2024-02-05&popupEndDt=2024-02-14
-	@GetMapping("/booking/list")
+	@GetMapping("popup/booking/list")
 	public ResponseEntity<List<PopUpBookingDTO>> getBookingList(
+			Authentication authentication,
 			@RequestParam("popupNo") int popupNo,
 	        @RequestParam("popupStartDt") String popupStartDt,
 	        @RequestParam("popupEndDt") String popupEndDt) {
@@ -69,7 +69,7 @@ public class PopUpController {
 	 처리 내용: 특정 날짜와 시간에 해당하는 예약 정보 내역 조회 API
 	*/
 	// http://localhost:8080/popup/booking/detail/list?popupNo=1&bookingDt=2024-02-13&bookingTime=19:00
-	@GetMapping("/booking/detail/list")
+	@GetMapping("popup/booking/detail/list")
 	public ResponseEntity<List<PopUpBookingDTO>> getBookingDetailList(
 			@RequestParam("popupNo") int popupNo,
 	        @RequestParam("bookingDt") String bookingDt,
