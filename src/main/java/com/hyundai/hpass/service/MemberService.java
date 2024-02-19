@@ -1,10 +1,9 @@
 package com.hyundai.hpass.service;
 
-import com.hyundai.hpass.dto.LoginReqDto;
-import com.hyundai.hpass.dto.LoginResDto;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.hyundai.hpass.dto.LoginResDTO;
 
 
 public interface MemberService {
-    public LoginResDto login(String email, String memberName);
+    public LoginResDTO verifyMember(int memberNo);
+    public LoginResDTO login(String email, String memberName);
 }

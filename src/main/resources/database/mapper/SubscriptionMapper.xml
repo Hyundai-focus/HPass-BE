@@ -16,5 +16,15 @@
         #{payment}
         )
     </insert>
+    <select id="findByMemberNo" resultType="com.hyundai.hpass.domain.Subscription">
+        SELECT
+            subs_no AS subsNo,
+            member_no AS memberNo,
+            subs_start_dt AS subsStartDt,
+            payment AS payment
+        FROM SUBSCRIPTION
+        WHERE member_no = #{memberNo}
+    </select>
+
 
 </mapper>
