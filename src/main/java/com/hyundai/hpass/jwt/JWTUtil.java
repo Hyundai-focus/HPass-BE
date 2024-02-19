@@ -1,6 +1,6 @@
 package com.hyundai.hpass.jwt;
 
-import com.hyundai.hpass.dto.LoginResDto;
+import com.hyundai.hpass.dto.LoginResDTO;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,13 +33,15 @@ public class JWTUtil implements InitializingBean  {
         jwtSecret = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
     }
     //jwt 생성
-    public LoginResDto createLoginResDto(String id) {
+    public LoginResDTO createLoginResDto(String id) {
         String accessToken = createJwtToken(id, accessValidity);
         String refreshToken = createJwtToken(id, refreshValidity);
 
-        return LoginResDto.builder()
+        return LoginResDTO.builder()
                 .accessToken("Bearer " + accessToken)
                 .refreshToken("Bearer " + refreshToken)
+                .isMember(true)
+                .isSubscribed(false)
                 .build();
     }
 
