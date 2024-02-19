@@ -19,22 +19,21 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 	@Transactional
 	public boolean insertBooking(PopUpBookingDTO dto) {
 		try {
-	        // ¿¹¾à Ãß°¡¸¦ À§ÇØ Çà ·¹º§ ¼±Á¡ Àá±İ ¼³Á¤
+			// ì˜ˆì•½ ì¶”ê°€ë¥¼ ìœ„í•´ í–‰ ë ˆë²¨ ì„ ì  ì ê¸ˆ ì„¤ì •
 	        bookingMapper.lockBookingRow(dto);
 
-	        // ¿¹¾à °¡´É ¿©ºÎ È®ÀÎ
+	        // ì˜ˆì•½ ê°€ëŠ¥ ì—¬ë¶€ í™•ì¸
 	        boolean isAvailable = bookingMapper.isBookingAvailable(dto);
 
 	        if (!isAvailable) {
-	            // ÀÌ¹Ì ¿¹¾àµÈ °æ¿ì ·Ñ¹é
+	        	// ì´ë¯¸ ì˜ˆì•½ëœ ê²½ìš° ë¡¤ë°±
 	            return false;
 	        }
 
-	        // ¿¹¾à Ãß°¡
+	        // ì˜ˆì•½ ì¶”ê°€
 	        boolean insertFlag = bookingMapper.insertBooking(dto) == 1;
 	        return insertFlag;
 	    } catch (Exception e) {
-	        // ¿¹¿Ü Ã³¸®
 	        e.printStackTrace();
 	        return false;
 	    }
