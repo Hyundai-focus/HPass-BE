@@ -22,4 +22,6 @@ public interface StoreMapper {
 	Store selectTodayStoreInfo(Long storeNo);
 
 	void insertTodayStoreMember(@Param("storeNo") Long storeNo, @Param("memberNo") Long memberNo);
+
+	Long memberStoreVisitNum(Long memberNo);
 }

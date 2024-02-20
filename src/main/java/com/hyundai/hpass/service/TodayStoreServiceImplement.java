@@ -79,12 +79,33 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 	}
 
 	@Override
-	public Boolean userVisitStore(Long memberNo, Long storeNo) {
+	public TodayStoreVisitResDto userVisitStore(Long memberNo, Long storeNo) {
 		List<Long> userOfTodayStore = storeMapper.memberOfTodayStore(storeNo);
+		List<Long> todayList = storeMapper.selectTodayStore(); //오늘의 상점 리스트
+		if(!todayList.contains(storeNo)){
+			return TodayStoreVisitResDto.builder()
+				.storeFloor("not today")
+				.build();
+		}
 		if(!userOfTodayStore.contains(memberNo)){ //아직 방문하지 않았다면 방문처리
 			storeMapper.insertTodayStoreMember(storeNo,memberNo);
+			TodayStoreVisitResDto storeInfo = new TodayStoreVisitResDto();
+			storeInfo.todayStoreVisitResDto(storeMapper.selectTodayStoreInfo(storeNo));
+			return storeInfo;
 		}
-		return true; //if문 돌지 않았음 -> 이미 방문한 사람! 추가 처리하지 않고 방문 했다는 사실을 알려주는 true 반환
+		else{ //이미 방문한 경우
+			return TodayStoreVisitResDto.builder()
+				.storeImg("")
+				.storeBrand("")
+				.visitStatus(false)
+				.storeFloor("already")
+				.build();
+		}
+	}
+
+	@Override
+	public Long userVisitStoreNum(Long memberNo) {
+		return storeMapper.memberStoreVisitNum(memberNo);
 	}
 }
 
