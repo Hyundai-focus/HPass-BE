@@ -82,6 +82,7 @@ public class ProductServiceImplement implements ProductService {
 		ProductHistory userHis = getUserHistory(memberNo);
 		if(userHis == null) return "No History";
 		productMapper.updateProductHistoryStatus(userHis.getProductHistoryNo(), "cancel");
+		productMapper.updateCancelProductStock(userHis.getProductNo());
 		return "success";
 	}
 
