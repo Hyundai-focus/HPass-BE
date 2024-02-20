@@ -32,11 +32,19 @@ public class StoreController {
 	}
 
 	@GetMapping("/visit/{storeNo}")
-	public ResponseEntity<Boolean> userVisitStore(
+	public ResponseEntity<TodayStoreVisitResDto> userVisitStore(
 		Authentication authentication,
 		@PathVariable Long storeNo
 	) {
-		Boolean res = todayStoreService.userVisitStore((long)Integer.parseInt(authentication.getName()), storeNo);
+		TodayStoreVisitResDto res = todayStoreService.userVisitStore((long)Integer.parseInt(authentication.getName()), storeNo);
+		return ResponseEntity.ok().body(res);
+	}
+
+	@GetMapping("visit/num")
+	public ResponseEntity<Long> userVisitNum(
+		Authentication authentication
+	){
+		Long res = todayStoreService.userVisitStoreNum((long)Integer.parseInt(authentication.getName()));
 		return ResponseEntity.ok().body(res);
 	}
 }

@@ -56,4 +56,10 @@
         INSERT INTO TODAY_STORE(today_store_no, store_no, today_store_dt, member_no)
         VALUES (today_store_seq.NEXTVAL, #{storeNo}, SYSDATE, #{memberNo})
     </insert>
+
+    <select id="memberStoreVisitNum" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT count(today_store_no)
+        FROM today_store
+        WHERE member_no = #{memberNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+    </select>
 </mapper>
