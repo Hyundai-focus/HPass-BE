@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,10 +59,6 @@ public class PopUpController {
 		log.info("getBookingList");
 		return new ResponseEntity<>(bookingList, HttpStatus.OK);
 	}
-	
-	/**
-	 처리 내용: 특정 날짜에 해당하는 예약 정보 내역 조회 API
-	*/
 	
 	/**
 	 처리 내용: 특정 날짜와 시간에 해당하는 예약 정보 내역 조회 API
