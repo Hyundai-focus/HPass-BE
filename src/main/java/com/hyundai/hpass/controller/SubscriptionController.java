@@ -19,31 +19,36 @@ import java.util.HashMap;
 @Log4j2
 public class SubscriptionController {
     private final SubscriptionService subscriptionService;
-    @Value("${bootpay.api-key}")
+    @Value("${bootpay.rest-api-key}")
     private String bootKey;
+    @Value("${bootpay.private-key}")
+    private String privateKey;
     
     
     //이후 수정할 예정
     @GetMapping
-    public ResponseEntity<String> getPaymentToken(
+    public ResponseEntity<Object> getPaymentToken(
             Authentication authentication
     ) {
-        Bootpay bootpay = new Bootpay("65cc38c400be04001d1f294d","GmJRQaPf1FtOmjWQHK38jM4azJxzR3ev/mwtmhp9jlc=");
+        Bootpay bootpay = new Bootpay(bootKey,privateKey);
         UserToken userToken = new UserToken();
         userToken.userId = authentication.getName();
-
+        HashMap<String, Object> res = null;
         try {
             bootpay.getAccessToken();
-            HashMap<String, Object> res = bootpay.getUserToken(userToken);
+            res = bootpay.getUserToken(userToken);
             if(res.get("error_code") == null) { //success
-                System.out.println("getUserToken success: " + res);
+                log.debug("getUserToken success: " + res);
             } else {
-                System.out.println("getUserToken false: " + res);
+                log.debug("getUserToken false: " + res);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error Occurs!!", e);
         }
-        return new ResponseEntity<> ("", HttpStatus.ACCEPTED);
+        if (res == null) {
+            return new ResponseEntity<>(" ", HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(res.getOrDefault("user_token",""), HttpStatus.ACCEPTED);
     }
     @PostMapping
     public ResponseEntity<String> addSubscriber(
