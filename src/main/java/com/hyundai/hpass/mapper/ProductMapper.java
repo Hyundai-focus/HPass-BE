@@ -24,4 +24,7 @@ public interface ProductMapper {
 	Product selectProductInfo(Long productNo);
 
 	void updateProductHistoryStatus(@Param("productHistoryNo")Long productHistoryNo, @Param("status")String status);
+
+	void updateCancelProductStock(Long productNo);
+
 }
