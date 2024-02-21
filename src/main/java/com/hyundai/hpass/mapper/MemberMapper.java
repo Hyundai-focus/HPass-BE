@@ -7,4 +7,5 @@ public interface MemberMapper {
     Member findByMemberNo(int memberNo);
     void saveMember(Member member);
     void updateRefreshToken(Member member);
+    void register(Member member);
 }

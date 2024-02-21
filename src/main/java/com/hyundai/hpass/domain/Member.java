@@ -13,11 +13,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class Member {
     private int memberNo;
+    private String encodedPassword;
     private String memberName;
     private String email;
     private Date regDt;
     private String refreshToken;
     private Role role;
+    private int roleNo;
 
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
