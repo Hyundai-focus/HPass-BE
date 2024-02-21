@@ -49,4 +49,9 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 		return bookingMapper.getBookingByDateTime(popupNo, bookingDt, bookingTime);
 	}
 
+	@Override
+	public List<PopUpBookingDTO> getMyBooking(int memberNo) {
+		return bookingMapper.getMyBooking(memberNo);
+	}
+
 }

@@ -14,4 +14,6 @@ public interface PopUpBookingService {
     public List<PopUpBookingDTO> getBookingByDateTime(int popupNo, String bookingDt, String bookingTime);
     
 	public boolean insertBooking(PopUpBookingDTO dto);
+	
+	public List<PopUpBookingDTO> getMyBooking(int memberNo);
 }
