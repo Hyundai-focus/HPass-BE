@@ -2,6 +2,7 @@ package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.domain.Member;
 import com.hyundai.hpass.domain.Subscription;
+import com.hyundai.hpass.domain.enumType.Role;
 import com.hyundai.hpass.dto.LoginResDTO;
 import com.hyundai.hpass.mapper.MemberMapper;
 import com.hyundai.hpass.jwt.JWTUtil;
@@ -30,12 +31,14 @@ public class MemberServiceImplement implements MemberService {
         String newAccessToken = "";
         String refreshToken = "";
         String memberName = "";
+        String role = "";
 
         Member findMember = memberMapper.findByMemberNo(memberNo);
 
         if (findMember != null){
             isMember = true;
             memberName = findMember.getMemberName();
+            role = findMember.getRole().toString();
             newAccessToken = updateAccessToken(findMember);
             refreshToken = findMember.getRefreshToken();
             Subscription findSubscription = subscriptionMapper.findByMemberNo(memberNo);
@@ -68,7 +71,7 @@ public class MemberServiceImplement implements MemberService {
         memberMapper.saveMember(member);
         int memberNo = member.getMemberNo();
         log.debug("join memberNo"+memberNo);
-        LoginResDTO loginResDto = jwtUtil.createLoginResDto(String.valueOf(memberNo));
+        LoginResDTO loginResDto = jwtUtil.createLoginResDto(String.valueOf(memberNo), Role.ROLE_MEMBER.toString());
         member.updateRefreshToken(loginResDto.getRefreshToken());
         memberMapper.updateRefreshToken(member);
 

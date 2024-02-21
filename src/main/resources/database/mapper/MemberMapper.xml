@@ -10,8 +10,9 @@
             member_name AS memberName,
             email AS email,
             reg_dt AS regDt,
-            refresh_token AS refreshToken
-        FROM MEMBER
+            refresh_token AS refreshToken,
+            (SELECT role_name from role WHERE role_no = M.role_no) AS role
+        FROM MEMBER M
         WHERE email = #{email}
     </select>
     <select id="findByMemberNo" resultType="com.hyundai.hpass.domain.Member">
@@ -20,8 +21,9 @@
             member_name AS memberName,
             email AS email,
             reg_dt AS regDt,
-            refresh_token AS refreshToken
-        FROM MEMBER
+            refresh_token AS refreshToken,
+            (SELECT role_name from role WHERE role_no = M.role_no) AS role
+        FROM MEMBER M
         WHERE member_no = #{memberNo}
     </select>
     <insert id="saveMember" parameterType="com.hyundai.hpass.domain.Member">
