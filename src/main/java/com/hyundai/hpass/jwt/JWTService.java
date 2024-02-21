@@ -26,7 +26,7 @@ public class JWTService {
     }
     private UserDetails createUserDetails(Member member) {
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
+        grantedAuthorities.add(new SimpleGrantedAuthority(member.getRole().toString()));
 
         return new User(
                 String.valueOf(member.getMemberNo()),
