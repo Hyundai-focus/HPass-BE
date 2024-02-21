@@ -30,4 +30,7 @@ public interface PopUpBookingMapper {
 	public boolean isBookingAvailable(PopUpBookingDTO dto);
 	
 	public Integer lockBookingRow(PopUpBookingDTO dto);
+	
+	public List<PopUpBookingDTO> getMyBooking(int memberNo);
+
 }

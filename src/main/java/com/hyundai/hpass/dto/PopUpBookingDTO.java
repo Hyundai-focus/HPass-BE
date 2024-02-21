@@ -38,4 +38,14 @@ public class PopUpBookingDTO {
 	 팝업스토어 종료일
 	 */
 	private String popupEndDt;
+	
+	/**
+	 팝업스토어 이름
+	 */
+	private String popupName;
+	
+	/**
+	 팝업스토어 이미지
+	 */
+	private String popupImg;
 }
