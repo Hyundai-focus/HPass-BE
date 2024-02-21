@@ -14,4 +14,5 @@ public class Subscription {
     private int memberNo;
     private LocalDateTime subsStartDt;
     private String payment;
+    private String lastDate;
 }
