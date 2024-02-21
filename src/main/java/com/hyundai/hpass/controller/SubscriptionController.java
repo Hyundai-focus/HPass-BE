@@ -1,5 +1,6 @@
 package com.hyundai.hpass.controller;
 
+import com.hyundai.hpass.domain.Subscription;
 import com.hyundai.hpass.service.SubscriptionService;
 import kr.co.bootpay.Bootpay;
 import kr.co.bootpay.model.request.UserToken;
@@ -59,6 +60,25 @@ public class SubscriptionController {
         log.debug("결제 방법 : " + payment);
         log.debug("회원아이디 : " + authentication.getName());
         subscriptionService.addSubscriber(payment, Integer.parseInt(authentication.getName()));;
+        return new ResponseEntity<> ("success", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Subscription> getSubscribeInfo(
+            Authentication authentication
+    ) {
+        log.debug("회원아이디 : " + authentication.getName());
+        return new ResponseEntity<> (subscriptionService.getSubscribeInfo(Integer.parseInt(authentication.getName())), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/stop")
+    public ResponseEntity<String> stopSubscription(
+            Authentication authentication,
+            @RequestParam String lastDate
+    ) {
+        log.debug("회원아이디 : " + authentication.getName());
+        log.debug("구독 만료 기한: " + lastDate);
+        subscriptionService.stopSubscription(Integer.parseInt(authentication.getName()), lastDate);
         return new ResponseEntity<> ("success", HttpStatus.ACCEPTED);
     }
 }

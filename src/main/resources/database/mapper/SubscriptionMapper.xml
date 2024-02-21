@@ -17,6 +17,7 @@
         )
     </insert>
     <select id="findByMemberNo" resultType="com.hyundai.hpass.domain.Subscription">
+        <![CDATA[
         SELECT
             subs_no AS subsNo,
             member_no AS memberNo,
@@ -24,7 +25,12 @@
             payment AS payment
         FROM SUBSCRIPTION
         WHERE member_no = #{memberNo}
+        AND last_date >= TO_CHAR(sysdate, 'yyyy-mm-dd')
+        ]]>
     </select>
-
-
+    <update id="removeByMemberNo">
+        UPDATE SUBSCRIPTION
+        SET LAST_DATE = #{lastDate}
+        WHERE member_no = #{memberNo}
+    </update>
 </mapper>
