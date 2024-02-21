@@ -68,4 +68,10 @@
         FROM member
         WHERE member_no = ${member_no}
     </select>
+
+    <update id="updateCancelProductStock">
+        UPDATE product
+        SET stock = stock + 1
+        WHERE product_no = #{productNo}
+    </update>
 </mapper>

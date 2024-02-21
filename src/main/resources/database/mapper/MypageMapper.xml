@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.MypageMapper">
+    <select id="selectMemberName" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT member_name
+        FROM member
+        WHERE member_no = ${memberNo}
+    </select>
+
+    <select id="selectSubs" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT count(subs_no)
+        FROM subscription
+        WHERE member_no = ${memberNo}
+    </select>
+</mapper>
