@@ -80,6 +80,9 @@ dependencies {
 
     //bootpay
     implementation 'io.github.bootpay:backend:+'
+
+    //LocalDateTime
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
 
 test {

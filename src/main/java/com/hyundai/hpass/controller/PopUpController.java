@@ -48,7 +48,7 @@ public class PopUpController {
 	/**
 	 처리 내용: 팝업스토어 기간 내 모든 예약 정보 내역 조회 API
 	*/
-	// http://localhost:8080/popup/booking/list?popupNo=1&popupStartDt=2024-02-05&popupEndDt=2024-02-14
+	// http://localhost:8080/popup/booking/list?popupNo=1&popupStartDt=2024-02-10&popupEndDt=2024-02-27
 	@GetMapping("popup/booking/list")
 	public ResponseEntity<List<PopUpBookingDTO>> getBookingList(
 			Authentication authentication,
@@ -66,11 +66,22 @@ public class PopUpController {
 	// http://localhost:8080/popup/booking/detail/list?popupNo=1&bookingDt=2024-02-13&bookingTime=19:00
 	@GetMapping("popup/booking/detail/list")
 	public ResponseEntity<List<PopUpBookingDTO>> getBookingDetailList(
+			Authentication authentication,
 			@RequestParam("popupNo") int popupNo,
 	        @RequestParam("bookingDt") String bookingDt,
 	        @RequestParam("bookingTime") String bookingTime) {
 		List<PopUpBookingDTO> detailList = bookingService.getBookingByDateTime(popupNo, bookingDt, bookingTime);
 		return new ResponseEntity<>(detailList, HttpStatus.OK);
+	}
+	
+	/**
+	 처리 내용: 나의 예약 조회 API
+	*/
+	// http://localhost:8080/popup/booking/mylist
+	@GetMapping("popup/booking/mylist")
+	public ResponseEntity<List<PopUpBookingDTO>> getMyBooking(Authentication authentication) {
+		List<PopUpBookingDTO> myList = bookingService.getMyBooking(Integer.parseInt(authentication.getName()));
+		return new ResponseEntity<>(myList, HttpStatus.OK);
 	}
 	
 }

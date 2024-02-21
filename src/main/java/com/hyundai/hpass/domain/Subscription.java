@@ -2,7 +2,7 @@ package com.hyundai.hpass.domain;
 
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -12,6 +12,6 @@ import java.util.Date;
 public class Subscription {
     private int subsNo;
     private int memberNo;
-    private Date subsStartDt;
+    private LocalDateTime subsStartDt;
     private String payment;
 }
