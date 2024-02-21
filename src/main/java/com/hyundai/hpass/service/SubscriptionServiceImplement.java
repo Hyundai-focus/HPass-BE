@@ -1,5 +1,6 @@
 package com.hyundai.hpass.service;
 
+import com.hyundai.hpass.domain.Subscription;
 import com.hyundai.hpass.mapper.SubscriptionMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,5 +16,15 @@ public class SubscriptionServiceImplement implements SubscriptionService {
     @Transactional
     public void addSubscriber(String payment, int memberNo) {
         subscriptionMapper.addSubscriber(payment, memberNo);
+    }
+
+    @Override
+    public Subscription getSubscribeInfo(int memberNo) {
+        return subscriptionMapper.findByMemberNo(memberNo);
+    }
+
+    @Override
+    public void stopSubscription(int memberNo, String lastDate) {
+        subscriptionMapper.removeByMemberNo(memberNo, lastDate);
     }
 }
