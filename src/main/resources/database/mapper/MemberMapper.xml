@@ -11,6 +11,7 @@
             email AS email,
             reg_dt AS regDt,
             refresh_token AS refreshToken,
+            password AS encodedPassword,
             (SELECT role_name from role WHERE role_no = M.role_no) AS role
         FROM MEMBER M
         WHERE email = #{email}
@@ -36,6 +37,25 @@
         member_seq.nextval,
         #{email},
         #{memberName}
+        )
+        <selectKey keyProperty="memberNo" resultType="int" order="AFTER">
+            SELECT member_seq.currval FROM dual
+        </selectKey>
+    </insert>
+    <insert id="register" parameterType="com.hyundai.hpass.domain.Member">
+        <!-- Your insert statement here -->
+        INSERT INTO member (
+        member_no,
+        email,
+        member_name,
+        password,
+        role_no
+        ) VALUES (
+        member_seq.nextval,
+        #{email},
+        #{memberName},
+        #{encodedPassword},
+        #{roleNo}
         )
         <selectKey keyProperty="memberNo" resultType="int" order="AFTER">
             SELECT member_seq.currval FROM dual
