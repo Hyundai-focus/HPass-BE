@@ -16,4 +16,6 @@ public interface PopUpBookingService {
 	public boolean insertBooking(PopUpBookingDTO dto);
 	
 	public List<PopUpBookingDTO> getMyBooking(int memberNo);
+	
+	public boolean deleteBooking(int bookingNo);
 }
