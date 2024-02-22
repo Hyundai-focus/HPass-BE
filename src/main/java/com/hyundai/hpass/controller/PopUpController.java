@@ -39,11 +39,14 @@ public class PopUpController {
 	public ResponseEntity<String> insert(Authentication authentication, @RequestBody PopUpBookingDTO dto) {
 		try {
 			dto.setMemberNo(Integer.parseInt(authentication.getName()));
-			bookingService.insertBooking(dto);
-			return new ResponseEntity<>("Inserted successfully", HttpStatus.OK);
+			boolean result = bookingService.insertBooking(dto);
+			if (result) {
+				return new ResponseEntity<>("Inserted successfully", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Failed to insert: The time slot is already booked.", HttpStatus.CONFLICT);
+			}
 		} catch (Exception e) {
-			return new ResponseEntity<>("Failed to insert: " + e.getMessage(),
-					HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Failed to insert: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
