@@ -32,5 +32,7 @@ public interface PopUpBookingMapper {
 	public Integer lockBookingRow(PopUpBookingDTO dto);
 	
 	public List<PopUpBookingDTO> getMyBooking(int memberNo);
+	
+	public int deleteMyBookingList(int bookingNo);
 
 }
