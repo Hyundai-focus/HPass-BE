@@ -37,6 +37,12 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 
 	        // 예약 추가
 	        boolean insertFlag = bookingMapper.insertBooking(dto) == 1;
+	        
+	        // 삽입이 실패한 경우 롤백
+	        if (!insertFlag) {
+	            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        }
+	        
 	        return insertFlag;
 	    } catch (Exception e) {
 	        e.printStackTrace();
