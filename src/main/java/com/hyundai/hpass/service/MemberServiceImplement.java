@@ -2,6 +2,7 @@ package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.domain.Member;
 import com.hyundai.hpass.domain.Subscription;
+import com.hyundai.hpass.domain.enumType.Role;
 import com.hyundai.hpass.dto.LoginResDTO;
 import com.hyundai.hpass.mapper.MemberMapper;
 import com.hyundai.hpass.jwt.JWTUtil;
