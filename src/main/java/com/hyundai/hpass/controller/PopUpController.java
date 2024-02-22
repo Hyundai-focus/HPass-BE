@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,4 +86,19 @@ public class PopUpController {
 		return new ResponseEntity<>(myList, HttpStatus.OK);
 	}
 	
+	
+	/**
+	 처리 내용: 나의 예약 삭제 API
+	*/
+	//
+	@DeleteMapping("popup/booking/{bookingNo}")
+	public ResponseEntity<String> deleteBooking(Authentication authentication, @PathVariable int bookingNo) {
+		boolean deleted = bookingService.deleteBooking(bookingNo);
+		
+        if (deleted) {
+            return new ResponseEntity<>("Booking deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+	}
 }

@@ -61,5 +61,12 @@
     	INNER JOIN popup p ON b.popup_no = p.popup_no
     	WHERE b.MEMBER_NO = #{memberNo}
 	</select>
+	
+	<!-- 나의 예약 취소 -->
+	<delete id="deleteMyBookingList" parameterType="String">
+        DELETE
+        FROM booking
+        WHERE booking_no = #{bookingNo}
+    </delete>
 
 </mapper>

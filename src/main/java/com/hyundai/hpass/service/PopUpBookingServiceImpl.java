@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.mapper.PopUpBookingMapper;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class PopUpBookingServiceImpl implements PopUpBookingService {
 
@@ -52,6 +55,13 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 	@Override
 	public List<PopUpBookingDTO> getMyBooking(int memberNo) {
 		return bookingMapper.getMyBooking(memberNo);
+	}
+
+	@Override
+	public boolean deleteBooking(int bookingNo) {
+		int result = bookingMapper.deleteMyBookingList(bookingNo);
+		log.info("Delete booking");
+		return result == 1;
 	}
 
 }
