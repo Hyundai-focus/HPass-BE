@@ -38,7 +38,7 @@
         SELECT CASE
            WHEN COUNT(*) = 0 THEN 1 
            ELSE 0
-        END AS is_empty
+        END AS is_available
 		FROM booking 
         WHERE popup_no = #{popupNo} AND booking_dt = #{bookingDt} AND booking_time = #{bookingTime}
     </select>
@@ -50,7 +50,7 @@
         WHERE popup_no = #{popupNo}
         AND booking_dt = #{bookingDt}
         AND booking_time = #{bookingTime}
-        FOR UPDATE
+        FOR UPDATE NOWAIT
     </select>
     
     <!-- 나의 예약 조회 -->

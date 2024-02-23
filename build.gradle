@@ -83,6 +83,9 @@ dependencies {
 
     //LocalDateTime
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    //websocket
+    implementation 'org.springframework:spring-websocket:5.0.7.RELEASE'
 }
 
 test {

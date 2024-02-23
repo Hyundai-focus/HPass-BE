@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.mapper.PopUpBookingMapper;
@@ -30,11 +31,18 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 
 	        if (!isAvailable) {
 	        	// 이미 예약된 경우 롤백
+	        	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 	            return false;
 	        }
 
 	        // 예약 추가
 	        boolean insertFlag = bookingMapper.insertBooking(dto) == 1;
+	        
+	        // 삽입이 실패한 경우 롤백
+	        if (!insertFlag) {
+	            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        }
+	        
 	        return insertFlag;
 	    } catch (Exception e) {
 	        e.printStackTrace();

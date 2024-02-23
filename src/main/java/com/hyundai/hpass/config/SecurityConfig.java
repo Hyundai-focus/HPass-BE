@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/member/login/**").antMatchers("/").antMatchers("/login").antMatchers("/register");
+                .antMatchers("/member/login/**").antMatchers("/").antMatchers("/login").antMatchers("/register").antMatchers("/socket/*");
     }
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
@@ -49,7 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/socket/*").permitAll()
+            .anyRequest().authenticated()
             .and()
                 .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
     }
