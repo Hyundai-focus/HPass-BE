@@ -52,7 +52,7 @@ jobs:
           docker rmi ${{ secrets.DOCKER_USERNAME }}/focus-be
           
           # Run the application container
-          docker run -d -p 80:8080 \
+          docker run -d -p 80:8080 -p 443:8443 \
             -v /home/ubuntu/hpass.shop/cert1.pem:/usr/local/tomcat/conf/cert.pem \
             -v /home/ubuntu/hpass.shop/privkey1.pem:/usr/local/tomcat/conf/privkey.pem \
             -v /home/ubuntu/hpass.shop/chain1.pem:/usr/local/tomcat/conf/chain.pem \
