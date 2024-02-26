@@ -5,7 +5,7 @@
 <mapper namespace="com.hyundai.hpass.mapper.PopUpStoreMapper">
     <select id="getAllPopUpStore" resultType="com.hyundai.hpass.dto.PopUpStoreDTO">
         SELECT
-            popup_no AS productNo,
+            popup_no AS popUpNo,
             popup_name AS popUpName,
             popup_start_dt AS popUpStartDate,
             popup_end_dt AS popUpEndDate,

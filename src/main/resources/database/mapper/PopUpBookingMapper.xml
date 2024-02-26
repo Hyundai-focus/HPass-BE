@@ -69,4 +69,17 @@
         WHERE booking_no = #{bookingNo}
     </delete>
 
+
+    <select id="getPopUpBooking" resultType="com.hyundai.hpass.dto.PurePopUpBookingDTO">
+        SELECT
+            booking_no AS bookingNo,
+            member_no AS memberNo,
+            popup_no AS popUpNo,
+            booking_time AS bookingTime,
+            booking_dt AS bookingDate
+        FROM booking
+        WHERE member_no = #{memberNo} AND popup_no = #{popUpNo} AND booking_dt = #{bookingDate}
+
+    </select>
+
 </mapper>

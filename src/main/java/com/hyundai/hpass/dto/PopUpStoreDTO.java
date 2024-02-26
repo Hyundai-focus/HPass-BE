@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PopUpStoreDTO {
-    private long popUpNo;
+    private int popUpNo;
     private String popUpName;
     private String popUpStartDate;
     private String popUpEndDate;
