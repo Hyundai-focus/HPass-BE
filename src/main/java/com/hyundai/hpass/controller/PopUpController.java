@@ -2,6 +2,9 @@ package com.hyundai.hpass.controller;
 
 import java.util.List;
 
+import com.hyundai.hpass.dto.PopUpStoreDTO;
+import com.hyundai.hpass.dto.PurePopUpBookingDTO;
+import com.hyundai.hpass.service.PopUpStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +33,9 @@ public class PopUpController {
 	
 	@Autowired
 	PopUpBookingService bookingService;
+
+	@Autowired
+	PopUpStoreService popUpStoreService;
 	
 	/**
 	 처리 내용: 예약 데이터 등록 API
@@ -103,5 +109,28 @@ public class PopUpController {
         } else {
             return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+	}
+
+	@GetMapping("popup/list")
+	public ResponseEntity<List<PopUpStoreDTO>> getAllPopUpStoreList() {
+		List<PopUpStoreDTO> stores = popUpStoreService.getAllPopUpStore();
+
+		if (stores.isEmpty()) {
+			return new ResponseEntity<>(stores, HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(stores, HttpStatus.OK);
+		}
+	}
+
+	@GetMapping("popup/booking/{popUpNo}")
+	public ResponseEntity<PurePopUpBookingDTO> checkPopUpBooking(
+			@PathVariable long popUpNo,
+			Authentication authentication
+	) {
+		PurePopUpBookingDTO booking = bookingService.checkPopUpBooking(Long.parseLong(authentication.getName()), popUpNo);
+
+
+		return new ResponseEntity<>(booking, HttpStatus.OK);
+
 	}
 }
