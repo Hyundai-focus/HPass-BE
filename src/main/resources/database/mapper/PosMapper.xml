@@ -32,4 +32,38 @@
         GROUP BY
             a.PRODUCT_NO
     </select>
+
+    <select id="receiveByDate" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductStatusResDTO">
+        SELECT
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'false' THEN 1 END) AS notReceive,
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'true' THEN 1 END) AS receive,
+            to_char(b.PRODUCT_HISTORY_DT, 'yy-mm-dd') AS historyDate,
+            a.PRODUCT_NO as productNo
+        FROM
+            product a
+                JOIN PRODUCT_HISTORY b ON a.PRODUCT_NO = b.PRODUCT_NO
+        WHERE
+            a.PRODUCT_NO = #{prodNo}
+        GROUP BY
+            to_char(b.PRODUCT_HISTORY_DT, 'yy-mm-dd'), a.PRODUCT_NO
+    </select>
+    <select id="productHistory" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductUserDTO">
+        SELECT
+            a.PRODUCT_HISTORY_No as productHistoryNo,
+            CASE
+                WHEN LENGTH(b.MEMBER_NAME) > 2 THEN
+                    SUBSTR(b.MEMBER_NAME, 1, 1) || ' * ' || SUBSTR(b.MEMBER_NAME, LENGTH(b.MEMBER_NAME))
+                ELSE
+                    SUBSTR(b.MEMBER_NAME, 1, 1) || ' * '
+                END as memberName,
+            to_char(a.PRODUCT_HISTORY_DT, 'yy.mm.dd') as historyDate,
+            CASE
+                WHEN a.PRODUCT_STATUS = 'cancel' THEN '취소'
+                WHEN a.PRODUCT_STATUS = 'true' THEN '수령'
+                ELSE '미수령'
+                END as productStatus
+        FROM PRODUCT_HISTORY a
+                 INNER JOIN member b ON a.MEMBER_NO = b.MEMBER_NO
+        WHERE PRODUCT_NO = #{prodNo}
+    </select>
 </mapper>

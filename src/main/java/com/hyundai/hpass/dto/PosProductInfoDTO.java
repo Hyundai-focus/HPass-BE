@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PosProductInfoDTO {
+	private Long prodNo;
 	private String prodImg;
 	private String prodName;
 	private String prodBrand;
@@ -24,6 +25,7 @@ public class PosProductInfoDTO {
 	private int receiveStock;
 
 	public PosProductInfoDTO (Product product, PosProductReceiveStatusDTO status){
+		this.prodNo = product.getProductNo();
 		this.prodImg = product.getProductImg();
 		this.prodName = product.getProductName();
 		this.prodBrand = product.getProductBrand();
