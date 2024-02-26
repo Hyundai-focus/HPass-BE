@@ -1,7 +1,11 @@
 package com.hyundai.hpass.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.hyundai.hpass.dto.PurePopUpBookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,4 +76,12 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 		return result == 1;
 	}
 
+	@Override
+	public PurePopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo) {
+		LocalDate seoulNow = LocalDate.now(ZoneId.of("Asia/Seoul"));
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = seoulNow.format(formatter);
+
+		return bookingMapper.getPopUpBooking(memberNo, popUpNo, formatedNow);
+	}
 }
