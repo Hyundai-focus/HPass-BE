@@ -20,7 +20,7 @@
     </insert>
 
     <select id="selectTodayStore" resultType="java.lang.Long">
-        SELECT store_no
+        SELECT distinct (store_no)
         FROM today_store
         WHERE TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </select>
