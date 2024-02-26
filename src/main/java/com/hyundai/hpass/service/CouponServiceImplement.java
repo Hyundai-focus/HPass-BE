@@ -1,6 +1,7 @@
 package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.dto.CouponHistoryDTO;
+import com.hyundai.hpass.dto.MyCouponDTO;
 import com.hyundai.hpass.mapper.CouponMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class CouponServiceImplement implements CouponService {
     private CouponMapper couponMapper;
 
     @Override
-    public List<CouponHistoryDTO> getAllCoupon(int memberNo) {
-        return couponMapper.selectAllCoupon(memberNo);
+    public List<MyCouponDTO> getMyAllCoupon(int memberNo) {
+        return couponMapper.selectMyAllCoupon(memberNo);
     }
 
     @Override

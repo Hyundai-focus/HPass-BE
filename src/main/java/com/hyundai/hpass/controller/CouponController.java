@@ -1,6 +1,7 @@
 package com.hyundai.hpass.controller;
 
 import com.hyundai.hpass.dto.CouponHistoryDTO;
+import com.hyundai.hpass.dto.MyCouponDTO;
 import com.hyundai.hpass.service.CouponService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class CouponController {
     private CouponService couponService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<CouponHistoryDTO>> getAllCoupon(Authentication authentication) throws DataAccessException {
-        List<CouponHistoryDTO> coupons = couponService.getAllCoupon(Integer.parseInt(authentication.getName()));
+    public ResponseEntity<List<MyCouponDTO>> getAllCoupon(Authentication authentication) throws DataAccessException {
+        List<MyCouponDTO> coupons = couponService.getMyAllCoupon(Integer.parseInt(authentication.getName()));
 
         if (coupons.isEmpty()) {
             return new ResponseEntity<>(coupons, HttpStatus.NO_CONTENT);

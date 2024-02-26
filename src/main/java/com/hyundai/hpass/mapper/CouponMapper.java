@@ -1,13 +1,14 @@
 package com.hyundai.hpass.mapper;
 
 import com.hyundai.hpass.dto.CouponHistoryDTO;
+import com.hyundai.hpass.dto.MyCouponDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
 public interface CouponMapper {
-    List<CouponHistoryDTO> selectAllCoupon(int memberNo);
+    List<MyCouponDTO> selectMyAllCoupon(int memberNo);
     CouponHistoryDTO selectMyCoupon(
             @Param("memberNo") long memberNo,
             @Param("couponNo") long couponNo);
