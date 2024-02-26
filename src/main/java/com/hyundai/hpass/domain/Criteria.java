@@ -12,7 +12,7 @@ public class Criteria {
 	private int amount; // 한 페이지당 몇 개의 게시물을 보여줄 것인가
 	
 	public Criteria() {
-		this(1,15); // 디폴트 생성자: 1페이지 당 15개
+		this(1,10); // 디폴트 생성자: 1페이지 당 10개
 	}
 
 	public Criteria(int page, int amount) {
