@@ -4,14 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hyundai.hpass.mapper.CouponMapper">
 
-    <select id="selectAllCoupon" resultType="com.hyundai.hpass.dto.CouponHistoryDTO">
+    <select id="selectMyAllCoupon" resultType="com.hyundai.hpass.dto.MyCouponDTO">
         SElECT
-            coupon_history_no AS couponHistoryNo,
-            coupon_no AS couponNo,
-            member_no AS memberNo,
-            coupon_is_used AS couponIsUsed
-        FROM coupon_history
-        WHERE member_no = #{memberNo} AND coupon_is_used = '0'
+            h.coupon_history_no AS couponHistoryNo,
+            h.coupon_no AS couponNo,
+            h.member_no AS memberNo,
+            h.coupon_is_used AS couponIsUsed,
+            c.coupon_brand AS couponBrand,
+            c.coupon_content AS couponContent,
+            TO_CHAR(c.coupon_start_dt, 'YYYY-MM-DD') AS couponStartDate,
+            TO_CHAR(c.coupon_end_dt, 'YYYY-MM-DD') AS couponEndDate,
+            s.store_img AS couponImage
+        FROM coupon_history h
+        INNER JOIN coupon c
+        ON h.coupon_no = c.coupon_no
+        INNER JOIN store s
+        ON c.coupon_brand = s.store_brand
+        WHERE h.member_no = #{memberNo} AND h.coupon_is_used = '0'
     </select>
 
     <select id="selectMyCoupon" resultType="com.hyundai.hpass.dto.CouponHistoryDTO">
