@@ -91,6 +91,7 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 			storeMapper.insertTodayStoreMember(storeNo,memberNo);
 			TodayStoreVisitResDto storeInfo = new TodayStoreVisitResDto();
 			storeInfo.todayStoreVisitResDto(storeMapper.selectTodayStoreInfo(storeNo));
+			storeInfo.setTodayStoreStatus(true);
 			return storeInfo;
 		}
 		else{ //이미 방문한 경우
