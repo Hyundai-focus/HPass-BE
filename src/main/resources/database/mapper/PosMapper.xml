@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.PosMapper">
+    <select id="getPosRole" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT ROLE_NO
+        FROM member
+        WHERE member_no = #{posNum}
+    </select>
+    <select id="getProductList" parameterType="java.lang.String" resultType="com.hyundai.hpass.domain.Product">
+        SELECT
+            product_no AS productNo,
+            product_brand AS productBrand,
+            product_name AS productName,
+            product_img AS productImg,
+            stock AS stock,
+            TO_CHAR(receive_dt, 'YYYY . MM . DD') AS receiveDt,
+            receive_loc AS receiveLoc
+        FROM product
+        where receive_dt <![CDATA[>=]]> SYSDATE and receive_loc=#{storeName}
+    </select>
+    <select id="receiveStatus" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductReceiveStatusDTO">
+        SELECT
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'false' THEN 1 END) AS notReceive,
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'true' THEN 1 END) AS Receive
+        FROM
+            product a
+                JOIN PRODUCT_HISTORY b ON a.PRODUCT_NO = b.PRODUCT_NO
+        WHERE
+            a.product_no = #{productNo}
+        GROUP BY
+            a.PRODUCT_NO
+    </select>
+</mapper>
