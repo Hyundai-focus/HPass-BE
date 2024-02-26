@@ -6,5 +6,5 @@ import com.hyundai.hpass.dto.WebLoginResDTO;
 
 public interface LoginService {
     WebLoginResDTO login(WebLoginReqDTO loginReqDTO);
-    String signUp(RegisterDTO password);
+    String signUp(RegisterDTO registerDTO);
 }
