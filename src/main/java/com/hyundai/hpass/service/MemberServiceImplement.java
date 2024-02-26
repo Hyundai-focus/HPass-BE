@@ -49,6 +49,7 @@ public class MemberServiceImplement implements MemberService {
                 .isMember(isMember)
                 .memberName(memberName)
                 .isSubscribed(isSubscribed)
+                .memberNo(memberNo)
                 .build();
     }
 
