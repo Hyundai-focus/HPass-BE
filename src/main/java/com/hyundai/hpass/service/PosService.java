@@ -10,5 +10,4 @@ public interface PosService {
 	List<PosProductInfoDTO> prodList(Long posNum, String storeName);
 	List<PosProductStatusResDTO> prodStatus(Long posNum, Long productNo);
 	List<PosProductUserDTO> prodUserList(Long posNum, Long productNo);
-	Boolean prodUserCheck(Long memberNo);
 }

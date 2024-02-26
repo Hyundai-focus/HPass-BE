@@ -50,12 +50,4 @@ public class PosController {
 		List<PosProductUserDTO> res = posService.prodUserList((long)Integer.parseInt(authentication.getName()), prodNo);
 		return ResponseEntity.ok().body(res);
 	}
-
-	@GetMapping("/product/new/check")
-	public ResponseEntity<Boolean> posUserCheck(
-		Authentication authentication
-	){
-		Boolean res = posService.prodUserCheck((long)Integer.parseInt(authentication.getName()));
-		return ResponseEntity.ok().body(res);
-	}
 }
