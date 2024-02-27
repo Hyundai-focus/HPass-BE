@@ -8,4 +8,6 @@ public class PosCouponInfoDTO {
 	private long couponNo;
 	private String couponBrand;
 	private String couponContent;
+	private String couponStartDt;
+	private String couponEndDt;
 }

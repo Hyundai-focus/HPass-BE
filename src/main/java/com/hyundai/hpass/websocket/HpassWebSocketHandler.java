@@ -13,6 +13,7 @@ public class HpassWebSocketHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session){
+		System.out.println(session);
 		sessions.put(getKey(session), session);
 	}
 	@Override
@@ -21,19 +22,13 @@ public class HpassWebSocketHandler extends TextWebSocketHandler {
 		String data = message.getPayload().split("::")[1];
 		String request = getKey(session);
 		System.out.println(message);
-		if(request.equals("controller") && title.equals("addProduct")) addProduct(data);
-		if(request.equals("controller") && title.equals("coupon")) addProduct("coupon");
-		if(request.equals("prodCall") && title.equals("member")) sendProdRes(data);
 		if(request.equals("controller") && title.equals("member")) sendProdRes(data);
-	}
-	private void addProduct(String data) throws IOException {
-		WebSocketSession session = sessions.get("getAddProduct");
-		session.sendMessage(new TextMessage(data));
+		if(request.equals("NfcCall") && title.equals("member")) sendProdRes(data);
 	}
 
 	public void sendProdRes(String data) throws IOException {
-		WebSocketSession session = sessions.get("newProd");
-		session.sendMessage(new TextMessage(data));
+		if(sessions.get("newProd") != null && sessions.get("newProd").isOpen()) sessions.get("newProd").sendMessage(new TextMessage(data));
+		if(sessions.get("coupon") != null && sessions.get("coupon").isOpen()) sessions.get("coupon").sendMessage(new TextMessage(data));
 	}
 	private String getKey(WebSocketSession data){
 		return String.valueOf(data.getUri()).split("/")[4];

@@ -75,7 +75,9 @@
             b.COUPON_HISTORY_NO AS couponHistoryNo,
             a.COUPON_NO AS couponNo,
             a.COUPON_BRAND AS couponBrand,
-            a.COUPON_CONTENT AS couponContent
+            a.COUPON_CONTENT AS couponContent,
+            to_char(a.COUPON_START_DT, 'yy.mm.dd') AS couponStartDt,
+            to_char(a.COUPON_END_DT, 'yy.mm.dd') AS couponEndDt
         FROM
             COUPON a JOIN COUPON_HISTORY b
             on a.COUPON_NO = b.COUPON_NO
