@@ -23,6 +23,7 @@ public class PosProductInfoDTO {
 	private int totalStock;
 	private int applyStock;
 	private int receiveStock;
+	private String receiveDt;
 
 	public PosProductInfoDTO (Product product, PosProductReceiveStatusDTO status){
 		this.prodNo = product.getProductNo();
@@ -32,5 +33,6 @@ public class PosProductInfoDTO {
 		this.totalStock = product.getStock() + status.getNotReceive() + status.getReceive();
 		this.applyStock = status.getReceive() + status.getNotReceive();
 		this.receiveStock = status.getReceive();
+		this.receiveDt = product.getReceiveDt();
 	}
 }

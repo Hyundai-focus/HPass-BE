@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProductUserInfoDTO {
+	private Long productHistoryNo;
 	private Boolean status;
 	private String memberName;
 	private String prodImg;

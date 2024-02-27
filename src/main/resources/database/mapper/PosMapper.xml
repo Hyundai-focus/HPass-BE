@@ -37,7 +37,7 @@
         SELECT
             COUNT(CASE WHEN b.PRODUCT_STATUS = 'false' THEN 1 END) AS notReceive,
             COUNT(CASE WHEN b.PRODUCT_STATUS = 'true' THEN 1 END) AS receive,
-            to_char(b.PRODUCT_HISTORY_DT, 'yy-mm-dd') AS historyDate,
+            to_char(b.PRODUCT_HISTORY_DT, 'yy.mm.dd') AS historyDate,
             a.PRODUCT_NO as productNo
         FROM
             product a
@@ -45,7 +45,9 @@
         WHERE
             a.PRODUCT_NO = #{prodNo}
         GROUP BY
-            to_char(b.PRODUCT_HISTORY_DT, 'yy-mm-dd'), a.PRODUCT_NO
+            to_char(b.PRODUCT_HISTORY_DT, 'yy.mm.dd'), a.PRODUCT_NO
+        ORDER BY to_char(b.PRODUCT_HISTORY_DT, 'yy.mm.dd')
+
     </select>
     <select id="productHistory" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductUserDTO">
         SELECT
@@ -65,5 +67,28 @@
         FROM PRODUCT_HISTORY a
                  INNER JOIN member b ON a.MEMBER_NO = b.MEMBER_NO
         WHERE PRODUCT_NO = #{prodNo}
+        ORDER BY a.PRODUCT_HISTORY_No
     </select>
+
+    <select id="memberCoupon" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosCouponInfoDTO">
+        SELECT
+            b.COUPON_HISTORY_NO AS couponHistoryNo,
+            a.COUPON_NO AS couponNo,
+            a.COUPON_BRAND AS couponBrand,
+            a.COUPON_CONTENT AS couponContent
+        FROM
+            COUPON a JOIN COUPON_HISTORY b
+            on a.COUPON_NO = b.COUPON_NO
+        WHERE
+            b.COUPON_IS_USED = 0
+            and b.MEMBER_NO =  #{memberNo}
+            and a.COUPON_START_DT <![CDATA[<=]]> SYSDATE
+            and a.COUPON_END_DT <![CDATA[>=]]> SYSDATE
+    </select>
+
+    <update id="updateCouponStatus" parameterType="java.lang.Integer">
+        UPDATE coupon_history
+        SET coupon_is_used = '1'
+        WHERE coupon_history_no = #{couponHistoryNo}
+    </update>
 </mapper>
