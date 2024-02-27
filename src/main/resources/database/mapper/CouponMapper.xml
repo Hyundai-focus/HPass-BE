@@ -28,7 +28,8 @@
             coupon_history_no AS couponHistoryNo,
             coupon_no AS couponNo,
             member_no AS memberNo,
-            coupon_is_used AS couponIsUsed
+            coupon_is_used AS couponIsUsed,
+            coupon_used_dt AS couponUsedDt
         FROM coupon_history
         WHERE coupon_no = #{couponNo} AND member_no = #{memberNo}
     </select>
