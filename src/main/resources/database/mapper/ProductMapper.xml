@@ -24,7 +24,7 @@
 
     <insert id="insertProductHistory" parameterType="java.util.Map">
         INSERT INTO product_history(product_history_no, member_no, product_no, product_history_dt, product_status)
-        VALUES (product_history_seq.NEXTVAL, ${memberNo}, ${productNo}, SYSDATE, 'false')
+        VALUES (product_history_seq.NEXTVAL, #{memberNo}, #{productNo}, SYSDATE, 'false')
     </insert>
 
     <select id="selectValidUserHistory" parameterType="java.lang.Long" resultType="com.hyundai.hpass.domain.ProductHistory">
@@ -35,13 +35,13 @@
             product_history_dt,
             product_status AS productStatus
         FROM product_history
-        WHERE product_status = 'false' AND member_no = ${memberNo}
+        WHERE product_status = 'false' AND member_no = #{memberNo}
     </select>
 
     <select id="selectProductReceiveDt" parameterType="java.lang.Long" resultType="java.time.LocalDate">
         SELECT receive_dt
         FROM product
-        WHERE product_no = ${productNo}
+        WHERE product_no = #{productNo}
     </select>
 
     <select id="selectProductInfo" parameterType="java.lang.Long" resultType="com.hyundai.hpass.domain.Product">
@@ -54,7 +54,7 @@
             receive_dt AS receiveDt,
             receive_loc AS receiveLoc
         FROM product
-        WHERE product_no = ${productNo}
+        WHERE product_no = #{productNo}
     </select>
 
     <update id="updateProductHistoryStatus">
@@ -66,7 +66,7 @@
     <select id="selectMemberName" parameterType="java.lang.Long" resultType="java.lang.String">
         SELECT member_name
         FROM member
-        WHERE member_no = ${member_no}
+        WHERE member_no = #{member_no}
     </select>
 
     <update id="updateCancelProductStock">

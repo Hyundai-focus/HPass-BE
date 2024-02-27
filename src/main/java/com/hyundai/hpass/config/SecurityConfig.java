@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/member/login/**").antMatchers("/").antMatchers("/login").antMatchers("/register").antMatchers("/socket/*").antMatchers("/admin/**").antMatchers("/resources/**");
+                .antMatchers("/member/login/**").antMatchers("/").antMatchers("/login").antMatchers("/register").antMatchers("/socket/*").antMatchers("/admin/**").antMatchers("/pos/**").antMatchers("/resources/**");
     }
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {

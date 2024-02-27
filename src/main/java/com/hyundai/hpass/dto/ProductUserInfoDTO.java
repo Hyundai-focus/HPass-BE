@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProductUserInfoDTO {
+	private Long productHistoryNo;
 	private Boolean status;
 	private String memberName;
 	private String prodImg;
@@ -17,4 +18,8 @@ public class ProductUserInfoDTO {
 	private String prodBrand;
 	private String receiveDt;
 	private String receiveLoc;
+	public void setName(String name){
+		if(name.length() == 2) this.memberName = name.charAt(0) + "*";
+		else this.memberName = name.charAt(0) + "*" + name.charAt(2);
+	}
 }
