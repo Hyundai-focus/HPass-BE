@@ -67,6 +67,7 @@ public class ProductServiceImplement implements ProductService {
 			Product productInfo = productMapper.selectProductInfo(userHis.getProductNo());
 			return ProductUserInfoDTO.builder()
 				.status(true)
+				.productHistoryNo(userHis.getProductHistoryNo())
 				.memberName(name)
 				.prodImg(productInfo.getProductImg())
 				.prodName(productInfo.getProductName())

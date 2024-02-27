@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyundai.hpass.mapper.PosMapper">
+    <select id="getPosRole" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT ROLE_NO
+        FROM member
+        WHERE member_no = #{posNum}
+    </select>
+    <select id="getProductList" parameterType="java.lang.String" resultType="com.hyundai.hpass.domain.Product">
+        SELECT
+            product_no AS productNo,
+            product_brand AS productBrand,
+            product_name AS productName,
+            product_img AS productImg,
+            stock AS stock,
+            TO_CHAR(receive_dt, 'YYYY . MM . DD') AS receiveDt,
+            receive_loc AS receiveLoc
+        FROM product
+        where receive_dt <![CDATA[>=]]> SYSDATE and receive_loc=#{storeName}
+    </select>
+    <select id="receiveStatus" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductReceiveStatusDTO">
+        SELECT
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'false' THEN 1 END) AS notReceive,
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'true' THEN 1 END) AS Receive
+        FROM
+            product a
+                JOIN PRODUCT_HISTORY b ON a.PRODUCT_NO = b.PRODUCT_NO
+        WHERE
+            a.product_no = #{productNo}
+        GROUP BY
+            a.PRODUCT_NO
+    </select>
+
+    <select id="receiveByDate" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductStatusResDTO">
+        SELECT
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'false' THEN 1 END) AS notReceive,
+            COUNT(CASE WHEN b.PRODUCT_STATUS = 'true' THEN 1 END) AS receive,
+            to_char(b.PRODUCT_HISTORY_DT, 'yy.mm.dd') AS historyDate,
+            a.PRODUCT_NO as productNo
+        FROM
+            product a
+                JOIN PRODUCT_HISTORY b ON a.PRODUCT_NO = b.PRODUCT_NO
+        WHERE
+            a.PRODUCT_NO = #{prodNo}
+        GROUP BY
+            to_char(b.PRODUCT_HISTORY_DT, 'yy.mm.dd'), a.PRODUCT_NO
+        ORDER BY to_char(b.PRODUCT_HISTORY_DT, 'yy.mm.dd')
+
+    </select>
+    <select id="productHistory" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductUserDTO">
+        SELECT
+            a.PRODUCT_HISTORY_No as productHistoryNo,
+            CASE
+                WHEN LENGTH(b.MEMBER_NAME) > 2 THEN
+                    SUBSTR(b.MEMBER_NAME, 1, 1) || ' * ' || SUBSTR(b.MEMBER_NAME, LENGTH(b.MEMBER_NAME))
+                ELSE
+                    SUBSTR(b.MEMBER_NAME, 1, 1) || ' * '
+                END as memberName,
+            to_char(a.PRODUCT_HISTORY_DT, 'yy.mm.dd') as historyDate,
+            CASE
+                WHEN a.PRODUCT_STATUS = 'cancel' THEN '취소'
+                WHEN a.PRODUCT_STATUS = 'true' THEN '수령'
+                ELSE '미수령'
+                END as productStatus
+        FROM PRODUCT_HISTORY a
+                 INNER JOIN member b ON a.MEMBER_NO = b.MEMBER_NO
+        WHERE PRODUCT_NO = #{prodNo}
+        ORDER BY a.PRODUCT_HISTORY_No
+    </select>
+
+    <select id="memberCoupon" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosCouponInfoDTO">
+        SELECT
+            b.COUPON_HISTORY_NO AS couponHistoryNo,
+            a.COUPON_NO AS couponNo,
+            a.COUPON_BRAND AS couponBrand,
+            a.COUPON_CONTENT AS couponContent,
+            to_char(a.COUPON_START_DT, 'yy.mm.dd') AS couponStartDt,
+            to_char(a.COUPON_END_DT, 'yy.mm.dd') AS couponEndDt
+        FROM
+            COUPON a JOIN COUPON_HISTORY b
+            on a.COUPON_NO = b.COUPON_NO
+        WHERE
+            b.COUPON_IS_USED = 0
+            and b.MEMBER_NO =  #{memberNo}
+            and a.COUPON_START_DT <![CDATA[<=]]> SYSDATE
+            and a.COUPON_END_DT <![CDATA[>=]]> SYSDATE
+    </select>
+
+    <update id="updateCouponStatus" parameterType="java.lang.Integer">
+        UPDATE coupon_history
+        SET coupon_is_used = '1'
+        WHERE coupon_history_no = #{couponHistoryNo}
+    </update>
+</mapper>

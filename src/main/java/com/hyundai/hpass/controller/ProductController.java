@@ -55,12 +55,4 @@ public class ProductController {
 		String res = productService.cancelProductApply((long)Integer.parseInt(auth.getName()));
 		return ResponseEntity.ok().body(res);
 	}
-
-	@GetMapping("/status")
-	public ResponseEntity<Boolean> receiveProductHistory(
-		Authentication auth
-	){
-		Boolean res = productService.receiveProduct((long)Integer.parseInt(auth.getName()));
-		return ResponseEntity.ok().body(res);
-	}
 }
