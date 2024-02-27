@@ -2,10 +2,8 @@ package com.hyundai.hpass.mapper;
 
 import java.util.List;
 
-import com.hyundai.hpass.dto.PurePopUpBookingDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 
 /**
@@ -36,7 +34,7 @@ public interface PopUpBookingMapper {
 	
 	public int deleteMyBookingList(int bookingNo);
 
-	PurePopUpBookingDTO getPopUpBooking(
+	PopUpBookingDTO getPopUpBooking(
 			@Param("memberNo") long memberNo,
 			@Param("popUpNo") long popUpNo,
 			@Param("bookingDate") String bookingDate);

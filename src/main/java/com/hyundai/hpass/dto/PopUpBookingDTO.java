@@ -28,6 +28,11 @@ public class PopUpBookingDTO {
 	 팝업스토어 예약일자
 	 */
 	private String bookingDt;
+
+	/**
+	 팝업스토어 이름
+	 */
+	private String popupName;
 	
 	/**
 	 팝업스토어 시작일
@@ -38,11 +43,11 @@ public class PopUpBookingDTO {
 	 팝업스토어 종료일
 	 */
 	private String popupEndDt;
-	
+
 	/**
-	 팝업스토어 이름
+	 팝업스토어 장소
 	 */
-	private String popupName;
+	private String popupLocation;
 	
 	/**
 	 팝업스토어 이미지

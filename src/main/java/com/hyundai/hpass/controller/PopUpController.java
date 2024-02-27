@@ -3,7 +3,6 @@ package com.hyundai.hpass.controller;
 import java.util.List;
 
 import com.hyundai.hpass.dto.PopUpStoreDTO;
-import com.hyundai.hpass.dto.PurePopUpBookingDTO;
 import com.hyundai.hpass.service.PopUpStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -123,11 +122,11 @@ public class PopUpController {
 	}
 
 	@GetMapping("popup/booking/{popUpNo}")
-	public ResponseEntity<PurePopUpBookingDTO> checkPopUpBooking(
+	public ResponseEntity<PopUpBookingDTO> checkPopUpBooking(
 			@PathVariable long popUpNo,
 			Authentication authentication
 	) {
-		PurePopUpBookingDTO booking = bookingService.checkPopUpBooking(Long.parseLong(authentication.getName()), popUpNo);
+		PopUpBookingDTO booking = bookingService.checkPopUpBooking(Long.parseLong(authentication.getName()), popUpNo);
 
 
 		return new ResponseEntity<>(booking, HttpStatus.OK);
