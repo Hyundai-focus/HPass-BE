@@ -19,7 +19,7 @@ public class TodayStoreVisitResDto {
 	private String storeImg;
 	private String storeFloor; // 1F Exclusive Label 와 같은 문자열
 	private Boolean visitStatus; //방문한 경우 true, 방문하지 않은 경우 false
-
+	private String storeMap;
 	public void todayStoreVisitResDto (Store store){
 		List<String> floor = Arrays.asList(
 			"1F Exclusive Label",
@@ -32,6 +32,7 @@ public class TodayStoreVisitResDto {
 		this.storeImg = store.getStoreImg();
 		this.storeFloor = floor.get(store.getStoreFloor() - 1);
 		this.visitStatus = false;
+		this.storeMap = store.getStoreMap();
 	}
 	public void setTodayStoreStatus(Boolean status){
 		this.visitStatus = status;
