@@ -14,4 +14,5 @@ public class Store {
 	private String storeBrand;
 	private int storeFloor;
 	private String storeImg;
+	private String storeMap;
 }
