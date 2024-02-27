@@ -3,7 +3,6 @@ package com.hyundai.hpass.service;
 import java.util.List;
 
 import com.hyundai.hpass.dto.PopUpBookingDTO;
-import com.hyundai.hpass.dto.PurePopUpBookingDTO;
 
 /**
 작성자: 황수연
@@ -20,5 +19,5 @@ public interface PopUpBookingService {
 	
 	public boolean deleteBooking(int bookingNo);
 
-	PurePopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo);
+	PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo);
 }
