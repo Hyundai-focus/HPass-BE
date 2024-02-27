@@ -5,4 +5,5 @@ public class CouponHistoryDTO {
     private long couponNo;
     private long memberNo;
     private boolean couponIsUsed;
+    private String couponUsedDt;
 }
