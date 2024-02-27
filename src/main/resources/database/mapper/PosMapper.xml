@@ -90,7 +90,8 @@
 
     <update id="updateCouponStatus" parameterType="java.lang.Integer">
         UPDATE coupon_history
-        SET coupon_is_used = '1'
+        SET coupon_is_used = '1',
+            coupon_used_dt = sysdate
         WHERE coupon_history_no = #{couponHistoryNo}
     </update>
 </mapper>
