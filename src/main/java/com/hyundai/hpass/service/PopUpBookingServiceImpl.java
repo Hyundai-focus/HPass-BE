@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.mapper.PopUpBookingMapper;
 
@@ -83,4 +84,25 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 
 		return bookingMapper.getPopUpBooking(memberNo, popUpNo, formattedNow);
 	}
+
+	@Override
+	public List<PopUpBookingDTO> getBookingsList(Criteria cri) {
+		return bookingMapper.list(cri);
+	}
+
+	@Override
+	public int getTotalCnt(Criteria cri) {
+		return bookingMapper.totalCnt(cri);
+	}
+
+	@Override
+	public List<PopUpBookingDTO> getAllPopups() {
+		return bookingMapper.getAllPopups();
+	}
+
+	@Override
+	public List<PopUpBookingDTO> getCountBooking() {
+		return bookingMapper.getCountBooking();
+	}
+
 }

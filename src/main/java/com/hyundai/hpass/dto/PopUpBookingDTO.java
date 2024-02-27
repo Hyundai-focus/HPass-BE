@@ -53,4 +53,9 @@ public class PopUpBookingDTO {
 	 팝업스토어 이미지
 	 */
 	private String popupImg;
+	
+	/**
+	 팝업스토어별 예약 내역 횟수
+	 */
+	private int bookingCount;
 }

@@ -47,7 +47,8 @@
             store_no AS storeNo,
             store_brand AS storeBrand,
             store_floor AS storeFloor,
-            store_img AS storeImg
+            store_img AS storeImg,
+            store_map AS storeMap
         FROM store
         WHERE store_no = #{storeNo}
     </select>

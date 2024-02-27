@@ -37,7 +37,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="box box3">
-                                    <div id="spark3"></div>
+                                    <div id="spark3" class= "line-chart"
+                                    	data-products="<c:forEach items='${collect1}' var='item1' varStatus='status'>${item1.dailyProductCount}<c:if test='${not status.last}'>,</c:if></c:forEach>"
+                                    	data-dt="<c:forEach items='${collect1}' var='item1' varStatus='status'>${item1.productHistoryDt}<c:if test='${not status.last}'>,</c:if></c:forEach>"
+                                    	data-total="<c:forEach items='${collect2}' var='item1' varStatus='status'>${item1.cumulativeProductCount}<c:if test='${not status.last}'>,</c:if></c:forEach>">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +54,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="box">
-                                    <div id="donut"></div>
+                                    <div id = "donut" class="donut-chart" 
+                                    data-popupnames="<c:forEach items='${list}' var='item' varStatus='status'>${item.popupName}<c:if test='${not status.last}'>,</c:if></c:forEach>"
+                                    data-bookingcounts="<c:forEach items='${count}' var='item' varStatus='status'>${item.bookingCount}<c:if test='${not status.last}'>,</c:if></c:forEach>"></div>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +81,6 @@
         <script src="/resources/main/data.js"></script>
         <script src="/resources/main/scripts.js"></script>
 
-        <script></script>
-    </main>
+	</main>
 <!-- /page content -->
 <%@include file="includes/footer.jsp"%>

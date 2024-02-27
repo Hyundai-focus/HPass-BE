@@ -20,7 +20,8 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: #0f694a !important">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html"><img class="hpass-logo" src="/resources/images/hpass.png"/><span class="hpass-admin" style="margin-left: 7px">관리자</span></a>
+    <a class="navbar-brand ps-3" href="/admin"><img class="hpass-logo" src="/resources/images/hpass.png"/><span
+            class="hpass-admin" style="margin-left: 7px">관리자</span></a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
         <i class="fas fa-bars"></i>
@@ -54,9 +55,17 @@
                         <div class="sb-nav-link-icon"></div>
                         메인
                     </a>
+                    <a class="nav-link" href="/admin/subscription">
+                        <div class="sb-nav-link-icon"></div>
+                        구독 관리
+                    </a>
+                    <a class="nav-link" href="/admin/popup">
+                        <div class="sb-nav-link-icon"></div>
+                        팝업스토어 관리
+                    </a>
                     <a
                             class="nav-link collapsed"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts"
                             aria-expanded="false"
@@ -73,56 +82,34 @@
                             data-bs-parent="#sidenavAccordion"
                     >
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">신청 및 수령 통계</a>
-                            <a class="nav-link" href="layout-sidenav-light.html">신제품 등록</a>
+                            <a class="nav-link" href="/admin/product/apply">신청 현황</a>
+                            <a class="nav-link" href="/admin/product/get">수령 현황</a>
                         </nav>
                     </div>
-
                     <a
                             class="nav-link collapsed"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
-                            data-bs-target="#collapsePages"
+                            data-bs-target="#couponLayouts"
                             aria-expanded="false"
-                            aria-controls="collapsePages"
+                            aria-controls="collapseLayouts"
                     >
                         <div class="sb-nav-link-icon"></div>
                         쿠폰 관리
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a
-                                    class="nav-link collapsed"
-                                    href="#"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth"
-                                    aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth"
-                            >
-                                쿠폰 사용 통계
-                            </a>
-                            <a
-                                    class="nav-link collapsed"
-                                    href="#"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseError"
-                                    aria-expanded="false"
-                                    aria-controls="pagesCollapseError"
-                            >
-                                쿠폰 등록
-                            </a>
+                    <div
+                            class="collapse"
+                            id="couponLayouts"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion"
+                    >
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/admin/coupon/issue">발급 현황</a>
+                            <a class="nav-link" href="/admin/coupon/use">사용 현황</a>
                         </nav>
                     </div>
-                    <a class="nav-link" href="/admin/popup">
-                        <div class="sb-nav-link-icon"></div>
-                        팝업스토어 관리
-                    </a>
-                    <a class="nav-link" href="/admin/member">
-                        <div class="sb-nav-link-icon"></div>
-                        멤버 관리
-                    </a>
-                    <a class="nav-link" href="tables.html">
+                    <a class="nav-link" href="/admin/visit">
                         <div class="sb-nav-link-icon"></div>
                         매장 방문 관리
                     </a>
