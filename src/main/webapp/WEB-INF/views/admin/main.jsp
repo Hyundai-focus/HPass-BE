@@ -64,6 +64,17 @@
                 </div>
             </div>
         </div>
+        <script>
+            let mainDt = [];
+            let allVisitCnt = [];
+            let couponUseCnt = [];
+            <c:forEach var="adminMainDTO" items="${adminMainList}" varStatus="status">
+                mainDt.push("${adminMainDTO.mainDt}")
+                allVisitCnt.push("${adminMainDTO.allVisitCnt}");
+                couponUseCnt.push("${adminMainDTO.couponUseCnt}");
+            </c:forEach>
+            console.log(allVisitCnt)
+        </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="/resources/main/apexcharts.js"></script>
