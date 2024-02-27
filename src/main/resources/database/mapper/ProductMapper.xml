@@ -74,4 +74,107 @@
         SET stock = stock + 1
         WHERE product_no = #{productNo}
     </update>
+    
+    <!-- 작성자: 황수연 - product_history 전체 조회 -->
+    <select id="getProductHistory" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
+        <![CDATA[
+	    SELECT *
+		FROM (
+		    SELECT rownum rnum, B.*
+		    FROM (
+		        SELECT
+		        	product_history_no AS productHistoryNo,
+            		member_no AS memberNo,
+            		product_no AS productNo,
+            		product_history_dt AS productHistoryDt,
+            		product_status AS productStatus
+		        FROM product_history
+		        ORDER BY product_history_dt DESC
+		    ) B
+		    WHERE rownum <= #{page} * #{amount}
+		)
+		WHERE rnum > (#{page} - 1) * #{amount}
+	    ]]>
+    </select>
+    
+    <!-- product_history 게시물 개수: totalCnt -->
+	<select id="totalCnt" resultType="java.lang.Integer">
+		select count(product_history_no) 
+		from product_history
+		where
+		<include refid="criteria"></include>
+		product_history_no > 0
+	</select>
+    
+    <!-- 작성자: 황수연 - product 수령한 사람 전체 조회 -->
+    <select id="getReceiveHistory" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
+        <![CDATA[
+	    SELECT *
+		FROM (
+		    SELECT rownum rnum, B.*
+		    FROM (
+		        SELECT 
+				  product_history_no AS productHistoryNo,
+				  member_no AS memberNo,
+				  product_no AS productNo,
+				  product_history_dt AS productHistoryDt,
+            	  product_status AS productStatus
+				FROM product_history
+				WHERE product_status = 'true'
+				ORDER BY product_history_dt DESC
+		    ) B
+		    WHERE rownum <= #{page} * #{amount}
+		)
+		WHERE rnum > (#{page} - 1) * #{amount}
+	    ]]>
+    </select>
+    
+    <!-- 작성자: 황수연 - 이번 달에 product 수령한 사람수 -->
+    <select id="getCountProduct" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
+        <![CDATA[
+        WITH all_dates AS (
+		    SELECT TRUNC(SYSDATE, 'MM') + LEVEL - 1 AS all_dates
+		    FROM DUAL
+		    CONNECT BY LEVEL <= TRUNC(SYSDATE) - TRUNC(SYSDATE, 'MM') + 1
+		)
+		SELECT
+		    TO_CHAR(ad.all_dates, 'YYYY-MM-DD') AS productHistoryDt,
+		    COUNT(ph.product_history_no) AS dailyProductCount
+		FROM
+		    all_dates ad
+		LEFT JOIN
+		    product_history ph ON TO_CHAR(ph.product_history_dt, 'YYYY-MM-DD') = TO_CHAR(ad.all_dates, 'YYYY-MM-DD')
+		WHERE
+		    (ph.product_status = 'true' OR ph.product_status IS NULL)
+		GROUP BY
+		    TO_CHAR(ad.all_dates, 'YYYY-MM-DD')
+		ORDER BY
+		    TO_CHAR(ad.all_dates, 'YYYY-MM-DD') ASC
+    	]]>
+    </select>
+    
+    <select id="getSumProduct" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
+    	SELECT cumulativeProductCount
+		FROM (
+		    SELECT
+		        productHistoryDt,
+		        dailyProductCount,
+		        SUM(dailyProductCount) OVER (ORDER BY TO_DATE(productHistoryDt, 'YYYY-MM-DD')) AS cumulativeProductCount,
+		        ROW_NUMBER() OVER (ORDER BY TO_DATE(productHistoryDt, 'YYYY-MM-DD') DESC) AS row_num
+		    FROM (
+		        SELECT
+		            TO_CHAR(product_history_dt, 'YYYY-MM-DD') AS productHistoryDt,
+		            COUNT(product_history_no) AS dailyProductCount
+		        FROM product_history
+		        WHERE product_status = 'true' AND TO_CHAR(product_history_dt, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+		        GROUP BY TO_CHAR(product_history_dt, 'YYYY-MM-DD')
+		    ) subquery
+		) final_query
+		WHERE row_num = 1
+    </select>
+    
+    <sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+		</trim>
+	</sql>
 </mapper>

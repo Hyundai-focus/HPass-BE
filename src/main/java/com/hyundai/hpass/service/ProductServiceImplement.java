@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.domain.Product;
 import com.hyundai.hpass.domain.ProductHistory;
+import com.hyundai.hpass.dto.ProductHistoryDTO;
 import com.hyundai.hpass.dto.ProductUserInfoDTO;
 import com.hyundai.hpass.mapper.ProductMapper;
 
@@ -93,5 +95,30 @@ public class ProductServiceImplement implements ProductService {
 		if(userHis == null) return false;
 		productMapper.updateProductHistoryStatus(userHis.getProductHistoryNo(), "true");
 		return true;
+	}
+
+	@Override
+	public int getTotalCnt(Criteria cri) {
+		return productMapper.totalCnt(cri);
+	}
+
+	@Override
+	public List<ProductHistoryDTO> getProductsList(Criteria cri) {
+		return productMapper.getProductHistory(cri);
+	}
+
+	@Override
+	public List<ProductHistoryDTO> getReceiveList(Criteria cri) {
+		return productMapper.getReceiveHistory(cri);
+	}
+
+	@Override
+	public List<ProductHistoryDTO> getCountProduct() {
+		return productMapper.getCountProduct();
+	}
+
+	@Override
+	public List<ProductHistoryDTO> getSumProduct() {
+		return productMapper.getSumProduct();
 	}
 }
