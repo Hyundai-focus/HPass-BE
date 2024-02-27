@@ -85,6 +85,7 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 		return bookingMapper.getPopUpBooking(memberNo, popUpNo, formattedNow);
 	}
 
+	@Override
 	public List<PopUpBookingDTO> getBookingsList(Criteria cri) {
 		return bookingMapper.list(cri);
 	}
