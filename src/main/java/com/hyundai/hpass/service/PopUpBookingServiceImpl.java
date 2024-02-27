@@ -77,7 +77,6 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo) {
 		LocalDate seoulNow = LocalDate.now(ZoneId.of("Asia/Seoul"));
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -85,7 +84,7 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 
 		return bookingMapper.getPopUpBooking(memberNo, popUpNo, formattedNow);
 	}
-=======
+
 	public List<PopUpBookingDTO> getBookingsList(Criteria cri) {
 		return bookingMapper.list(cri);
 	}
@@ -105,5 +104,4 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 		return bookingMapper.getCountBooking();
 	}
 
->>>>>>> stash
 }

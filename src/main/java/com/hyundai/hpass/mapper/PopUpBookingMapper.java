@@ -5,11 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-<<<<<<< HEAD
-=======
 
 import com.hyundai.hpass.domain.Criteria;
->>>>>>> stash
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 
 /**

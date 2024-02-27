@@ -21,10 +21,8 @@ public interface PopUpBookingService {
 	public List<PopUpBookingDTO> getMyBooking(int memberNo);
 	
 	public boolean deleteBooking(int bookingNo);
-<<<<<<< HEAD
 
 	PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo);
-=======
 	
 	// 전체 게시물 개수
 	public int getTotalCnt(Criteria cri);
@@ -32,5 +30,4 @@ public interface PopUpBookingService {
 	public List<PopUpBookingDTO> getAllPopups();
 	
 	public List<PopUpBookingDTO> getCountBooking();
->>>>>>> stash
 }
