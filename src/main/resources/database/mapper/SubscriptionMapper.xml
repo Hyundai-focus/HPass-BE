@@ -34,4 +34,77 @@
         SET LAST_DATE = #{lastDate}
         WHERE member_no = #{memberNo}
     </update>
+    <select id="getMonthlyAddNum" resultType="java.lang.Integer">
+        <![CDATA[
+        WITH Months AS (
+        SELECT ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1-LEVEL) AS Month_Start
+        FROM DUAL
+        CONNECT BY LEVEL <= 12
+        )
+        SELECT NVL(COUNT(SUBS_START_DT), 0) AS SUBS_COUNT
+        FROM Months
+        LEFT JOIN subscription ON TO_CHAR(Months.Month_Start, 'YYYY-MM') = TO_CHAR(SUBS_START_DT, 'YYYY-MM')
+        GROUP BY TO_CHAR(Months.Month_Start, 'YYYY-MM')
+        ORDER BY MIN(Months.Month_Start)
+        ]]>
+    </select>
+    <select id="getMonthlyStopNum" resultType="java.lang.Integer">
+        <![CDATA[
+        WITH Months AS (
+            SELECT ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1-LEVEL) AS Month_Start
+            FROM DUAL
+        CONNECT BY LEVEL <= 12
+            )
+        SELECT NVL(COUNT(last_date), 0) AS SUBS_COUNT
+        FROM Months
+                 LEFT JOIN subscription ON TO_CHAR(Months.Month_Start, 'YYYY-MM') = SUBSTR(last_date, 0, 7)
+        GROUP BY TO_CHAR(Months.Month_Start, 'YYYY-MM')
+        ORDER BY MIN(Months.Month_Start)
+        ]]>
+    </select>
+    <select id="getSubsAdminDTO" resultType="com.hyundai.hpass.dto.SubsAdminDTO">
+        <![CDATA[
+        WITH All_Months AS (
+            SELECT TO_CHAR(ADD_MONTHS((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION), LEVEL-1 ),'YYYY-MM') AS Month_Date
+            FROM DUAL
+            CONNECT BY LEVEL <= MONTHS_BETWEEN(TO_DATE(SYSDATE,'YYYY-MM-DD'),TO_DATE((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION),'YYYY-MM-DD'))+1
+        )
+        SELECT AM.MONTH_DATE AS subsMonth,
+               NVL(SUBS_CNT,0) AS subsAddCnt,
+               (SELECT COUNT(*) FROM SUBSCRIPTION WHERE SUBSTR(LAST_DATE, 0, 7) = AM.MONTH_DATE) AS subsStopCnt,
+               SUM(NVL(SUBS_CNT,0)) OVER (ORDER BY AM.MONTH_DATE) AS cumulativeCnt,
+                ((SUM(NVL(SUBS_CNT,0)) OVER (ORDER BY AM.MONTH_DATE) - (SELECT COUNT(*) FROM SUBSCRIPTION WHERE LAST_DATE < AM.MONTH_DATE))) AS subsLeft
+        FROM All_Months AM
+        LEFT JOIN
+         (SELECT TO_CHAR(SUBS_START_DT, 'YYYY-MM') AS Month_Date, COUNT(SUBS_NO) AS SUBS_CNT
+          FROM SUBSCRIPTION SUBS
+          GROUP BY TO_CHAR(SUBS_START_DT, 'YYYY-MM')
+          ORDER BY Month_Date) SUBS
+        ON AM.MONTH_DATE = SUBS.Month_Date
+        ]]>
+    </select>
+    <select id="getAdminMainDTO" resultType="com.hyundai.hpass.dto.AdminMainDTO">
+        <![CDATA[
+        WITH date_range AS (
+            SELECT TRUNC(SYSDATE) - LEVEL + 1 AS date_value
+            FROM dual
+            CONNECT BY LEVEL <= 31 -- 31일 간의 범위 (한 달)
+        )
+        SELECT
+            TO_CHAR(dr.date_value, 'YYYY-MM-DD') AS mainDt,
+            NVL(COUNT(DISTINCT(ch.coupon_no)), 0) AS couponUseCnt,
+            NVL(COUNT(DISTINCT(ts.today_store_no)),0) AS allVisitCnt
+        FROM date_range dr
+        LEFT JOIN coupon_history ch ON TRUNC(ch.coupon_used_dt) = dr.date_value
+        LEFT JOIN (select rownum AS today_store_no, today_store_dt
+                   from
+                       (select today_store_dt, count(store_no) AS visitCnt
+                        from today_store
+                        where member_no is not null
+                        group by today_store_dt, member_no
+                        HAVING count(store_no) = 5)) ts ON TRUNC(ts.today_store_dt) = dr.date_value
+        GROUP BY dr.date_value
+        ORDER BY dr.date_value
+        ]]>
+    </select>
 </mapper>

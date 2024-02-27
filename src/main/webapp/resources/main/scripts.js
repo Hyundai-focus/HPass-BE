@@ -51,9 +51,9 @@ var spark1 = {
   },
   series: [{
     name: 'Visits',
-    data: randomizeArray(sparklineData)
+    data: allVisitCnt
   }],
-  labels: [...Array(24).keys()].map(n => `2024-02-0${n+1}`),
+  labels: mainDt,
   yaxis: {
     min: 0
   },
@@ -97,9 +97,9 @@ var spark2 = {
   },
   series: [{
     name: 'Coupons',
-    data: randomizeArray(sparklineData)
+    data: couponUseCnt
   }],
-  labels: [...Array(24).keys()].map(n => `2024-02-0${n+1}`),
+  labels: mainDt,
   yaxis: {
     min: 0
   },
