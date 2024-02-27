@@ -2,6 +2,7 @@ package com.hyundai.hpass.service;
 
 import java.util.List;
 
+import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 
 /**
@@ -10,6 +11,8 @@ import com.hyundai.hpass.dto.PopUpBookingDTO;
 */
 public interface PopUpBookingService {
 	public List<PopUpBookingDTO> getBookingsWithinPopupPeriod(int popupNo, String popupStartDt, String popupEndDt);
+	
+	public List<PopUpBookingDTO> getBookingsList(Criteria cri);
     
     public List<PopUpBookingDTO> getBookingByDateTime(int popupNo, String bookingDt, String bookingTime);
     
@@ -20,4 +23,11 @@ public interface PopUpBookingService {
 	public boolean deleteBooking(int bookingNo);
 
 	PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo);
+	
+	// 전체 게시물 개수
+	public int getTotalCnt(Criteria cri);
+	
+	public List<PopUpBookingDTO> getAllPopups();
+	
+	public List<PopUpBookingDTO> getCountBooking();
 }
