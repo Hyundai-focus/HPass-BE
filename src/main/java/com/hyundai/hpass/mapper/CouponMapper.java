@@ -2,6 +2,7 @@ package com.hyundai.hpass.mapper;
 
 import com.hyundai.hpass.dto.CouponHistoryDTO;
 import com.hyundai.hpass.dto.MyCouponDTO;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
 
@@ -18,4 +19,8 @@ public interface CouponMapper {
             @Param("memberNo") long memberNo);
 
     int getUnusedCouponNum();
+    
+    public List<CouponHistoryDTO> getAllIssuedCoupons();
+    
+    public List<CouponHistoryDTO> getAllUsedCoupons();
 }

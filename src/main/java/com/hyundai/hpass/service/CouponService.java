@@ -9,4 +9,7 @@ public interface CouponService {
     List<MyCouponDTO> getMyAllCoupon(int memberNo);
     boolean issueCoupon(long memberNo, long couponNo);
     int getUnusedCouponNum();
+    
+    public List<CouponHistoryDTO> getAllIssuedCoupons();
+    public List<CouponHistoryDTO> getAllUsedCoupons();
 }

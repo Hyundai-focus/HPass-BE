@@ -38,4 +38,14 @@ public class CouponServiceImplement implements CouponService {
     public int getUnusedCouponNum() {
         return couponMapper.getUnusedCouponNum();
     }
+
+	@Override
+	public List<CouponHistoryDTO> getAllIssuedCoupons() {
+		return couponMapper.getAllIssuedCoupons();
+	}
+
+	@Override
+	public List<CouponHistoryDTO> getAllUsedCoupons() {
+		return couponMapper.getAllUsedCoupons();
+	}
 }
