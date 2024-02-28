@@ -11246,3 +11246,8 @@ body {
   height: 47px;
   vertical-align: bottom;/* 이미지를 수직 가운데 정렬합니다. */
 }
+
+.sb-sidenav-menu {
+  margin-top: 20px;
+  margin-right: 20px;
+}

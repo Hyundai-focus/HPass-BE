@@ -18,7 +18,7 @@
         FROM coupon_history h
         INNER JOIN coupon c
         ON h.coupon_no = c.coupon_no
-        INNER JOIN store s
+        LEFT JOIN store s
         ON c.coupon_brand = s.store_brand
         WHERE h.member_no = #{memberNo} AND h.coupon_is_used = '0'
     </select>
@@ -39,4 +39,9 @@
         VALUES (coupon_history_seq.NEXTVAL, #{couponNo}, #{memberNo}, 0)
     </insert>
 
+    <select id="getUnusedCouponNum" resultType="java.lang.Integer">
+        SELECT COUNT(coupon_history_no)
+        FROM coupon_history
+        WHERE coupon_used_dt IS NULL
+    </select>
 </mapper>

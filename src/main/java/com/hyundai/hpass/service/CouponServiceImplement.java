@@ -33,4 +33,9 @@ public class CouponServiceImplement implements CouponService {
             return false;
         }
     }
+
+    @Override
+    public int getUnusedCouponNum() {
+        return couponMapper.getUnusedCouponNum();
+    }
 }
