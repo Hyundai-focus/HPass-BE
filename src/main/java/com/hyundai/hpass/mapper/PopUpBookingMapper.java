@@ -1,13 +1,12 @@
 package com.hyundai.hpass.mapper;
 
-import java.util.List;
-
+import com.hyundai.hpass.domain.Criteria;
+import com.hyundai.hpass.dto.PopUpBookingDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.hyundai.hpass.domain.Criteria;
-import com.hyundai.hpass.dto.PopUpBookingDTO;
+import java.util.List;
 
 /**
  * 작성자: 황수연 처리 내용: 팝업스토어 예약 데이터 등록
@@ -34,7 +33,9 @@ public interface PopUpBookingMapper {
 	
 	public Integer lockBookingRow(PopUpBookingDTO dto);
 	
-	public List<PopUpBookingDTO> getMyBooking(int memberNo);
+	public List<PopUpBookingDTO> getMyBooking(
+			@Param("member") int member,
+			@Param("date") String date);
 	
 	public int deleteMyBookingList(int bookingNo);
 	

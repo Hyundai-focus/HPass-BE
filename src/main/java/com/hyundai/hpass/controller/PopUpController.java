@@ -1,25 +1,17 @@
 package com.hyundai.hpass.controller;
 
-import java.util.List;
-
+import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.dto.PopUpStoreDTO;
+import com.hyundai.hpass.service.PopUpBookingService;
 import com.hyundai.hpass.service.PopUpStoreService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.hyundai.hpass.dto.PopUpBookingDTO;
-import com.hyundai.hpass.service.PopUpBookingService;
-
-import lombok.extern.log4j.Log4j2;
+import java.util.List;
 
 
 /**
@@ -114,11 +106,7 @@ public class PopUpController {
 	public ResponseEntity<List<PopUpStoreDTO>> getAllPopUpStoreList() {
 		List<PopUpStoreDTO> stores = popUpStoreService.getAllPopUpStore();
 
-		if (stores.isEmpty()) {
-			return new ResponseEntity<>(stores, HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<>(stores, HttpStatus.OK);
-		}
+		return new ResponseEntity<>(stores, HttpStatus.OK);
 	}
 
 	@GetMapping("popup/booking/{popUpNo}")
