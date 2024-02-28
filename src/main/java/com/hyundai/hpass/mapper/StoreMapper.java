@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.hyundai.hpass.domain.Store;
+import com.hyundai.hpass.dto.TodayVisitStore;
 
 public interface StoreMapper {
 	Long selectOneForFloor(Long floor);
@@ -24,4 +25,8 @@ public interface StoreMapper {
 	void insertTodayStoreMember(@Param("storeNo") Long storeNo, @Param("memberNo") Long memberNo);
 
 	Long memberStoreVisitNum(Long memberNo);
+
+	public List<TodayVisitStore> getTodayStore();
+
+	public List<TodayVisitStore> getVisitStore();
 }

@@ -1,6 +1,18 @@
 <%@ page pageEncoding="utf-8"%>
 <%@include file="includes/header.jsp"%>
-<link href="/resources/css/table.css" rel="stylesheet"/>
+<!-- <link href="/resources/css/table.css" rel="stylesheet"/> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable({
+    	rowGroup: {
+            dataSrc: '신제품 번호'
+        }
+    });
+} );
+</script>
 <div id="layoutSidenav_content">
     <main>
     		<h1 style="font-family: 'Roboto', sans-serif;
@@ -9,7 +21,7 @@
 			           font-weight: bold; /* 굵은체 */">
 			    수령 현황
 			</h1>
-			<table class="table table-striped table-bordered table-hover">
+			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<thead class="table-dark">
 					<tr>
 						<th scope="col">멤버번호</th>
@@ -31,34 +43,5 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
-		<!-- 페이지 나누기 시작 -->
-		<nav aria-label="...">
-			<ul class="pagination justify-content-center">
-				<c:if test="${pageDTO.prev}">
-					<li class="page-item"><a class="page-link"
-						href="${pageDTO.startPage-1}">Previous</a></li>
-				</c:if>
-
-				<c:forEach begin="${pageDTO.startPage}" end="${pageDTO.endPage}"
-					var="idx">
-					<li class="page-item ${pageDTO.cri.page==idx?'active':''}"><a
-						class="page-link" href="${idx}">${idx}</a></li>
-				</c:forEach>
-
-				<c:if test="${pageDTO.next}">
-					<li class="page-item"><a class="page-link"
-						href="${pageDTO.endPage+1}">Next</a></li>
-				</c:if>
-			</ul>
-		</nav>
-		<!-- 페이지 나누기 종료 -->
-
-		<!-- 페이지 나누기 링크 처리를 위한 폼 -->
-		<form action="/admin/product/get" id="operForm">
-			<input type="hidden" name="page" value="${cri.page}" /> <input
-				type="hidden" name="amount" value="${cri.amount}" />
-		</form>
-		<script src="/resources/js/popup.js"></script>
 	</main>
 <%@include file="includes/footer.jsp"%>

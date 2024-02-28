@@ -63,4 +63,28 @@
         FROM today_store
         WHERE member_no = #{memberNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </select>
+    
+    <!-- 작성자: 황수연 - 오늘의 매장 조회 -->
+    <select id="getTodayStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
+        SELECT
+		    t.store_no AS storeNo,
+		    s.store_brand AS storeBrand
+		FROM today_store t
+		JOIN store s ON t.store_no = s.store_no
+		AND t.member_no IS NULL
+		AND TRUNC(t.today_store_dt) = TRUNC(SYSDATE)
+		ORDER BY storeNo ASC
+    </select>
+    
+    <!-- 작성자: 황수연 - 방문한 매장 조회 -->
+    <select id="getVisitStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
+        SELECT
+            today_store_no AS todayStoreNo,
+            store_no AS storeNo,
+            today_store_dt AS todayStoreDt,
+            member_no AS memberNo
+        FROM today_store
+        WHERE member_no IS NOT NULL
+        AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+    </select>
 </mapper>
