@@ -1,5 +1,6 @@
 <%@ page pageEncoding="utf-8"%>
 <%@include file="includes/header.jsp"%>
+<link href="/resources/css/table.css" rel="stylesheet"/>
 <div id="layoutSidenav_content">
 	<main>
 		<c:forEach var="popup" items="${popupList}">
@@ -10,7 +11,7 @@
 			    팝업스토어: ${popup.popupName}
 			</h1>
 			<table class="table table-striped table-bordered table-hover">
-				<thead>
+				<thead class="table-dark">
 					<tr>
 						<th scope="col">멤버번호</th>
 						<th scope="col">팝업스토어 번호</th>
@@ -64,6 +65,6 @@
 			<input type="hidden" name="page" value="${cri.page}" /> <input
 				type="hidden" name="amount" value="${cri.amount}" />
 		</form>
-		<script src="/resources/popup.js"></script>
+		<script src="/resources/js/popup.js"></script>
 	</main>
 	<%@include file="includes/footer.jsp"%>

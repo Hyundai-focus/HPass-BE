@@ -1,5 +1,6 @@
 <%@ page pageEncoding="utf-8"%>
 <%@include file="includes/header.jsp"%>
+<link href="/resources/css/table.css" rel="stylesheet"/>
 <div id="layoutSidenav_content">
     <main>
     		<h1 style="font-family: 'Roboto', sans-serif;
@@ -9,7 +10,7 @@
 			    수령 현황
 			</h1>
 			<table class="table table-striped table-bordered table-hover">
-				<thead>
+				<thead class="table-dark">
 					<tr>
 						<th scope="col">멤버번호</th>
 						<th scope="col">신제품 번호</th>
@@ -54,10 +55,10 @@
 		<!-- 페이지 나누기 종료 -->
 
 		<!-- 페이지 나누기 링크 처리를 위한 폼 -->
-		<form action="/admin/getproduct" id="operForm">
+		<form action="/admin/product/get" id="operForm">
 			<input type="hidden" name="page" value="${cri.page}" /> <input
 				type="hidden" name="amount" value="${cri.amount}" />
 		</form>
-		<script src="/resources/popup.js"></script>
+		<script src="/resources/js/popup.js"></script>
 	</main>
 <%@include file="includes/footer.jsp"%>

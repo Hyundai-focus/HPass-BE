@@ -16,4 +16,6 @@ public interface CouponMapper {
     void insertCoupon(
             @Param("couponNo") long couponNo,
             @Param("memberNo") long memberNo);
+
+    int getUnusedCouponNum();
 }

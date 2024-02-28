@@ -32,7 +32,7 @@ var sparklineData = [47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35,
 
 // the default colorPalette for this dashboard
 //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
-var colorPalette = ["#00D8B6", "#008FFB", "#FEB019", "#FF4560", "#775DD0"];
+var colorPalette = ["#008FFB", "#FEB019", "#FF4560", "#775DD0", "#00D8B6"];
 
 var spark1 = {
   chart: {
@@ -53,19 +53,19 @@ var spark1 = {
   series: [
     {
       name: "Visits",
-      data: randomizeArray(sparklineData),
+      data: allVisitCnt,
     },
   ],
-  labels: [...Array(24).keys()].map((n) => `2024-02-0${n + 1}`),
+  labels: mainDate,
   yaxis: {
     min: 0,
   },
   xaxis: {
     type: "datetime",
   },
-  colors: ["#008FFB"],
+  colors: ["#00D8B6"],
   title: {
-    text: "424,652",
+    text: allVisitSum,
     offsetX: 30,
     style: {
       fontSize: "24px",
@@ -101,19 +101,19 @@ var spark2 = {
   series: [
     {
       name: "Coupons",
-      data: randomizeArray(sparklineData),
+      data: couponUseCnt,
     },
   ],
-  labels: [...Array(24).keys()].map((n) => `2024-02-0${n + 1}`),
+  labels: mainDate,
   yaxis: {
     min: 0,
   },
   xaxis: {
     type: "datetime",
   },
-  colors: ["#008FFB"],
+  colors: ["#00D8B6"],
   title: {
-    text: "235,312",
+    text: `${couponUseSum}(${Math.round(couponUseSum/(unusedCouponNum+couponUseSum)*100)}%)`,
     offsetX: 30,
     style: {
       fontSize: "24px",
@@ -121,7 +121,7 @@ var spark2 = {
     },
   },
   subtitle: {
-    text: "이번 달 쿠폰 사용",
+    text: "이번 달 쿠폰 사용(율)",
     offsetX: 30,
     style: {
       fontSize: "14px",
@@ -129,11 +129,6 @@ var spark2 = {
     },
   },
 };
-
-var productElement = document.querySelector("#spark3");
-var dailyProduct = productElement.getAttribute("data-products").split(",");
-var cumulativeProduct = parseInt(productElement.getAttribute("data-total"));
-var date = productElement.getAttribute("data-dt").split(",");
 
 var spark3 = {
   chart: {
@@ -154,19 +149,19 @@ var spark3 = {
   series: [
     {
       name: "Products",
-      data: dailyProduct,
+      data: productCnt,
     },
   ],
-  labels: date,
+  labels: mainDate,
   xaxis: {
     type: "datetime",
   },
   yaxis: {
     min: 0,
   },
-  colors: ["#008FFB"],
+  colors: ["#00D8B6"],
   title: {
-    text: cumulativeProduct,
+    text: productSum,
     offsetX: 30,
     style: {
       fontSize: "24px",
@@ -185,67 +180,45 @@ var spark3 = {
 
 new ApexCharts(document.querySelector("#spark1"), spark1).render();
 new ApexCharts(document.querySelector("#spark2"), spark2).render();
-new ApexCharts(productElement, spark3).render();
+new ApexCharts(document.querySelector("#spark3"), spark3).render();
 
-var optionsBar = {
-  chart: {
-    type: "bar",
-    height: 380,
-    width: "100%",
-    stacked: true,
-  },
-  plotOptions: {
-    bar: {
-      columnWidth: "45%",
-    },
-  },
-  colors: colorPalette,
-  series: [
-    {
-      name: "구독 가입 수",
-      data: [42, 52, 16, 55, 59, 51, 45, 32, 26, 33, 44, 51, 42, 56],
-    },
-    {
-      name: "구독 해지 수",
-      data: [6, 12, 4, 7, 5, 3, 6, 4, 3, 3, 5, 6, 7, 4],
-    },
-  ],
-  labels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-  xaxis: {
-    labels: {
-      show: false,
-    },
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  yaxis: {
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-    labels: {
-      style: {
-        colors: "#78909c",
-      },
-    },
-  },
+//달별 구독 가입/해지
+let month_sub_Options = {
   title: {
-    text: "구독자 가입 현황",
-    align: "left",
+    text: "월별 구독 가입/해지 현황",
+    offsetX: 30,
     style: {
-      fontSize: "18px",
-    },
+      fontSize: '15px',
+      cssClass: 'apexcharts-yaxis-title'
+    }
+  }
+  ,
+  series: [{
+    name: '구독 가입 수',
+    data: monthlySubsAddNum
+  }, {
+    name: '구독 해지 수',
+    data: monthlySubsStopNum
+  }],
+  chart: {
+    height: 340,
+    type: 'area'
   },
+  dataLabels: {
+    enabled: false
+  },
+  colors: ['#008FFB', '#FEB019'],
+  stroke: {
+    curve: 'smooth'
+  },
+  xaxis: {
+    categories: subsMonth
+  }
 };
 
-var chartBar = new ApexCharts(document.querySelector("#bar"), optionsBar);
-chartBar.render();
+
+let chart = new ApexCharts(document.querySelector("#month_sub_chart"), month_sub_Options);
+chart.render();
 
 var donutElement = document.querySelector("#donut");
 var popupNames = donutElement.getAttribute("data-popupnames").split(",");
