@@ -3,7 +3,6 @@ package com.hyundai.hpass.service;
 import com.hyundai.hpass.dto.CouponHistoryDTO;
 import com.hyundai.hpass.dto.MyCouponDTO;
 import com.hyundai.hpass.mapper.CouponMapper;
-import com.hyundai.hpass.websocket.HpassWebSocketHandler;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,4 +47,10 @@ public class CouponServiceImplement implements CouponService {
 	public List<CouponHistoryDTO> getAllUsedCoupons() {
 		return couponMapper.getAllUsedCoupons();
 	}
+
+    @Override
+    public boolean isExistCoupon(long memberNo, long couponNo) {
+        CouponHistoryDTO coupon = couponMapper.selectMyCoupon(memberNo, couponNo);
+        return coupon != null;
+    }
 }
