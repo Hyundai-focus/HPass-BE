@@ -1,5 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
-<%@include file="includes/header.jsp"%>
+<%@ include file="includes/header.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
@@ -18,7 +18,7 @@ $(document).ready( function () {
 			           color: #333; /* 어두운 회색 */
 			           font-size: 36px; /* 글꼴 크기 */
 			           font-weight: bold; /* 굵은체 */">
-			    발급 현황
+			    사용 현황
 			</h1>
 			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<thead class="table-dark">
@@ -30,15 +30,15 @@ $(document).ready( function () {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="dto" items="${issue}">
-							<tr>
-								<td>${dto.memberNo}</td>
-								<td>${dto.couponNo}</td>
-								<td>${dto.couponIsUsed}</td>
-								<td>${dto.couponUsedDt}</td>
-							</tr>
+					<c:forEach var="dto" items="${use}">
+					    <tr>
+					        <td>${dto.memberNo}</td>
+					        <td>${dto.couponNo}</td>
+					        <td>${dto.couponIsUsed}</td>
+					        <td>${dto.couponUsedDt}</td>
+					    </tr>
 					</c:forEach>
 				</tbody>
 			</table>
 	</main>
-	<%@include file="includes/footer.jsp"%>
+<%@ include file="includes/footer.jsp"%>

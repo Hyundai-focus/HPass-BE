@@ -3,12 +3,7 @@ package com.hyundai.hpass.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import com.hyundai.hpass.service.CouponService;
-import com.hyundai.hpass.service.SubscriptionService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hyundai.hpass.domain.Criteria;
+import com.hyundai.hpass.domain.TodayStore;
+import com.hyundai.hpass.dto.CouponHistoryDTO;
 import com.hyundai.hpass.dto.PageDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.dto.ProductHistoryDTO;
+import com.hyundai.hpass.dto.TodayVisitStore;
+import com.hyundai.hpass.service.CouponService;
 import com.hyundai.hpass.service.PopUpBookingService;
 import com.hyundai.hpass.service.ProductService;
+import com.hyundai.hpass.service.SubscriptionService;
+import com.hyundai.hpass.service.TodayStoreService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -36,6 +38,7 @@ public class AdminController {
 	private final ProductService productService;
 	private final SubscriptionService subscriptionService;
 	private final CouponService couponService;
+	private final TodayStoreService todayStoreService;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -90,14 +93,12 @@ public class AdminController {
 	public void popUpList(Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("list request");
 
-		List<PopUpBookingDTO> list = popUpBookingService.getBookingsList(cri); // 사용자가 요청한 번호에 맞는 게시물 목록 요청
-		int total = popUpBookingService.getTotalCnt(cri); // 전체 게시물 개수
+		List<PopUpBookingDTO> list = popUpBookingService.getBookingsList(cri);
 		
 		List<PopUpBookingDTO> popupList = popUpBookingService.getAllPopups();
+		
 	    model.addAttribute("popupList", popupList);
-
-		model.addAttribute("list", list); // 목록 정보 넘기기
-		model.addAttribute("pageDTO", new PageDTO(cri, total)); // 페이지 관련 정보 넘기기
+		model.addAttribute("list", list);
 	}
 	
 	/**
@@ -109,10 +110,8 @@ public class AdminController {
 		log.info("list request");
 		
 		List<ProductHistoryDTO> register = productService.getProductsList(cri);
-		int total = productService.getTotalCnt(cri); // 전체 게시물 개수
 
-		model.addAttribute("register", register); // 목록 정보 넘기기
-		model.addAttribute("pageDTO", new PageDTO(cri, total)); // 페이지 관련 정보 넘기기
+		model.addAttribute("register", register);
 		return "admin/registerproduct";
 	}
 	
@@ -125,11 +124,53 @@ public class AdminController {
 		log.info("list request");
 		
 		List<ProductHistoryDTO> get = productService.getReceiveList(cri);
-		int total = productService.getTotalCnt(cri); // 전체 게시물 개수
 
-		model.addAttribute("get", get); // 목록 정보 넘기기
-		model.addAttribute("pageDTO", new PageDTO(cri, total)); // 페이지 관련 정보 넘기기
+		model.addAttribute("get", get);
 		return "admin/getproduct";
+	}
+	
+	/**
+	작성자: 황수연
+	처리 내용: 쿠폰 발급 현황
+	*/
+	@GetMapping("/coupon/issue")
+	public String issueList(Model model) {
+		log.info("issue request");
+		
+		List<CouponHistoryDTO> issue = couponService.getAllIssuedCoupons();
+
+		model.addAttribute("issue", issue);
+		return "admin/issuecoupon";
+	}
+	
+	/**
+	작성자: 황수연
+	처리 내용: 쿠폰 사용 현황
+	*/
+	@GetMapping("/coupon/use")
+	public String useList(Model model) {
+		log.info("use request");
+		
+		List<CouponHistoryDTO> use = couponService.getAllUsedCoupons();
+
+		model.addAttribute("use", use);
+		return "admin/usecoupon";
+	}
+	
+	/**
+	작성자: 황수연
+	처리 내용: 매장 방문 현황
+	*/
+	@GetMapping("/visit")
+	public String visitList(Model model) {
+		log.info("visit request");
+		
+		List<TodayVisitStore> today = todayStoreService.getTodayStore();
+		List<TodayVisitStore> visit = todayStoreService.getVisitStore();
+
+		model.addAttribute("today", today);
+		model.addAttribute("visit", visit);
+		return "admin/visit";
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hyundai.hpass.domain.Store;
 import com.hyundai.hpass.dto.TodayStoreVisitResDto;
+import com.hyundai.hpass.dto.TodayVisitStore;
 import com.hyundai.hpass.mapper.StoreMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -107,6 +108,16 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 	@Override
 	public Long userVisitStoreNum(Long memberNo) {
 		return storeMapper.memberStoreVisitNum(memberNo);
+	}
+
+	@Override
+	public List<TodayVisitStore> getTodayStore() {
+		return storeMapper.getTodayStore();
+	}
+
+	@Override
+	public List<TodayVisitStore> getVisitStore() {
+		return storeMapper.getVisitStore();
 	}
 }
 
