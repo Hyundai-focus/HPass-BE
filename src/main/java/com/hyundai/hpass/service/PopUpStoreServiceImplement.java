@@ -6,6 +6,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -17,7 +20,10 @@ public class PopUpStoreServiceImplement implements PopUpStoreService {
 
     @Override
     public List<PopUpStoreDTO> getAllPopUpStore() {
-       log.info("aaaaaaaaa");
-        return popUpStoreMapper.getAllPopUpStore();
+        LocalDate seoulNow = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedNow = seoulNow.format(formatter);
+
+        return popUpStoreMapper.getAllPopUpStore(formattedNow);
     }
 }

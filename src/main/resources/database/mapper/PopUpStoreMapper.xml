@@ -12,5 +12,7 @@
             popup_loc AS pupUpLocation,
             popup_img AS popUpImage
         FROM popup
+        WHERE TO_DATE(popup_end_dt, 'YYYY-MM-DD') - TO_DATE(#{date}, 'YYYY-MM-DD') >= 1
+        ORDER BY popup_end_dt DESC
     </select>
 </mapper>
