@@ -63,7 +63,15 @@
         FROM today_store
         WHERE member_no = #{memberNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </select>
-    
+
+    <select id="memberFloor" parameterType="java.lang.Long">
+        SELECT a.store_floor
+        FROM store a INNER JOIN today_store b ON a.store_no = b.store_no
+        WHERE b.member_no = #{memberNo} AND trunc(SYSDATE) = trunc(b.today_store_dt)
+        ORDER BY b.today_store_dt
+    </select>
+
+
     <!-- 작성자: 황수연 - 오늘의 매장 조회 -->
     <select id="getTodayStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
         SELECT

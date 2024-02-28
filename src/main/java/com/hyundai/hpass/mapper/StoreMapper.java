@@ -26,6 +26,8 @@ public interface StoreMapper {
 
 	Long memberStoreVisitNum(Long memberNo);
 
+	List<Long> memberFloor(Long memberNo);
+
 	public List<TodayVisitStore> getTodayStore();
 
 	public List<TodayVisitStore> getVisitStore();

@@ -104,6 +104,10 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 				.build();
 		}
 	}
+	@Override
+	public List<Long> userVisitFloor(Long memberNo) {
+		return storeMapper.memberFloor(memberNo);
+	}
 
 	@Override
 	public Long userVisitStoreNum(Long memberNo) {
