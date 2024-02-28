@@ -12,4 +12,6 @@ public interface CouponService {
     
     public List<CouponHistoryDTO> getAllIssuedCoupons();
     public List<CouponHistoryDTO> getAllUsedCoupons();
+
+    boolean isExistCoupon(long memberNo, long couponNo);
 }
