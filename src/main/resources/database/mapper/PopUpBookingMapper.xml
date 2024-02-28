@@ -73,12 +73,18 @@
 	<!-- 나의 예약 조회 -->
 	<select id="getMyBooking"
 		resultType="com.hyundai.hpass.dto.PopUpBookingDTO">
-		SELECT b.booking_no AS bookingNo, b.member_no AS memberNo, b.popup_no AS
-		popupNo, b.booking_time AS bookingTime,
-		b.booking_dt AS bookingDt, p.popup_name AS popupName, p.popup_img AS popupImg
+		SELECT
+		    b.booking_no AS bookingNo,
+		    b.member_no AS memberNo,
+		    b.popup_no AS popupNo,
+		    b.booking_time AS bookingTime,
+			b.booking_dt AS bookingDt,
+			p.popup_name AS popupName,
+			p.popup_img AS popupImg
 		FROM booking b
 		INNER JOIN popup p ON b.popup_no = p.popup_no
-		WHERE b.MEMBER_NO = #{memberNo}
+		WHERE b.member_no = #{member} AND TO_DATE(b.booking_dt, 'YYYY-MM-DD') - TO_DATE(#{date}, 'YYYY-MM-DD') >= 0
+		ORDER BY b.booking_dt DESC, b.booking_time DESC
 	</select>
 
 	<!-- 나의 예약 취소 -->

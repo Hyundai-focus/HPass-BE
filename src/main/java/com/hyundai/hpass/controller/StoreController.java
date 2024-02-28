@@ -47,4 +47,12 @@ public class StoreController {
 		Long res = todayStoreService.userVisitStoreNum((long)Integer.parseInt(authentication.getName()));
 		return ResponseEntity.ok().body(res);
 	}
+
+	@GetMapping("visit/floor")
+	public ResponseEntity<List<Long>> userVisitFloor(
+		Authentication authentication
+	){
+		List<Long> res = todayStoreService.userVisitFloor((long)Integer.parseInt(authentication.getName()));
+		return ResponseEntity.ok().body(res);
+	}
 }
