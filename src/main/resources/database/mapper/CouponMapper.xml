@@ -39,4 +39,9 @@
         VALUES (coupon_history_seq.NEXTVAL, #{couponNo}, #{memberNo}, 0)
     </insert>
 
+    <select id="getUnusedCouponNum" resultType="java.lang.Integer">
+        SELECT COUNT(coupon_history_no)
+        FROM coupon_history
+        WHERE coupon_used_dt IS NULL
+    </select>
 </mapper>

@@ -1,0 +1,13 @@
+.table {
+    text-align: center;
+}
+
+.pagination .page-link {
+    color: #000; /* 기본 색상을 여기에 지정하세요 */
+}
+
+.pagination .page-item.active .page-link {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}

@@ -37,11 +37,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="box box3">
-                                    <div id="spark3" class= "line-chart"
-                                    	data-products="<c:forEach items='${collect1}' var='item1' varStatus='status'>${item1.dailyProductCount}<c:if test='${not status.last}'>,</c:if></c:forEach>"
-                                    	data-dt="<c:forEach items='${collect1}' var='item1' varStatus='status'>${item1.productHistoryDt}<c:if test='${not status.last}'>,</c:if></c:forEach>"
-                                    	data-total="<c:forEach items='${collect2}' var='item1' varStatus='status'>${item1.cumulativeProductCount}<c:if test='${not status.last}'>,</c:if></c:forEach>">
-                                    </div>
+                                    <div id="spark3" class= "line-chart"></div>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +45,7 @@
                         <div class="row mt-5 mb-4">
                             <div class="col-md-6">
                                 <div class="box">
-                                    <div id="bar"></div>
+                                    <div id="month_sub_chart"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -64,12 +60,37 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            let mainDate = [];
+            let allVisitCnt = [];
+            let allVisitSum = 0;
+            let couponUseCnt = [];
+            let couponUseSum = 0;
+            let productCnt = [];
+            let productSum = 0;
+            let unusedCouponNum = ${unusedCouponNum};
+            let monthlySubsAddNum = [];
+            let monthlySubsStopNum = [];
+            let subsMonth = [];
+            <c:forEach var="adminMainDTO" items="${adminMainList}" varStatus="status">
+                mainDate.push("${adminMainDTO.mainDt}")
+                allVisitCnt.push("${adminMainDTO.allVisitCnt}");
+                allVisitSum += ${adminMainDTO.allVisitCnt}
+                couponUseCnt.push("${adminMainDTO.couponUseCnt}");
+                couponUseSum += ${adminMainDTO.couponUseCnt}
+                productCnt.push("${adminMainDTO.productCnt}");
+                productSum += ${adminMainDTO.productCnt}
+            </c:forEach>
+            <c:forEach var="adminMainSubsDTO" items="${adminMainSubsList}" varStatus="status">
+                subsMonth.push("${adminMainSubsDTO.subsMonth}")
+                monthlySubsAddNum.push("${adminMainSubsDTO.subsAddCnt}")
+                monthlySubsStopNum.push("${adminMainSubsDTO.subsStopCnt}")
+            </c:forEach>
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="/resources/main/apexcharts.js"></script>
         <script src="/resources/main/data.js"></script>
         <script src="/resources/main/scripts.js"></script>
-
 	</main>
 <!-- /page content -->
 <%@include file="includes/footer.jsp"%>
