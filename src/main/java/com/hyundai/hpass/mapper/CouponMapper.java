@@ -1,10 +1,12 @@
 package com.hyundai.hpass.mapper;
 
-import com.hyundai.hpass.dto.CouponHistoryDTO;
-import com.hyundai.hpass.dto.MyCouponDTO;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.hyundai.hpass.dto.CouponDTO;
+import com.hyundai.hpass.dto.CouponHistoryDTO;
+import com.hyundai.hpass.dto.MyCouponDTO;
 
 public interface CouponMapper {
     List<MyCouponDTO> selectMyAllCoupon(int memberNo);
@@ -18,7 +20,7 @@ public interface CouponMapper {
 
     int getUnusedCouponNum();
     
-    public List<CouponHistoryDTO> getAllIssuedCoupons();
+    public List<CouponDTO> getAllIssuedCoupons();
     
-    public List<CouponHistoryDTO> getAllUsedCoupons();
+    public List<CouponDTO> getAllUsedCoupons();
 }

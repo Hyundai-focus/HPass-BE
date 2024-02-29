@@ -23,7 +23,7 @@ $(document).ready( function () {
 			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<thead class="table-dark">
 					<tr>
-						<th scope="col">멤버번호</th>
+						<th scope="col">고객번호</th>
 						<th scope="col">팝업스토어 번호</th>
 						<th scope="col">팝업스토어 이름</th>
 						<th scope="col">예약번호</th>
