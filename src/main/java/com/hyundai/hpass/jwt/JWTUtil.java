@@ -58,36 +58,24 @@ public class JWTUtil implements InitializingBean  {
                 .compact();
     }
 
-    public void isTokenValidate(String token) throws Exception {
+    public Claims isTokenValidate(String token) throws Exception {
         try {
-            Jwts.parserBuilder()
+            return Jwts.parserBuilder()
                     .setSigningKey(jwtSecret)
                     .build()
-                    .parseClaimsJws(token);
+                    .parseClaimsJws(token)
+                    .getBody();
         } catch (JwtException | IllegalArgumentException e) {
             throw new Exception();
         }
     }
 
-    public Authentication getAuthentication(String accessToken) {
-        Claims claims = getClaims(accessToken);
+    public Authentication getAuthentication(String accessToken, Claims claims) {
         UserDetails userDetails = jwtService.loadUserByUserNo(claims.getSubject());
         log.debug("AuthTokenGenerator getAuthentication() userDetails : " + userDetails);
 
         return new UsernamePasswordAuthenticationToken(
                 userDetails, accessToken, userDetails.getAuthorities());
-    }
-
-    public Claims getClaims(String accessToken) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(jwtSecret)
-                    .build()
-                    .parseClaimsJws(accessToken)
-                    .getBody();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims();
-        }
     }
 
 }
