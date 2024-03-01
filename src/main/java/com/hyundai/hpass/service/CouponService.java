@@ -1,7 +1,6 @@
 package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.dto.CouponDTO;
-import com.hyundai.hpass.dto.CouponHistoryDTO;
 import com.hyundai.hpass.dto.MyCouponDTO;
 
 import java.util.List;
@@ -15,4 +14,5 @@ public interface CouponService {
     public List<CouponDTO> getAllUsedCoupons();
 
     boolean isExistCoupon(long memberNo, long couponNo);
+    boolean useCoupon(long memberNo, long couponNo);
 }
