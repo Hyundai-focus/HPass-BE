@@ -51,4 +51,12 @@ public class CouponController {
     ) {
         return new ResponseEntity<>(couponService.isExistCoupon(Long.parseLong(authentication.getName()), couponNo), HttpStatus.OK);
     }
+
+    @GetMapping("/using/{couponNo}")
+    public ResponseEntity<Boolean> useCoupon(
+            @PathVariable long couponNo,
+            Authentication authentication
+    ) {
+        return new ResponseEntity<>(couponService.useCoupon(Long.parseLong(authentication.getName()), couponNo), HttpStatus.OK);
+    }
 }

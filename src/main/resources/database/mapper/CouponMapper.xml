@@ -20,7 +20,7 @@
         ON h.coupon_no = c.coupon_no
         LEFT JOIN store s
         ON c.coupon_brand = s.store_brand
-        WHERE h.member_no = #{memberNo} AND h.coupon_is_used = '0'
+        WHERE h.member_no = #{memberNo}
     </select>
 
     <select id="selectMyCoupon" resultType="com.hyundai.hpass.dto.CouponHistoryDTO">
@@ -72,4 +72,12 @@
         FROM coupon_history
         WHERE coupon_is_used = '1'
     </select>
+
+    <update id="useCoupon">
+        UPDATE coupon_history
+        SET
+            coupon_is_used = '1',
+            coupon_used_dt = TO_DATE(#{date}, 'YYYY-MM-DD')
+        WHERE member_no = #{memberNo} AND coupon_no = #{couponNo}
+    </update>
 </mapper>
