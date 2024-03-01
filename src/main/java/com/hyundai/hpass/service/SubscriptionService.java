@@ -13,6 +13,7 @@ public interface SubscriptionService {
     void addSubscriber(String payment, int memberNo);
     Subscription getSubscribeInfo(int memberNo);
     void stopSubscription(int memberNo, String lastDate);
+    void extendSubscription(int memberNo);
     List<AdminMainDTO> getAdminMainDTO();
     List<AdminSubsDTO> getAdminSubsDTO();
     List<AdminMainSubsDTO> getAdminMainSubsDTO();

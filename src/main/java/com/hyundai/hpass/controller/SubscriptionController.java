@@ -81,6 +81,14 @@ public class SubscriptionController {
         subscriptionService.stopSubscription(Integer.parseInt(authentication.getName()), lastDate);
         return new ResponseEntity<> ("success", HttpStatus.ACCEPTED);
     }
+    @PostMapping("/more")
+    public ResponseEntity<String> extendSubscription(
+            Authentication authentication
+    ) {
+        log.debug("회원아이디 : " + authentication.getName());
+        subscriptionService.extendSubscription(Integer.parseInt(authentication.getName()));
+        return new ResponseEntity<> ("success", HttpStatus.ACCEPTED);
+    }
 }
 
 

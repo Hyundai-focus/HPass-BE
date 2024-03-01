@@ -34,6 +34,11 @@
         SET LAST_DATE = #{lastDate}
         WHERE member_no = #{memberNo}
     </update>
+    <update id="extendByMemberNo">
+        UPDATE SUBSCRIPTION
+        SET LAST_DATE = '9999-99-99'
+        WHERE member_no = #{memberNo}
+    </update>
     <select id="getAdminMainDTO" resultType="com.hyundai.hpass.dto.AdminMainDTO">
         <![CDATA[
         WITH date_range AS (

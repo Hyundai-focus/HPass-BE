@@ -36,6 +36,11 @@ public class SubscriptionServiceImplement implements SubscriptionService {
     }
 
     @Override
+    public void extendSubscription(int memberNo) {
+        subscriptionMapper.extendByMemberNo(memberNo);
+    }
+
+    @Override
     public List<AdminMainDTO> getAdminMainDTO() {
         return subscriptionMapper.getAdminMainDTO();
     }
