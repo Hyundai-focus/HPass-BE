@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hyundai.hpass.domain.Criteria;
-import com.hyundai.hpass.domain.TodayStore;
+import com.hyundai.hpass.dto.CouponDTO;
 import com.hyundai.hpass.dto.CouponHistoryDTO;
 import com.hyundai.hpass.dto.PageDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
@@ -137,7 +137,7 @@ public class AdminController {
 	public String issueList(Model model) {
 		log.info("issue request");
 		
-		List<CouponHistoryDTO> issue = couponService.getAllIssuedCoupons();
+		List<CouponDTO> issue = couponService.getAllIssuedCoupons();
 
 		model.addAttribute("issue", issue);
 		return "admin/issuecoupon";
@@ -151,7 +151,7 @@ public class AdminController {
 	public String useList(Model model) {
 		log.info("use request");
 		
-		List<CouponHistoryDTO> use = couponService.getAllUsedCoupons();
+		List<CouponDTO> use = couponService.getAllUsedCoupons();
 
 		model.addAttribute("use", use);
 		return "admin/usecoupon";

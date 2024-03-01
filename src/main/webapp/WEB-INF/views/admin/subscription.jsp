@@ -33,11 +33,11 @@
                 <div class="col-md-8">
                     <div class="row custom-grid-top_out">
                         <div class="col custom-grid-top_in_left">
-                            <h5>총 수익</h5>
+                            <h5>총 매출</h5>
                             <h3 id="total_profit"></h3>
                         </div>
                         <div class="col custom-grid-top_in_right">
-                            <h5>연 수익</h5>
+                            <h5>연 매출</h5>
                             <h3 id="year_profit"></h3>
                         </div>
                     </div>

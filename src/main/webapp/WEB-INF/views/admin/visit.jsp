@@ -33,16 +33,14 @@ $(document).ready( function () {
 			class="table table-striped table-bordered table-hover">
 			<thead class="table-dark">
 				<tr>
-					<th scope="col">오늘의 매장번호</th>
 					<th scope="col">매장번호</th>
-					<th scope="col">멤버번호</th>
+					<th scope="col">고객번호</th>
 					<th scope="col">오늘날짜</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${visit}">
 					<tr>
-						<td>${dto.todayStoreNo}</td>
 						<td>${dto.storeNo}</td>
 						<td>${dto.memberNo}</td>
 						<td>${dto.todayStoreDt}</td>

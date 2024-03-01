@@ -46,21 +46,28 @@
     </select>
     
     <!-- 작성자: 황수연 - coupon_history 전체 조회 -->
-    <select id="getAllIssuedCoupons" resultType="com.hyundai.hpass.dto.CouponHistoryDTO">
+    <select id="getAllIssuedCoupons" resultType="com.hyundai.hpass.dto.CouponDTO">
         SELECT
             coupon_no AS couponNo,
             member_no AS memberNo,
-            coupon_is_used AS couponIsUsed,
+            CASE
+		        WHEN coupon_is_used = '1' THEN '사용 완료'
+		        WHEN coupon_is_used = '0' THEN '미사용'
+		        ELSE '기타 상태'
+		    END AS couponIsUsed,
             coupon_used_dt AS couponUsedDt
         FROM coupon_history
     </select>
     
     <!-- 작성자: 황수연 - 사용된 쿠폰 전체 조회 -->
-    <select id="getAllUsedCoupons" resultType="com.hyundai.hpass.dto.CouponHistoryDTO">
+    <select id="getAllUsedCoupons" resultType="com.hyundai.hpass.dto.CouponDTO">
         SELECT
             coupon_no AS couponNo,
             member_no AS memberNo,
-            coupon_is_used AS couponIsUsed,
+            CASE
+		        WHEN coupon_is_used = '1' THEN '사용 완료'
+		        ELSE '기타 상태'
+		    END AS couponIsUsed,
             coupon_used_dt AS couponUsedDt
         FROM coupon_history
         WHERE coupon_is_used = '1'

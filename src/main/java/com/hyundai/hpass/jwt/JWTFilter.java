@@ -26,8 +26,7 @@ public class JWTFilter extends OncePerRequestFilter {
             log.debug("AuthTokenFilter : request" + request);
             String accessToken = resolveToken(request);
             log.debug("AuthTokenFilter : accessToken" + accessToken);
-            jwtUtil.isTokenValidate(accessToken);
-            Authentication authentication = jwtUtil.getAuthentication(accessToken);
+            Authentication authentication = jwtUtil.getAuthentication(accessToken, jwtUtil.isTokenValidate(accessToken));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
             log.debug("AuthTokenFilter : accessToken 토큰이 유효하지 않습니다.");
