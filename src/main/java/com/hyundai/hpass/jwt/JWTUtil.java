@@ -33,7 +33,7 @@ public class JWTUtil implements InitializingBean  {
         jwtSecret = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
     }
     //jwt 생성
-    public LoginResDTO createLoginResDto(String id) {
+    public LoginResDTO createLoginResDto(String id, String memberName) {
         String accessToken = createJwtToken(id, accessValidity);
         String refreshToken = createJwtToken(id, refreshValidity);
 
@@ -42,6 +42,8 @@ public class JWTUtil implements InitializingBean  {
                 .refreshToken("Bearer " + refreshToken)
                 .isMember(true)
                 .isSubscribed(false)
+                .memberNo(Integer.parseInt(id))
+                .memberName(memberName)
                 .build();
     }
 
