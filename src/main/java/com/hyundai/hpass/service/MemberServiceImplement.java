@@ -70,7 +70,7 @@ public class MemberServiceImplement implements MemberService {
         memberMapper.saveMember(member);
         int memberNo = member.getMemberNo();
         log.debug("join memberNo"+memberNo);
-        LoginResDTO loginResDto = jwtUtil.createLoginResDto(String.valueOf(memberNo));
+        LoginResDTO loginResDto = jwtUtil.createLoginResDto(String.valueOf(memberNo), memberName);
         member.updateRefreshToken(loginResDto.getRefreshToken());
         memberMapper.updateRefreshToken(member);
 
@@ -90,6 +90,7 @@ public class MemberServiceImplement implements MemberService {
                 .refreshToken(refreshToken)
                 .isMember(true)
                 .memberName(member.getMemberName())
+                .memberNo(member.getMemberNo())
                 .isSubscribed(isSubscribed)
                 .build();
     }
