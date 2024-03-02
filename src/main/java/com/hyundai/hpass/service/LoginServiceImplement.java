@@ -58,7 +58,7 @@ public class LoginServiceImplement implements LoginService {
         memberMapper.register(member);
         int memberNo = member.getMemberNo();
         log.debug("register memberNo"+memberNo);
-        LoginResDTO loginResDto = jwtUtil.createLoginResDto(String.valueOf(memberNo));
+        LoginResDTO loginResDto = jwtUtil.createLoginResDto(String.valueOf(memberNo), member.getMemberName());
         member.updateRefreshToken(loginResDto.getRefreshToken());
         memberMapper.updateRefreshToken(member);
         return "success";
