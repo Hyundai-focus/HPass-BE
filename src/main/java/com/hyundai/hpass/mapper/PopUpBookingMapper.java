@@ -31,6 +31,8 @@ public interface PopUpBookingMapper {
 	
 	public boolean isBookingAvailable(PopUpBookingDTO dto);
 	
+	public boolean isDuplicateBooking(PopUpBookingDTO dto);
+	
 	public Integer lockBookingRow(PopUpBookingDTO dto);
 	
 	public List<PopUpBookingDTO> getMyBooking(

@@ -30,13 +30,21 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 
 	        // 예약 가능 여부 확인
 	        boolean isAvailable = bookingMapper.isBookingAvailable(dto);
+	        boolean isDuplicate = bookingMapper.isDuplicateBooking(dto);
 
+	        // 예약이 불가능하거나 중복 예약인 경우 롤백
 	        if (!isAvailable) {
-	        	// 이미 예약된 경우 롤백
-	        	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	            // 예약 불가능한 경우 롤백
+	            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 	            return false;
 	        }
 
+	        if (isDuplicate) {
+	            // 중복 예약인 경우 롤백
+	            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	            return false;
+	        }
+	        
 	        // 예약 추가
 	        boolean insertFlag = bookingMapper.insertBooking(dto) == 1;
 	        
