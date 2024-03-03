@@ -28,4 +28,7 @@ public interface CouponMapper {
                       @Param("memberNo") long memberNo,
                    @Param("date") String date);
 
+    int insertCouponByStore(@Param("memberNo") long memberNo,
+                            @Param("storeNo") long storeNo);
+
 }

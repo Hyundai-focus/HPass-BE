@@ -39,6 +39,24 @@
         VALUES (coupon_history_seq.NEXTVAL, #{couponNo}, #{memberNo}, 0)
     </insert>
 
+    <insert id="insertCouponByStore">
+        INSERT INTO coupon_history (coupon_history_no, coupon_no, member_no, coupon_is_used)
+        SELECT coupon_history_seq.NEXTVAL, c.coupon_no, #{memberNo}, 0
+        FROM coupon c
+                 INNER JOIN (
+            SELECT store_brand
+            FROM store
+            WHERE store_no = #{storeNo}
+        ) s ON c.coupon_brand = s.store_brand
+        WHERE EXISTS (
+            SELECT 1
+            FROM coupon
+            WHERE coupon_no = c.coupon_no
+              AND coupon_brand = s.store_brand
+            AND coupon_content = '전제품 10% 할인'
+        )
+    </insert>
+
     <select id="getUnusedCouponNum" resultType="java.lang.Integer">
         SELECT COUNT(coupon_history_no)
         FROM coupon_history

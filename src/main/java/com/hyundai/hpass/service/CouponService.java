@@ -8,6 +8,7 @@ import java.util.List;
 public interface CouponService {
     List<MyCouponDTO> getMyAllCoupon(int memberNo);
     boolean issueCoupon(long memberNo, long couponNo);
+    boolean issueCouponByStore(long memberNo, long storeNo);
     int getUnusedCouponNum();
     
     public List<CouponDTO> getAllIssuedCoupons();
