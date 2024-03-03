@@ -38,6 +38,11 @@ public class CouponServiceImplement implements CouponService {
     }
 
     @Override
+    public boolean issueCouponByStore(long memberNo, long storeNo) {
+        return couponMapper.insertCouponByStore(memberNo, storeNo) > 0;
+    }
+
+    @Override
     public int getUnusedCouponNum() {
         return couponMapper.getUnusedCouponNum();
     }
