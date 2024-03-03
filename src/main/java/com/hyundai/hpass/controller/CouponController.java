@@ -44,6 +44,16 @@ public class CouponController {
         return new ResponseEntity<>(isIssued, HttpStatus.OK);
     }
 
+    @GetMapping("/issue/store/{storeNo}")
+    public ResponseEntity<Boolean> issueCouponByStore(
+            @PathVariable long storeNo,
+            Authentication authentication
+    ) {
+        boolean isIssued = couponService.issueCouponByStore(Long.parseLong(authentication.getName()), storeNo);
+
+        return new ResponseEntity<>(isIssued, HttpStatus.OK);
+    }
+
     @GetMapping("/exist/{couponNo}")
     public ResponseEntity<Boolean> isExistCoupon(
         @PathVariable long couponNo,
