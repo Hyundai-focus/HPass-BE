@@ -10,7 +10,7 @@ import com.hyundai.hpass.dto.PosProductUserDTO;
 
 public interface PosMapper {
 	Long getPosRole(Long posNum);
-	List<Product> getProductList(String storeName);
+	List<Product> getProductList(Long locNo);
 	PosProductReceiveStatusDTO receiveStatus(Long productNo);
 	List<PosProductStatusResDTO> receiveByDate(Long prodNo);
 	List<PosProductUserDTO> productHistory(Long prodNo);
