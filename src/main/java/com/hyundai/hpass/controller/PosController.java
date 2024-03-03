@@ -30,11 +30,11 @@ public class PosController {
 	private final PosService posService;
 	private final ProductService productService;
 
-	@PostMapping("/product/new")
+	@GetMapping("/product/new/{locNo}")
 	public ResponseEntity<List<PosProductInfoDTO>> posProdList(
-		@RequestBody PosProductInfoReqDTO reqDTO
+		@PathVariable Long locNo
 	) {
-		List<PosProductInfoDTO> res = posService.prodList(reqDTO.getStoreName());
+		List<PosProductInfoDTO> res = posService.prodList(locNo);
 		return ResponseEntity.ok().body(res);
 	}
 

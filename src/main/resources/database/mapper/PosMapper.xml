@@ -8,7 +8,7 @@
         FROM member
         WHERE member_no = #{posNum}
     </select>
-    <select id="getProductList" parameterType="java.lang.String" resultType="com.hyundai.hpass.domain.Product">
+    <select id="getProductList" parameterType="java.lang.Long" resultType="com.hyundai.hpass.domain.Product">
         SELECT
             product_no AS productNo,
             product_brand AS productBrand,
@@ -18,7 +18,7 @@
             TO_CHAR(receive_dt, 'YYYY . MM . DD') AS receiveDt,
             receive_loc AS receiveLoc
         FROM product
-        where receive_dt <![CDATA[>=]]> SYSDATE and receive_loc=#{storeName}
+        where receive_dt <![CDATA[>=]]> SYSDATE and loc_no=#{locNo}
     </select>
     <select id="receiveStatus" parameterType="java.lang.Long" resultType="com.hyundai.hpass.dto.PosProductReceiveStatusDTO">
         SELECT
