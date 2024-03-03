@@ -27,6 +27,7 @@ public class HpassWebSocketHandler extends TextWebSocketHandler {
 	}
 
 	public void sendProdRes(String data) throws IOException {
+		if(sessions.get("exhibition") != null && sessions.get("exhibition").isOpen()) sessions.get("exhibition").sendMessage(new TextMessage(data));
 		if(sessions.get("newProd") != null && sessions.get("newProd").isOpen()) sessions.get("newProd").sendMessage(new TextMessage(data));
 		if(sessions.get("coupon") != null && sessions.get("coupon").isOpen()) sessions.get("coupon").sendMessage(new TextMessage(data));
 	}
