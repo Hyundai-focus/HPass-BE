@@ -6,6 +6,7 @@ import com.hyundai.hpass.dto.AdminMainDTO;
 import com.hyundai.hpass.dto.AdminMainSubsDTO;
 import com.hyundai.hpass.dto.AdminSubsDTO;
 import com.hyundai.hpass.dto.SubscriptionDTO;
+import com.hyundai.hpass.mapper.CouponMapper;
 import com.hyundai.hpass.mapper.SubscriptionMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,10 +20,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubscriptionServiceImplement implements SubscriptionService {
     private final SubscriptionMapper subscriptionMapper;
+    private final CouponMapper couponMapper;
     @Override
     @Transactional
     public void addSubscriber(String payment, int memberNo) {
         subscriptionMapper.addSubscriber(payment, memberNo);
+        couponMapper.insertCouponBySubscription(memberNo);
     }
 
     @Override

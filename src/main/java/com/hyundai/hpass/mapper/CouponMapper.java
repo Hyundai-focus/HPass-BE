@@ -31,4 +31,6 @@ public interface CouponMapper {
     int insertCouponByStore(@Param("memberNo") long memberNo,
                             @Param("storeNo") long storeNo);
 
+    void insertCouponBySubscription(@Param("memberNo") long memberNo);
+
 }
