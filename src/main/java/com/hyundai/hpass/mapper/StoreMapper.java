@@ -28,7 +28,9 @@ public interface StoreMapper {
 
 	List<Long> memberFloor(Long memberNo);
 
+	// 작성자: 황수연
 	public List<TodayVisitStore> getTodayStore();
 
+	// 작성자: 황수연
 	public List<TodayVisitStore> getVisitStore();
 }
