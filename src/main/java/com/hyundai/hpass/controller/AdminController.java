@@ -5,12 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.hyundai.hpass.dto.*;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hyundai.hpass.domain.Criteria;
@@ -88,13 +94,23 @@ public class AdminController {
 	public void popUpList(Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("list request");
 
-//		List<PopUpBookingDTO> list = popUpBookingService.getBookingsList(cri);
 		List<AdminPopupBookingDTO> list = popUpBookingService.getAllBooking();
 		
 		List<PopUpBookingDTO> popupList = popUpBookingService.getAllPopups();
 		
 	    model.addAttribute("popupList", popupList);
 		model.addAttribute("list", list);
+	}
+	
+	@DeleteMapping("popup/booking/{bookingNo}")
+	public ResponseEntity<String> deleteBooking(Authentication authentication, @PathVariable int bookingNo) {
+		boolean deleted = popUpBookingService.deleteBooking(bookingNo);
+		
+        if (deleted) {
+            return new ResponseEntity<>("Booking deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 	}
 	
 	/**
