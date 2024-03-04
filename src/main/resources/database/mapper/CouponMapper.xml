@@ -16,10 +16,10 @@
             TO_CHAR(c.coupon_end_dt, 'YYYY-MM-DD') AS couponEndDate,
             s.store_img AS couponImage
         FROM coupon_history h
-        INNER JOIN coupon c
-        ON h.coupon_no = c.coupon_no
-        LEFT JOIN store s
-        ON c.coupon_brand = s.store_brand
+                 INNER JOIN coupon c
+                            ON h.coupon_no = c.coupon_no
+                 LEFT JOIN store s
+                           ON c.coupon_brand = s.store_brand
         WHERE h.member_no = #{memberNo}
         ORDER BY h.coupon_is_used, c.coupon_end_dt DESC
     </select>
@@ -54,7 +54,7 @@
             FROM coupon
             WHERE coupon_no = c.coupon_no
               AND coupon_brand = s.store_brand
-            AND coupon_content = '전제품 10% 할인'
+              AND coupon_content = '전제품 10% 할인'
         )
     </insert>
 
@@ -63,30 +63,35 @@
         FROM coupon_history
         WHERE coupon_used_dt IS NULL
     </select>
-    
+
     <!-- 작성자: 황수연 - coupon_history 전체 조회 -->
-    <select id="getAllIssuedCoupons" resultType="com.hyundai.hpass.dto.CouponDTO">
+    <select id="getAllIssuedCoupons" resultType="com.hyundai.hpass.dto.IssueCouponDTO">
         SELECT
-            coupon_no AS couponNo,
-            member_no AS memberNo,
+            CH.coupon_history_no AS couponHistoryNo,
+            CH.coupon_no AS couponNo,
+            CH.member_no AS memberNo,
             CASE
-		        WHEN coupon_is_used = '1' THEN '사용 완료'
-		        WHEN coupon_is_used = '0' THEN '미사용'
-		        ELSE '기타 상태'
-		    END AS couponIsUsed,
-            coupon_used_dt AS couponUsedDt
-        FROM coupon_history
+                WHEN CH.coupon_is_used = '1' THEN '사용 완료'
+                WHEN CH.coupon_is_used = '0' THEN '미사용'
+                ELSE '기타 상태'
+                END AS couponIsUsed,
+            CH.coupon_used_dt AS couponUsedDt,
+            C.coupon_brand AS couponBrand,
+            C.coupon_content AS couponContent
+        FROM coupon_history CH
+        INNER JOIN coupon C
+        ON CH.coupon_no = C.coupon_no
     </select>
-    
+
     <!-- 작성자: 황수연 - 사용된 쿠폰 전체 조회 -->
     <select id="getAllUsedCoupons" resultType="com.hyundai.hpass.dto.CouponDTO">
         SELECT
             coupon_no AS couponNo,
             member_no AS memberNo,
             CASE
-		        WHEN coupon_is_used = '1' THEN '사용 완료'
-		        ELSE '기타 상태'
-		    END AS couponIsUsed,
+                WHEN coupon_is_used = '1' THEN '사용 완료'
+                ELSE '기타 상태'
+                END AS couponIsUsed,
             coupon_used_dt AS couponUsedDt
         FROM coupon_history
         WHERE coupon_is_used = '1'
@@ -107,4 +112,34 @@
         WHERE c.coupon_brand = 'H.pass 구독자 전용'
           AND c.coupon_content = '전시회 50% 할인'
     </insert>
+    <select id="getAllCoupon" resultType="com.hyundai.hpass.domain.Coupon">
+        SELECT
+            coupon_no AS couponNo,
+            coupon_brand AS couponBrand,
+            coupon_content AS couponContent,
+            TO_CHAR(coupon_start_dt, 'YYYY . MM . DD') AS couponStartDt,
+            TO_CHAR(coupon_end_dt, 'YYYY . MM . DD') AS couponEndDt
+        FROM coupon
+    </select>
+    <insert id="insertCouponAdmin" parameterType="com.hyundai.hpass.domain.Coupon">
+        INSERT INTO coupon (
+        coupon_no,
+        coupon_brand,
+        coupon_content,
+        coupon_start_dt,
+        coupon_end_dt
+        ) VALUES (
+        coupon_seq.nextval,
+        #{couponBrand},
+        #{couponContent},
+        TO_DATE(#{couponStartDt},'YYYY-MM-DD'),
+        TO_DATE(#{couponEndDt}, 'YYYY-MM-DD')
+        )
+    </insert>
+    <delete id="deleteCoupon"
+            parameterType="java.lang.Integer">
+        DELETE
+        FROM coupon
+        WHERE coupon_no = #{couponNo}
+    </delete>
 </mapper>

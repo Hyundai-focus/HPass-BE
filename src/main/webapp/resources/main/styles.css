@@ -209,3 +209,8 @@ h1, h2, h3, h4, h5, h6, strong {
 .spinner-border {
   display: none;
 }
+
+#layoutSidenav_content {
+  justify-content: center !important;
+}
+

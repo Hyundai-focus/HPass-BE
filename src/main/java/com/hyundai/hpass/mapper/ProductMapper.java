@@ -3,6 +3,7 @@ package com.hyundai.hpass.mapper;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.hyundai.hpass.dto.AdminRegisterProductDTO;
 import org.apache.ibatis.annotations.Param;
 
 import com.hyundai.hpass.domain.Criteria;
@@ -43,5 +44,8 @@ public interface ProductMapper {
 	
 	// 작성자: 황수연
 	public int totalCnt(Criteria cri);
+	int insertProduct(Product product);
+	int deleteProduct(int productNo);
+	List<AdminRegisterProductDTO> getRegisterList();
 
 }

@@ -107,8 +107,7 @@
 	</select>
 
 	<!-- 나의 예약 취소 -->
-	<delete id="deleteMyBookingList"
-		parameterType="java.lang.Integer">
+	<delete id="deleteMyBookingList" parameterType="java.lang.Integer">
 		DELETE
 		FROM booking
 		WHERE booking_no = #{bookingNo}

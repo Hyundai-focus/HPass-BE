@@ -40,8 +40,8 @@ $(document).ready( function () {
 								<th scope="row">${dto.popupName}</th>
 								<td style="text-align: left;">${dto.bookingDt}</td>
 								<td>${dto.bookingTime}</td>
-								<td style="text-align: center;">
-								    <button type="button" class="btn btn-outline-danger" onclick="deleteBooking('${dto.bookingNo}')">삭제</button>
+								<td style="text-align: center; padding: 0; vertical-align: middle;">
+								    <button type="button" class="btn btn-outline-danger" onclick="deleteBooking('${dto.bookingNo}')" style="font-size: 12px; ">삭제</button>
 								</td>
 							</tr>
 					</c:forEach>

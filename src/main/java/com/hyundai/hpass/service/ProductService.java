@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.domain.Product;
+import com.hyundai.hpass.dto.AdminRegisterProductDTO;
 import com.hyundai.hpass.dto.ProductHistoryDTO;
 import com.hyundai.hpass.dto.ProductUserInfoDTO;
 
@@ -32,4 +33,7 @@ public interface ProductService {
 	
 	// 작성자: 황수연
 	public List<ProductHistoryDTO> getSumProduct();
+	int insertProduct(Product product);
+	boolean deleteProduct(int productNo);
+	List<AdminRegisterProductDTO> getRegisterList();
 }
