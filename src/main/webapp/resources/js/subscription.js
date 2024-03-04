@@ -2,7 +2,7 @@ let accumulate_subs = {
     chart: {
         id: 'sparkline1',
         group: 'sparklines',
-        type: 'area',
+        type: 'bar',
         height: 160,
         sparkline: {
             enabled: true
@@ -44,7 +44,7 @@ let accumulate_profit = {
     chart: {
         id: 'sparkline1',
         group: 'sparklines',
-        type: 'area',
+        type: 'bar',
         height: 160,
         sparkline: {
             enabled: true
@@ -74,7 +74,7 @@ let accumulate_profit = {
         }
     },
     subtitle: {
-        text: '이번 달 HPass 수익 ㅣ 구독자 수',
+        text: '이번 달 HPass 매출 ㅣ 이번 달 구독자 수',
         offsetX: 10,
         style: {
             fontSize: '14px',
@@ -127,7 +127,6 @@ let month_sub_Options = {
     stroke: {
         curve: 'smooth'
     },
-
     xaxis: {
         categories: subsMonth,
         enabled: false
@@ -142,10 +141,12 @@ let total_profit = 0;
 let year_profit = 0;
 for (let i = 0; i < subsLeft.length; i++) {
     total_profit += subsLeft[i]*4500;
-    if (i>=subsLeft.length-12) year_profit += subsLeft[i]*4500;
+    if (i>=(subsLeft.length-new Date().getMonth()-1)) year_profit += subsLeft[i]*4500;
 }
 
 document.querySelector("#total_profit").innerText =  total_profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
 document.querySelector("#year_profit").innerText = year_profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+document.querySelector("#year_profit_title").innerText = `${new Date().getFullYear()}년 구독 매출`
+
 
 

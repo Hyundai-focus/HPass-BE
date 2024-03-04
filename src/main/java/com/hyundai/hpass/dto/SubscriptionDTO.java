@@ -5,15 +5,15 @@ import lombok.Setter;
 
 
 public class SubscriptionDTO {
-    private int rowNo;
+    private int subsNo;
     private String email;
     private String memberName;
     private String subsStartDt;
     private String payment;
     private String subsStatus;
 
-    public int getRowNo() {
-        return rowNo;
+    public String getSubsNo() {
+        return String.format("HPASS%06d", subsNo);
     }
 
     public String getEmail() {

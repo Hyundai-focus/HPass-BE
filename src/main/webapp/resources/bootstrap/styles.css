@@ -10930,9 +10930,9 @@ body {
   overflow-y: auto;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-  padding-top: 10px;
+  padding-top: 60px;
   padding-left: 235px;
-  top: 60px;
+  padding-right: 20px !important;
 }
 
 #layoutError {

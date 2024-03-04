@@ -196,4 +196,19 @@
 		    AND booking_dt = #{bookingDt}
 		    AND member_no = #{memberNo}
 	</select>
+
+	<!-- 전체 조회(페이지 나눈 후) -->
+	<select id="getAllBooking"
+			resultType="com.hyundai.hpass.dto.AdminPopupBookingDTO">
+		SELECT
+			b.popup_no AS popupNo,
+			b.booking_time AS bookingTime,
+			b.booking_dt AS bookingDt,
+			b.member_no AS memberNo,
+			b.booking_no AS bookingNo,
+			p.popup_name AS popupName
+		FROM booking b
+				 JOIN popup p ON b.popup_no = p.popup_no
+		ORDER BY b.booking_dt DESC
+	</select>
 </mapper>

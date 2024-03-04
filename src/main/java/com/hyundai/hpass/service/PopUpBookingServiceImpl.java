@@ -1,6 +1,7 @@
 package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.domain.Criteria;
+import com.hyundai.hpass.dto.AdminPopupBookingDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.mapper.PopUpBookingMapper;
 import lombok.extern.log4j.Log4j2;
@@ -98,6 +99,11 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 	@Override
 	public List<PopUpBookingDTO> getBookingsList(Criteria cri) {
 		return bookingMapper.list(cri);
+	}
+
+	@Override
+	public List<AdminPopupBookingDTO> getAllBooking() {
+		return bookingMapper.getAllBooking();
 	}
 
 	@Override

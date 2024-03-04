@@ -1,9 +1,9 @@
 <%@ page pageEncoding="utf-8"%>
 <%@include file="includes/header.jsp"%>
-<link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-/>
+<%--<link--%>
+<%--        rel="stylesheet"--%>
+<%--        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"--%>
+<%--/>--%>
 
 <link
         rel="stylesheet"
@@ -44,7 +44,7 @@
 
                         <div class="row mt-5 mb-4">
                             <div class="col-md-6">
-                                <div class="box">
+                                <div class="box"  style="padding-top: 12px; padding-bottom: 12px;">
                                     <div id="month_sub_chart"></div>
                                 </div>
                             </div>
@@ -86,6 +86,8 @@
                 monthlySubsAddNum.push("${adminMainSubsDTO.subsAddCnt}")
                 monthlySubsStopNum.push("${adminMainSubsDTO.subsStopCnt}")
             </c:forEach>
+            document.getElementById('visit_value').textContent = allVisitSum
+            document.getElementById('product_value').textContent = productSum
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="/resources/main/apexcharts.js"></script>

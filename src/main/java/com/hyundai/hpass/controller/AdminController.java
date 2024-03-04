@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hyundai.hpass.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hyundai.hpass.domain.Criteria;
-import com.hyundai.hpass.dto.CouponDTO;
-import com.hyundai.hpass.dto.CouponHistoryDTO;
-import com.hyundai.hpass.dto.PageDTO;
-import com.hyundai.hpass.dto.PopUpBookingDTO;
-import com.hyundai.hpass.dto.ProductHistoryDTO;
-import com.hyundai.hpass.dto.TodayVisitStore;
 import com.hyundai.hpass.service.CouponService;
 import com.hyundai.hpass.service.PopUpBookingService;
 import com.hyundai.hpass.service.ProductService;
@@ -93,7 +88,8 @@ public class AdminController {
 	public void popUpList(Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("list request");
 
-		List<PopUpBookingDTO> list = popUpBookingService.getBookingsList(cri);
+//		List<PopUpBookingDTO> list = popUpBookingService.getBookingsList(cri);
+		List<AdminPopupBookingDTO> list = popUpBookingService.getAllBooking();
 		
 		List<PopUpBookingDTO> popupList = popUpBookingService.getAllPopups();
 		
