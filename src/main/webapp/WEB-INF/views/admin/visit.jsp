@@ -13,7 +13,7 @@ $(document).ready( function () {
     });
 } );
 </script>
-<div class="container" id="layoutSidenav_content">
+<div class="container-fluid" id="layoutSidenav_content">
 	<main>
 			<h1
 				style="font-family: 'Roboto', sans-serif; color: #333; /* 어두운 회색 */ font-size: 25px; /* 글꼴 크기 */ font-weight: bold;">
