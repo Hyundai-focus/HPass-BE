@@ -1,0 +1,101 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+header .header {
+    background-color: #fff;
+    height: 45px;
+}
+header a img {
+    width: 134px;
+    margin-top: 4px;
+}
+.login-page {
+    padding: 8% 0 0;
+    margin: auto;
+}
+.login-page .form .login {
+    margin-top: -31px;
+    margin-bottom: 26px;
+}
+.form {
+    position: relative;
+    z-index: 1;
+    background: #ffffff;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    width: 30rem;
+    border-radius: 10px;
+}
+.form input {
+    width: 20rem;
+    font-family: 'Roboto', sans-serif;
+    outline: 0;
+    background: #f1efef;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form button {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background-color: #0f694a;
+    width: 20rem;
+    border: 0;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+.form .message a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+body {
+    background-color: rgba(209, 248, 236, 0.65) !important;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.login-img {
+    width: 30%;
+}
+.sb-topnav {
+    padding-left: 0;
+    height: 60px;
+    z-index: 1039;
+}
+.sb-topnav .navbar-brand {
+    width: 225px;
+    margin: 0;
+}
+
+.login-input {
+    width: 500px;
+}
+.form input {
+    width: 100%;
+    font-size: 16px; /* 폰트 크기를 늘림 */
+}
+
+.form button {
+    width: 100%;
+    font-size: 16px; /* 폰트 크기를 늘림 */
+}
