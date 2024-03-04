@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Dashboard - SB Admin</title>
+    <title>hpass Admin</title>
 
     <link href="/resources/bootstrap/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -82,8 +82,8 @@
                             data-bs-parent="#sidenavAccordion"
                     >
                         <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/admin/product/list">신제품 목록</a>
                             <a class="nav-link" href="/admin/product/apply">신청 현황</a>
-                            <a class="nav-link" href="/admin/product/get">수령 현황</a>
                         </nav>
                     </div>
                     <a
@@ -105,8 +105,8 @@
                             data-bs-parent="#sidenavAccordion"
                     >
                         <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/admin/coupon/list">쿠폰 목록</a>
                             <a class="nav-link" href="/admin/coupon/issue">발급 현황</a>
-                            <a class="nav-link" href="/admin/coupon/use">사용 현황</a>
                         </nav>
                     </div>
                     <a class="nav-link" href="/admin/visit">

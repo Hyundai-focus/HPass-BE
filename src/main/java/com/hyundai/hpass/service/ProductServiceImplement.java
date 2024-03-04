@@ -3,6 +3,7 @@ package com.hyundai.hpass.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.hyundai.hpass.dto.AdminRegisterProductDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,4 +122,21 @@ public class ProductServiceImplement implements ProductService {
 	public List<ProductHistoryDTO> getSumProduct() {
 		return productMapper.getSumProduct();
 	}
+
+	@Override
+	public int insertProduct(Product product) {
+		return productMapper.insertProduct(product);
+	}
+
+	@Override
+	public boolean deleteProduct(int productNo) {
+		int result = productMapper.deleteProduct(productNo);
+		return result == 1;
+	}
+
+	@Override
+	public List<AdminRegisterProductDTO> getRegisterList() {
+		return productMapper.getRegisterList();
+	}
+
 }
