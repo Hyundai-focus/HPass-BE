@@ -29,15 +29,19 @@ public interface ProductMapper {
 
 	void updateCancelProductStock(Long productNo);
 	
-	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getProductHistory(Criteria cri);
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getReceiveHistory(Criteria cri);
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getCountProduct();
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getSumProduct();
 	
+	// 작성자: 황수연
 	public int totalCnt(Criteria cri);
 
 }

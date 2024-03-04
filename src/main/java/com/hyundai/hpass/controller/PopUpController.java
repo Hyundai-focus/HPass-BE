@@ -29,9 +29,9 @@ public class PopUpController {
 	PopUpStoreService popUpStoreService;
 	
 	/**
+	 작성자: 황수연
 	 처리 내용: 예약 데이터 등록 API
 	*/
-	// http://localhost:8080/popup/booking
 	@PostMapping("popup/booking")
 	public ResponseEntity<String> insert(Authentication authentication, @RequestBody PopUpBookingDTO dto) {
 		try {
@@ -48,9 +48,9 @@ public class PopUpController {
 	}
 	
 	/**
+	 작성자: 황수연
 	 처리 내용: 팝업스토어 기간 내 모든 예약 정보 내역 조회 API
 	*/
-	// http://localhost:8080/popup/booking/list?popupNo=1&popupStartDt=2024-02-10&popupEndDt=2024-02-27
 	@GetMapping("popup/booking/list")
 	public ResponseEntity<List<PopUpBookingDTO>> getBookingList(
 			Authentication authentication,
@@ -63,9 +63,9 @@ public class PopUpController {
 	}
 	
 	/**
+	 작성자: 황수연 
 	 처리 내용: 특정 날짜와 시간에 해당하는 예약 정보 내역 조회 API
 	*/
-	// http://localhost:8080/popup/booking/detail/list?popupNo=1&bookingDt=2024-02-13&bookingTime=19:00
 	@GetMapping("popup/booking/detail/list")
 	public ResponseEntity<List<PopUpBookingDTO>> getBookingDetailList(
 			Authentication authentication,
@@ -77,9 +77,9 @@ public class PopUpController {
 	}
 	
 	/**
+	 작성자: 황수연
 	 처리 내용: 나의 예약 조회 API
 	*/
-	// http://localhost:8080/popup/booking/mylist
 	@GetMapping("popup/booking/mylist")
 	public ResponseEntity<List<PopUpBookingDTO>> getMyBooking(Authentication authentication) {
 		List<PopUpBookingDTO> myList = bookingService.getMyBooking(Integer.parseInt(authentication.getName()));
@@ -88,9 +88,9 @@ public class PopUpController {
 	
 	
 	/**
+	 작성자: 황수연
 	 처리 내용: 나의 예약 삭제 API
 	*/
-	//
 	@DeleteMapping("popup/booking/{bookingNo}")
 	public ResponseEntity<String> deleteBooking(Authentication authentication, @PathVariable int bookingNo) {
 		boolean deleted = bookingService.deleteBooking(bookingNo);

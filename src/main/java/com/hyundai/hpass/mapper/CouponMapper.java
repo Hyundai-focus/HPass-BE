@@ -20,8 +20,10 @@ public interface CouponMapper {
 
     int getUnusedCouponNum();
 
+    // 작성자: 황수연
     public List<CouponDTO> getAllIssuedCoupons();
 
+    // 작성자: 황수연
     public List<CouponDTO> getAllUsedCoupons();
 
     int useCoupon(@Param("couponNo") long couponNo,

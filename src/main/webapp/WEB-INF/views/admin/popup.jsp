@@ -22,12 +22,13 @@ $(document).ready( function () {
 			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<thead class="table-dark">
 					<tr>
-						<th scope="col">예약번호</th>
-						<th scope="col">고객번호</th>
-						<th scope="col">팝업스토어 번호</th>
-						<th scope="col">팝업스토어 이름</th>
-						<th scope="col">예약날짜</th>
-						<th scope="col">예약시간</th>
+						<th scope="col" style="text-align: center;">예약번호</th>
+						<th scope="col" style="text-align: center;">고객번호</th>
+						<th scope="col" style="text-align: center;">팝업스토어 번호</th>
+						<th scope="col" style="text-align: center;">팝업스토어 이름</th>
+						<th scope="col" style="text-align: center;">예약날짜</th>
+						<th scope="col" style="text-align: center;">예약시간</th>
+						<th scope="col" style="text-align: center;">예약삭제</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,11 +38,35 @@ $(document).ready( function () {
 								<td>${dto.memberNo}</td>
 								<td>${dto.popupNo}</td>
 								<th scope="row">${dto.popupName}</th>
-								<td>${dto.bookingDt}</td>
+								<td style="text-align: left;">${dto.bookingDt}</td>
 								<td>${dto.bookingTime}</td>
+								<td style="text-align: center;">
+								    <button type="button" class="btn btn-outline-danger" onclick="deleteBooking('${dto.bookingNo}')">삭제</button>
+								</td>
 							</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 	</main>
-	<%@include file="includes/footer.jsp"%>
+</div>
+	<script>
+	    function deleteBooking(bookingNo) {
+	    	bookingNo = bookingNo.substring(5);
+	    	
+	        if (confirm("예약을 삭제하시겠습니까?")) {
+	            $.ajax({
+	                type: "DELETE",
+	                url: "/admin/popup/booking/" + bookingNo,
+	                success: function(response) {
+	                    // 성공적으로 삭제된 경우, 해당 행을 테이블에서 제거하거나 새로고침
+	                    window.location.reload();
+	                },
+	                error: function(xhr, status, error) {
+	                    // 삭제에 실패한 경우, 오류 메시지를 표시
+	                    alert("예약 삭제에 실패했습니다. 오류: " + error);
+	                }
+	            });
+	        }
+	    }
+	</script>
+<%@include file="includes/footer.jsp"%>
