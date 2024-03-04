@@ -2,6 +2,7 @@
 <%@include file="includes/header.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
+<link rel="stylesheet" href="/resources/css/adminTable.css" />
 <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
 <script>
 $(document).ready( function () {
@@ -16,7 +17,7 @@ $(document).ready( function () {
     <main>
     		<h1 style="font-family: 'Roboto', sans-serif;
 			           color: #333; /* 어두운 회색 */
-			           font-size: 36px; /* 글꼴 크기 */
+			           font-size: 25px; /* 글꼴 크기 */
 			           font-weight: bold; /* 굵은체 */">
 			    신청 현황
 			</h1>

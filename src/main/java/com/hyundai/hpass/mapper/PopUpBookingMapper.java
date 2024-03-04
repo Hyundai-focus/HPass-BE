@@ -1,6 +1,7 @@
 package com.hyundai.hpass.mapper;
 
 import com.hyundai.hpass.domain.Criteria;
+import com.hyundai.hpass.dto.AdminPopupBookingDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -46,6 +47,7 @@ public interface PopUpBookingMapper {
 	public int totalCnt(Criteria cri);
 
 	public List<PopUpBookingDTO> getAllPopups();
+	List<AdminPopupBookingDTO> getAllBooking();
 	
 	public List<PopUpBookingDTO> getCountBooking();
 

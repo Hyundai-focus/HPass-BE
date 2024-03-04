@@ -4,6 +4,7 @@ body {
 }
 /* Custom Styles */
 .custom-grid {
+    /*width: fit-content;*/
     margin: 15px 5px;
     background-color: white; /* 배경색 설정 */
 
@@ -17,33 +18,47 @@ body {
 }
 
 .custom-grid-top_in_left {
+    background-color: #fff;
+    color: #000;
     margin-right:35px;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 40px;
-    background-color: white;
     border-radius: 20px;
     box-shadow: 0px 1px 22px -12px #607D8B;
 }
 
 .custom-grid-top_in_right {
+    background-color: #fff;
+    color: #000;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 40px;
-    background-color: white;
     border-radius: 20px;
     box-shadow: 0px 1px 22px -12px #607D8B;
 }
 .table {
-    text-align: center;
+    text-align: center !important;
+    font-size: 0.8rem !important;
 }
 
-.pagination .page-link {
-    color: #000; /* 기본 색상을 여기에 지정하세요 */
+.dt-start {
+    display:none !important;
+}
+.dt-end {
+    text-align: left !important;
+}
+.dt-paging {
+    text-align: center !important;
 }
 
-.pagination .page-item.active .page-link {
-    color: #fff;
-    background-color: #000;
-    border-color: #000;
-}
+
+/*.pagination .page-link {*/
+/*    color: #000; !* 기본 색상을 여기에 지정하세요 *!*/
+/*}*/
+
+/*.pagination .page-item.active .page-link {*/
+/*    color: #fff;*/
+/*    background-color: #000;*/
+/*    border-color: #000;*/
+/*}*/
