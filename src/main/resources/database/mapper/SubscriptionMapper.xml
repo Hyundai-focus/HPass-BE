@@ -52,37 +52,37 @@
             NVL(COUNT(DISTINCT(ts.today_store_no)),0) AS allVisitCnt,
             NVL(COUNT(DISTINCT(ph.product_history_no)),0) AS productCnt
         FROM date_range dr
-        LEFT JOIN coupon_history ch ON TRUNC(ch.coupon_used_dt) = dr.date_value
-        LEFT JOIN (select rownum AS today_store_no, today_store_dt
-                   from (select today_store_dt, count(store_no) AS visitCnt
-                         from today_store
-                         where member_no is not null
-                         group by today_store_dt, member_no
-                         HAVING count(store_no) = 5)) ts ON TRUNC(ts.today_store_dt) = dr.date_value
-        LEFT JOIN (select product_history_no, product_history_dt
-                   from product_history
-                   where product_status = 'true' OR product_status IS NULL) ph ON TRUNC(ph.product_history_dt) = dr.date_value
+                 LEFT JOIN coupon_history ch ON TRUNC(ch.coupon_used_dt) = dr.date_value
+                 LEFT JOIN (select rownum AS today_store_no, today_store_dt
+                            from (select TRUNC(today_store_dt) AS today_store_dt, count(store_no) AS visitCnt
+                                  from today_store
+                                  where member_no is not null
+                                  group by TRUNC(today_store_dt), member_no
+                                  HAVING count(store_no) = 5)) ts ON ts.today_store_dt = dr.date_value
+                 LEFT JOIN (select product_history_no, product_history_dt
+                            from product_history
+                            where product_status = 'true' OR product_status IS NULL) ph ON TRUNC(ph.product_history_dt) = dr.date_value
         GROUP BY dr.date_value
         ORDER BY dr.date_value
         ]]>
     </select>
     <select id="getAdminMainSubsDTO" resultType="com.hyundai.hpass.dto.AdminMainSubsDTO">
         <![CDATA[
-            WITH All_Months AS (
-                SELECT TO_CHAR(ADD_MONTHS((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION), LEVEL-1 ),'YYYY-MM') AS Month_Date
-                FROM DUAL
-            CONNECT BY LEVEL <= MONTHS_BETWEEN(TO_DATE(SYSDATE,'YYYY-MM-DD'),TO_DATE((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION),'YYYY-MM-DD'))+1
-                )
-            SELECT AM.MONTH_DATE AS subsMonth,
-                   NVL(SUBS_CNT,0) AS subsAddCnt,
-                   (SELECT COUNT(*) FROM SUBSCRIPTION WHERE SUBSTR(LAST_DATE, 0, 7) = AM.MONTH_DATE) AS subsStopCnt
-            FROM All_Months AM
-                     LEFT JOIN
-                 (SELECT TO_CHAR(SUBS_START_DT, 'YYYY-MM') AS Month_Date, COUNT(SUBS_NO) AS SUBS_CNT
-                  FROM SUBSCRIPTION SUBS
-                  GROUP BY TO_CHAR(SUBS_START_DT, 'YYYY-MM')
-                  ORDER BY Month_Date) SUBS
-                 ON AM.MONTH_DATE = SUBS.Month_Date
+        WITH All_Months AS (
+            SELECT TO_CHAR(ADD_MONTHS((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION), LEVEL-1 ),'YYYY-MM') AS Month_Date
+            FROM DUAL
+        CONNECT BY LEVEL <= MONTHS_BETWEEN(TO_DATE(SYSDATE,'YYYY-MM-DD'),TO_DATE((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION),'YYYY-MM-DD'))+1
+            )
+        SELECT TO_CHAR(TO_DATE(AM.MONTH_DATE,'YYYY-MM'),'YY.MM') AS subsMonth,
+               NVL(SUBS_CNT,0) AS subsAddCnt,
+               (SELECT COUNT(*) FROM SUBSCRIPTION WHERE SUBSTR(LAST_DATE, 0, 7) = AM.MONTH_DATE) AS subsStopCnt
+        FROM All_Months AM
+                 LEFT JOIN
+             (SELECT TO_CHAR(SUBS_START_DT, 'YYYY-MM') AS Month_Date, COUNT(SUBS_NO) AS SUBS_CNT
+              FROM SUBSCRIPTION SUBS
+              GROUP BY TO_CHAR(SUBS_START_DT, 'YYYY-MM')
+              ORDER BY Month_Date) SUBS
+             ON AM.MONTH_DATE = SUBS.Month_Date
         ]]>
     </select>
     <select id="getAdminSubsDTO" resultType="com.hyundai.hpass.dto.AdminSubsDTO">
@@ -108,28 +108,20 @@
     </select>
     <select id="getAllSubscription" resultType="com.hyundai.hpass.dto.SubscriptionDTO">
         <![CDATA[
-        SELECT rowNo, email, memberName, subsStartDt, payment, subsStatus
-        FROM (
-                 SELECT rownum rowNo, email, memberName, subsStartDt, payment, subsStatus
-                 FROM (
-                          SELECT
-                              M.EMAIL AS email,
-                              M.MEMBER_NAME AS memberName,
-                              TO_CHAR(S.subs_start_dt, 'YYYY-MM-DD') AS subsStartDt,
-                              S.payment AS payment,
-                              (CASE WHEN S.last_date='9999-99-99' THEN '-'
-                                    WHEN S.last_date < sysdate THEN '구독 만료'
-                                    ELSE S.last_date
-                                  END) subsStatus
-                          FROM subscription S
-                                   INNER JOIN MEMBER M
-                                              ON S.member_no = M.member_no
-                          ORDER BY subs_start_dt DESC
-
-                      ) A
-                 WHERE rownum <= #{page} * #{amount}
-             )
-        WHERE rowNo > (#{page} - 1) * #{amount}
+        SELECT
+            S.subs_no AS subsNo,
+            M.EMAIL AS email,
+            M.MEMBER_NAME AS memberName,
+            TO_CHAR(S.subs_start_dt, 'YYYY-MM-DD') AS subsStartDt,
+            S.payment AS payment,
+            (CASE WHEN S.last_date='9999-99-99' THEN '-'
+                  WHEN S.last_date < sysdate THEN '구독 만료'
+                  ELSE S.last_date
+                END) subsStatus
+        FROM subscription S
+                 INNER JOIN MEMBER M
+                            ON S.member_no = M.member_no
+        ORDER BY subs_start_dt DESC
         ]]>
     </select>
     <select id="getTotalCnt" resultType="java.lang.Integer">

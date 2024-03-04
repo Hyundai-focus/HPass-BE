@@ -32,7 +32,7 @@ var sparklineData = [47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35,
 
 // the default colorPalette for this dashboard
 //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
-var colorPalette = ["#008FFB", "#FEB019", "#FF4560", "#775DD0", "#00D8B6"];
+var colorPalette =["#008FFB", "#FEB019", "#FF4560", "#775DD0", "#00D8B6"];
 
 var spark1 = {
   chart: {
@@ -66,7 +66,7 @@ var spark1 = {
   colors: ["#00D8B6"],
   title: {
     text: allVisitSum,
-    offsetX: 30,
+    offsetX: 5,
     style: {
       fontSize: "24px",
       cssClass: "apexcharts-yaxis-title",
@@ -74,7 +74,7 @@ var spark1 = {
   },
   subtitle: {
     text: "이번 달 일일 매장 방문",
-    offsetX: 30,
+    offsetX: 5,
     style: {
       fontSize: "14px",
       cssClass: "apexcharts-yaxis-title",
@@ -113,16 +113,16 @@ var spark2 = {
   },
   colors: ["#00D8B6"],
   title: {
-    text: `${couponUseSum}(${Math.round(couponUseSum/(unusedCouponNum+couponUseSum)*100)}%)`,
-    offsetX: 30,
+    text: `${couponUseSum}회 ㅣ ${Math.round(couponUseSum/(unusedCouponNum+couponUseSum)*100)}%`,
+    offsetX: 5,
     style: {
       fontSize: "24px",
       cssClass: "apexcharts-yaxis-title",
     },
   },
   subtitle: {
-    text: "이번 달 쿠폰 사용(율)",
-    offsetX: 30,
+    text: "이번 달 쿠폰 사용 ㅣ 사용률",
+    offsetX: 5,
     style: {
       fontSize: "14px",
       cssClass: "apexcharts-yaxis-title",
@@ -162,7 +162,7 @@ var spark3 = {
   colors: ["#00D8B6"],
   title: {
     text: productSum,
-    offsetX: 30,
+    offsetX: 5,
     style: {
       fontSize: "24px",
       cssClass: "apexcharts-yaxis-title",
@@ -170,7 +170,7 @@ var spark3 = {
   },
   subtitle: {
     text: "이번 달 신제품 수령",
-    offsetX: 30,
+    offsetX: 5,
     style: {
       fontSize: "14px",
       cssClass: "apexcharts-yaxis-title",
@@ -188,7 +188,7 @@ let month_sub_Options = {
     text: "월별 구독 가입/해지 현황",
     offsetX: 30,
     style: {
-      fontSize: '15px',
+      fontSize: '18px',
       cssClass: 'apexcharts-yaxis-title'
     }
   }
@@ -228,16 +228,16 @@ var optionDonut = {
   chart: {
     type: "donut",
     width: "100%",
-    height: 400,
+    height: 300,
   },
   dataLabels: {
     enabled: false,
   },
   plotOptions: {
     pie: {
-      customScale: 0.8,
+      customScale: 1.0,
       donut: {
-        size: "75%",
+        size: "70%",
       },
       offsetY: 20,
     },
@@ -245,7 +245,6 @@ var optionDonut = {
       colors: undefined,
     },
   },
-  colors: colorPalette,
   title: {
     text: "팝업스토어 예약 현황",
     style: {
@@ -255,49 +254,18 @@ var optionDonut = {
   series: bookingCounts,
   labels: popupNames,
   legend: {
-    position: "left",
-    offsetY: 80,
+    position: "right",
+    offsetY: 30,
   },
 };
+
+function getTotalValue() {
+  var total = bookingCounts.reduce((a, b) => a + b, 0);
+  return '총 예약: ' + total.toString();
+}
+
 
 var donut = new ApexCharts(donutElement, optionDonut);
 donut.render();
 
-// on smaller screen, change the legends position for donut
-var mobileDonut = function () {
-  if ($(window).width() < 768) {
-    donut.updateOptions(
-      {
-        plotOptions: {
-          pie: {
-            offsetY: -15,
-          },
-        },
-        legend: {
-          position: "bottom",
-        },
-      },
-      false,
-      false
-    );
-  } else {
-    donut.updateOptions(
-      {
-        plotOptions: {
-          pie: {
-            offsetY: 20,
-          },
-        },
-        legend: {
-          position: "left",
-        },
-      },
-      false,
-      false
-    );
-  }
-};
-
-$(window).resize(function () {
-  mobileDonut();
-});
+document.getElementById('coupon_value').textContent = `${couponUseSum} (${Math.round(couponUseSum/(unusedCouponNum+couponUseSum)*100)}%)`

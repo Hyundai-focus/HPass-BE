@@ -1,6 +1,7 @@
 package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.domain.Criteria;
+import com.hyundai.hpass.dto.AdminPopupBookingDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface PopUpBookingService {
 	public List<PopUpBookingDTO> getBookingsWithinPopupPeriod(int popupNo, String popupStartDt, String popupEndDt);
 	
 	public List<PopUpBookingDTO> getBookingsList(Criteria cri);
-    
+    List<AdminPopupBookingDTO> getAllBooking();
     public List<PopUpBookingDTO> getBookingByDateTime(int popupNo, String bookingDt, String bookingTime);
     
 	public boolean insertBooking(PopUpBookingDTO dto);

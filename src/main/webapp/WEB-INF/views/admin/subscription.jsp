@@ -12,10 +12,18 @@
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 />
-<link rel="stylesheet" href="/resources/css/subscription.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<div id="layoutSidenav_content" style="justify-content: center; top: 50px;">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+<link rel="stylesheet" href="/resources/css/subscription.css" />
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable({
+            order: [[0, "desc"]]
+        });
+    } );
+</script>
+<div id="layoutSidenav_content" style="justify-content: center;">
     <main>
         <div class="container">
             <div class="row">
@@ -33,16 +41,16 @@
                 <div class="col-md-8">
                     <div class="row custom-grid-top_out">
                         <div class="col custom-grid-top_in_left">
-                            <h5>총 매출</h5>
+                            <h5>총 구독 매출</h5>
                             <h3 id="total_profit"></h3>
                         </div>
                         <div class="col custom-grid-top_in_right">
-                            <h5>연 매출</h5>
+                            <h5 id="year_profit_title"></h5>
                             <h3 id="year_profit"></h3>
                         </div>
                     </div>
-                    <div class="row custom-grid">
-                        <table class="table table-striped table-bordered table-hover">
+                    <div class="row custom-grid" id="myTable-grid">
+                        <table id="myTable"  class="table table-striped table-bordered table-hover">
                             <thead class="table-dark">
                             <tr>
                                 <th scope="col">구독 번호</th>
@@ -56,7 +64,7 @@
                             <tbody id="subs_table">
                                 <c:forEach var="subscriptionDTO" items="${subscriptionList}">
                                     <tr>
-                                        <td>${total - subscriptionDTO.rowNo + 1}</td>
+                                        <td>${subscriptionDTO.subsNo}</td>
                                         <td>${subscriptionDTO.email}</td>
                                         <td>${subscriptionDTO.memberName}</td>
                                         <td>${subscriptionDTO.subsStartDt}</td>
@@ -66,30 +74,30 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center" id="subs_page">
-                                <c:if test="${pageDTO.prev}">
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:;" onclick="subsList(${pageDTO.startPage-1},10)" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                </c:if>
-                                <c:forEach begin="${pageDTO.startPage}" end="${pageDTO.endPage}"
-                                           var="idx">
-                                <li class="page-item ${pageDTO.cri.page==idx?'active':''}">
-                                    <a class="page-link" href="javascript:;" onclick="subsList(${idx},10)">${idx}</a>
-                                </li>
-                                </c:forEach>
-                                <c:if test="${pageDTO.next}">
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:;" onclick="subsList(${pageDTO.endPage+1},10)" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                </c:if>
-                            </ul>
-                        </nav>
+<%--                        <nav aria-label="Page navigation example">--%>
+<%--                            <ul class="pagination justify-content-center" id="subs_page">--%>
+<%--                                <c:if test="${pageDTO.prev}">--%>
+<%--                                <li class="page-item">--%>
+<%--                                    <a class="page-link" href="javascript:;" onclick="subsList(${pageDTO.startPage-1},10)" aria-label="Previous">--%>
+<%--                                        <span aria-hidden="true">&laquo;</span>--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
+<%--                                </c:if>--%>
+<%--                                <c:forEach begin="${pageDTO.startPage}" end="${pageDTO.endPage}"--%>
+<%--                                           var="idx">--%>
+<%--                                <li class="page-item ${pageDTO.cri.page==idx?'active':''}">--%>
+<%--                                    <a class="page-link" href="javascript:;" onclick="subsList(${idx},10)">${idx}</a>--%>
+<%--                                </li>--%>
+<%--                                </c:forEach>--%>
+<%--                                <c:if test="${pageDTO.next}">--%>
+<%--                                <li class="page-item">--%>
+<%--                                    <a class="page-link" href="javascript:;" onclick="subsList(${pageDTO.endPage+1},10)" aria-label="Next">--%>
+<%--                                        <span aria-hidden="true">&raquo;</span>--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
+<%--                                </c:if>--%>
+<%--                            </ul>--%>
+<%--                        </nav>--%>
                     </div>
                 </div>
             </div>
