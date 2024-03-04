@@ -11,7 +11,10 @@ public interface CouponService {
     boolean issueCouponByStore(long memberNo, long storeNo);
     int getUnusedCouponNum();
     
+    // 작성자: 황수연
     public List<CouponDTO> getAllIssuedCoupons();
+    
+    // 작성자: 황수연
     public List<CouponDTO> getAllUsedCoupons();
 
     boolean isExistCoupon(long memberNo, long couponNo);

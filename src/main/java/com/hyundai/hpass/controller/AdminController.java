@@ -102,6 +102,10 @@ public class AdminController {
 		model.addAttribute("list", list);
 	}
 	
+	/**
+	 작성자: 황수연
+	 처리 내용: 예약 삭제 API
+	*/
 	@DeleteMapping("popup/booking/{bookingNo}")
 	public ResponseEntity<String> deleteBooking(Authentication authentication, @PathVariable int bookingNo) {
 		boolean deleted = popUpBookingService.deleteBooking(bookingNo);

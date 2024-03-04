@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 작성자: 황수연 처리 내용: 팝업스토어 예약 데이터 등록
+ * 작성자: 황수연 
+ * 처리 내용: 팝업스토어 예약 데이터 등록
  */
 @Repository
 @Mapper

@@ -11,7 +11,10 @@ public interface TodayStoreService {
 	Long userVisitStoreNum(Long memberNo); //유저가 방문한 상점 개수
 	List<Long> userVisitFloor(Long memberNo);
 	
+	// 작성자: 황수연
 	public List<TodayVisitStore> getTodayStore();
+	
+	// 작성자: 황수연
 	public List<TodayVisitStore> getVisitStore();
 
 

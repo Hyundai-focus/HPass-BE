@@ -18,13 +18,18 @@ public interface ProductService {
 
 	Boolean receiveProduct(Long memberNo);
 	
+	// 작성자: 황수연
 	public int getTotalCnt(Criteria cri);
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getProductsList(Criteria cri);
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getReceiveList(Criteria cri);
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getCountProduct();
 	
+	// 작성자: 황수연
 	public List<ProductHistoryDTO> getSumProduct();
 }
