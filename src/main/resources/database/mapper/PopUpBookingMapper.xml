@@ -107,8 +107,7 @@
 	</select>
 
 	<!-- 나의 예약 취소 -->
-	<delete id="deleteMyBookingList"
-		parameterType="java.lang.Integer">
+	<delete id="deleteMyBookingList" parameterType="java.lang.Integer">
 		DELETE
 		FROM booking
 		WHERE booking_no = #{bookingNo}
@@ -169,23 +168,18 @@
         GROUP BY p.popup_name
     </select>
 
-    <select id="getPopUpBooking" resultType="com.hyundai.hpass.dto.PopUpBookingDTO">
-        SELECT
-            b.booking_no AS bookingNo,
-            b.member_no AS memberNo,
-            b.popup_no AS popupNo,
-            b.booking_time AS bookingTime,
-            b.booking_dt AS bookingDt,
-            p.popup_name AS popupName,
-            p.popup_start_dt AS popupStartDt,
-            p.popup_end_dt AS popupEndDt,
-            p.popup_loc AS popupLocation,
-            p.popup_img AS popupImg
-        FROM booking b
-        INNER JOIN popup p
-        ON b.popup_no = p.popup_no
-        WHERE b.member_no = #{memberNo} AND b.popup_no = #{popUpNo} AND b.booking_dt = #{bookingDate}
-    </select>
+
+	<resultMap id="popUpBookingResult" type="com.hyundai.hpass.dto.PopUpBookingDTO" />
+
+	<select id="getPopUpBooking" statementType="CALLABLE" parameterType="com.hyundai.hpass.vo.PopUpBookingCheckVO">
+		{call get_popup_booking(
+				#{memberNo, mode=IN, jdbcType=DECIMAL},
+				#{popUpNo, mode=IN, jdbcType=DECIMAL},
+				#{bookingDate, mode=IN, jdbcType=VARCHAR},
+		        #{result, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=popUpBookingResult}
+		      )}
+	</select>
+
     
     <select id="isDuplicateBooking"
 		resultType="boolean">

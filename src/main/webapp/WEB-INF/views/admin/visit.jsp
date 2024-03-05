@@ -23,7 +23,7 @@ $(document).ready( function () {
 				<tbody>
 					<c:forEach var="dto" items="${today}">
 						<tr>
-							<td>${dto.storeNo}</td>
+							<td>${dto.storeNo}F</td>
 							<td>${dto.storeBrand}</td>
 						</tr>
 					</c:forEach>
@@ -42,8 +42,8 @@ $(document).ready( function () {
 			<tbody>
 				<c:forEach var="dto" items="${visit}">
 					<tr>
-						<td>${dto.storeNo}</td>
-						<td>${dto.memberNo}</td>
+						<td>TODAYSTORE0${dto.storeNo}</td>
+						<td>MEMBER${String.format("%06d", dto.memberNo)}</td>
 						<td>${dto.todayStoreDt}</td>
 					</tr>
 				</c:forEach>

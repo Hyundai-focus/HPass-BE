@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// 작성자: 김기훈
 @RestController
 @RequestMapping("/coupon")
 @Log4j2

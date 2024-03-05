@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hyundai.hpass.domain.Coupon;
+import com.hyundai.hpass.domain.Product;
 import com.hyundai.hpass.dto.*;
 
 import org.springframework.http.HttpStatus;
@@ -11,13 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.service.CouponService;
@@ -40,7 +36,7 @@ public class AdminController {
 	private final SubscriptionService subscriptionService;
 	private final CouponService couponService;
 	private final TodayStoreService todayStoreService;
-	
+
 	@GetMapping("/login")
 	public String login() {
 		return "admin/login";
@@ -87,100 +83,146 @@ public class AdminController {
 	}
 
 	/**
-	작성자: 황수연
-	처리 내용: 팝업스토어 관리
-	*/
+	 작성자: 황수연
+	 처리 내용: 팝업스토어 관리
+	 */
 	@GetMapping("/popup")
 	public void popUpList(Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("list request");
 
 		List<AdminPopupBookingDTO> list = popUpBookingService.getAllBooking();
-		
+
 		List<PopUpBookingDTO> popupList = popUpBookingService.getAllPopups();
-		
-	    model.addAttribute("popupList", popupList);
+
+		model.addAttribute("popupList", popupList);
 		model.addAttribute("list", list);
 	}
-	
+
 	/**
 	 작성자: 황수연
 	 처리 내용: 예약 삭제 API
-	*/
+	 */
 	@DeleteMapping("popup/booking/{bookingNo}")
 	public ResponseEntity<String> deleteBooking(Authentication authentication, @PathVariable int bookingNo) {
 		boolean deleted = popUpBookingService.deleteBooking(bookingNo);
-		
-        if (deleted) {
-            return new ResponseEntity<>("Booking deleted successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-	}
-	
-	/**
-	작성자: 황수연
-	처리 내용: 신제품 신청 현황
-	*/
-	@GetMapping("/product/apply")
-	public String registerProductList(Model model, @ModelAttribute("cri") Criteria cri) {
-		log.info("list request");
-		
-		List<ProductHistoryDTO> register = productService.getProductsList(cri);
 
+		if (deleted) {
+			return new ResponseEntity<>("Booking deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	/**
+	 작성자: 최현서
+	 처리 내용: 신제품 목록
+	 */
+	@GetMapping("/product/list")
+	public String productList(Model model) {
+		log.info("list request");
+		List<Product> list = productService.getProductList();
+		model.addAttribute("list", list);
+		return "admin/productlist";
+	}
+	/**
+	 작성자: 최현서
+	 처리 내용: 신제품 등록 API
+	 */
+	@PostMapping("/product/insert")
+	@ResponseBody
+	public ResponseEntity<String> insertProduct(@RequestBody Product productRequest) {
+		log.info("admin insert product request:" + productRequest.toString());
+		int result = productService.insertProduct(productRequest);
+		if (result == 1) return ResponseEntity.ok("success");
+		else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to insert product");
+	}
+	/**
+	 작성자: 최현서
+	 처리 내용: 신제품 삭제 API
+	 */
+	@DeleteMapping("/product/{productNo}")
+	public ResponseEntity<String> deleteProduct(@PathVariable int productNo) {
+		boolean deleted = productService.deleteProduct(productNo);
+
+		if (deleted) {
+			return new ResponseEntity<>("Booking deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	/**
+	 작성자: 황수연
+	 처리 내용: 신제품 신청 현황
+	 */
+	@GetMapping("/product/apply")
+	public String registerProductList(Model model) {
+		log.info("list request");
+
+		List<AdminRegisterProductDTO> register = productService.getRegisterList();
 		model.addAttribute("register", register);
 		return "admin/registerproduct";
 	}
-	
-	/**
-	작성자: 황수연
-	처리 내용: 신제품 수령 현황
-	*/
-	@GetMapping("/product/get")
-	public String getProductList(Model model, @ModelAttribute("cri") Criteria cri) {
-		log.info("list request");
-		
-		List<ProductHistoryDTO> get = productService.getReceiveList(cri);
 
-		model.addAttribute("get", get);
-		return "admin/getproduct";
-	}
-	
 	/**
-	작성자: 황수연
-	처리 내용: 쿠폰 발급 현황
-	*/
+	 작성자: 최현서
+	 처리 내용: 쿠폰 목록
+	 */
+	@GetMapping("/coupon/list")
+	public String couponList(Model model) {
+		log.info("coupon list request");
+		List<Coupon> list = couponService.getAllCoupon();
+		model.addAttribute("list", list);
+		return "admin/couponlist";
+	}
+	/**
+	 작성자: 최현서
+	 처리 내용: 쿠폰 등록 API
+	 */
+	@PostMapping("/coupon/insert")
+	@ResponseBody
+	public ResponseEntity<String> insertCoupon(@RequestBody Coupon couponRequest) {
+		log.info("admin insert coupon request:" + couponRequest.toString());
+		int result = couponService.insertCoupon(couponRequest);
+		if (result == 1) return ResponseEntity.ok("success");
+		else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to insert coupon");
+	}
+	/**
+	 작성자: 최현서
+	 처리 내용: 쿠폰 삭제 API
+	 */
+	@DeleteMapping("/coupon/{couponNo}")
+	public ResponseEntity<String> deleteCoupon(@PathVariable int couponNo) {
+		boolean deleted = couponService.deleteCoupon(couponNo);
+
+		if (deleted) {
+			return new ResponseEntity<>("Booking deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed to delete booking", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	/**
+	 작성자: 황수연
+	 처리 내용: 쿠폰 발급 현황
+	 */
 	@GetMapping("/coupon/issue")
 	public String issueList(Model model) {
 		log.info("issue request");
-		
-		List<CouponDTO> issue = couponService.getAllIssuedCoupons();
+
+		List<IssueCouponDTO> issue = couponService.getAllIssuedCoupons();
 
 		model.addAttribute("issue", issue);
 		return "admin/issuecoupon";
 	}
-	
-	/**
-	작성자: 황수연
-	처리 내용: 쿠폰 사용 현황
-	*/
-	@GetMapping("/coupon/use")
-	public String useList(Model model) {
-		log.info("use request");
-		
-		List<CouponDTO> use = couponService.getAllUsedCoupons();
 
-		model.addAttribute("use", use);
-		return "admin/usecoupon";
-	}
-	
+
+
 	/**
-	작성자: 황수연
-	처리 내용: 매장 방문 현황
-	*/
+	 작성자: 황수연
+	 처리 내용: 매장 방문 현황
+	 */
 	@GetMapping("/visit")
 	public String visitList(Model model) {
 		log.info("visit request");
-		
+
 		List<TodayVisitStore> today = todayStoreService.getTodayStore();
 		List<TodayVisitStore> visit = todayStoreService.getVisitStore();
 

@@ -185,4 +185,49 @@
 		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
 		</trim>
 	</sql>
+    <insert id="insertProduct" parameterType="com.hyundai.hpass.domain.Product">
+        INSERT INTO product (
+            product_no,
+            product_brand,
+            product_name,
+            product_img,
+            stock,
+            receive_dt,
+            receive_loc
+        ) VALUES (
+                     product_seq.nextval,
+                     #{productBrand},
+                     #{productName},
+                     #{productImg},
+                     #{stock},
+                     TO_DATE(#{receiveDt},'YYYY-MM-DD'),
+                     #{receiveLoc}
+                 )
+    </insert>
+    <delete id="deleteProduct"
+            parameterType="java.lang.Integer">
+        DELETE
+        FROM product
+        WHERE product_no = #{productNo}
+    </delete>
+
+    <select id="getRegisterList" resultType="com.hyundai.hpass.dto.AdminRegisterProductDTO">
+        SELECT
+            PH.product_history_no AS productHistoryNo,
+            PH.member_no AS memberNo,
+            PH.product_no AS productNo,
+            TO_CHAR(PH.product_history_dt, 'YYYY. MM. DD') AS productHistoryDt,
+            CASE
+                WHEN product_status = 'true' THEN '수령 완료'
+                WHEN product_status = 'false' THEN '미수령'
+                WHEN product_status = 'cancel' THEN '신청 취소'
+                ELSE '기타 상태'
+                END AS productStatus,
+            P.product_name AS productName,
+            TO_CHAR(P.receive_dt, 'YYYY. MM. DD') AS receiveDt
+        FROM
+            product_history PH
+                INNER JOIN product P
+                           ON PH.product_no = P.product_no
+    </select>
 </mapper>

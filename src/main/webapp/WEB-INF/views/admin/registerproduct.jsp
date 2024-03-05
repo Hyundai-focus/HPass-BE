@@ -24,9 +24,11 @@ $(document).ready( function () {
 			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<thead class="table-dark">
 					<tr>
+						<th scope="col">신제품 신청번호</th>
 						<th scope="col">고객번호</th>
 						<th scope="col">신제품 번호</th>
-						<th scope="col">신제품 수령번호</th>
+						<th scope="col">신제품명</th>
+						<th scope="col">마감일</th>
 						<th scope="col">수령일</th>
 						<th scope="col">수령상태</th>
 					</tr>
@@ -34,9 +36,11 @@ $(document).ready( function () {
 				<tbody>
 					<c:forEach var="dto" items="${register}">
 							<tr>
-								<td>${dto.memberNo}</td>
-								<td>${dto.productNo}</td>
-								<td>${dto.productHistoryNo}</td>
+								<td>REGISTR${String.format("%06d", dto.productHistoryNo)}</td>
+								<td>MEMBER${String.format("%06d", dto.memberNo)}</td>
+								<td>NEWPRDT${String.format("%06d", dto.productNo)}</td>
+								<td>${dto.productName}</td>
+								<td>${dto.receiveDt}</td>
 								<td>${dto.productHistoryDt}</td>
 								<td>${dto.productStatus}</td>
 							</tr>

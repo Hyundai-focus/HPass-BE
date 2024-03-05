@@ -5,3 +5,25 @@
 main {
     padding: 25px;
 }
+
+/* 모달 창 스타일 */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* 주변 어둡게 */
+}
+.modal-body {
+    padding: 20px; /* 내부 패딩 추가 */
+}
+.modal-body .form-group {
+    margin-bottom: 20px; /* 입력 폼 간의 간격 추가 */
+}
+.modal-header {
+    background-color: black;
+    color: #fff;
+}
+.modal label,
+.modal input {
+    margin-bottom: 10px; /* 원하는 간격으로 조정 */
+}
+#myTable th {
+    text-align: center;
+}
