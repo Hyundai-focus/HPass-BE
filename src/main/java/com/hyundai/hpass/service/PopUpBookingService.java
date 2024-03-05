@@ -23,7 +23,7 @@ public interface PopUpBookingService {
 	
 	public boolean deleteBooking(int bookingNo);
 
-	PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo);
+	PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo) throws Exception;
 	
 	// 전체 게시물 개수
 	public int getTotalCnt(Criteria cri);

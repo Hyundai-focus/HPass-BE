@@ -102,22 +102,24 @@ public class PopUpController {
         }
 	}
 
+	// 작성자: 김기훈
 	@GetMapping("popup/list")
 	public ResponseEntity<List<PopUpStoreDTO>> getAllPopUpStoreList() {
 		List<PopUpStoreDTO> stores = popUpStoreService.getAllPopUpStore();
-
 		return new ResponseEntity<>(stores, HttpStatus.OK);
 	}
 
+	// 작성자: 김기훈
 	@GetMapping("popup/booking/{popUpNo}")
 	public ResponseEntity<PopUpBookingDTO> checkPopUpBooking(
 			@PathVariable long popUpNo,
 			Authentication authentication
 	) {
-		PopUpBookingDTO booking = bookingService.checkPopUpBooking(Long.parseLong(authentication.getName()), popUpNo);
-
-
-		return new ResponseEntity<>(booking, HttpStatus.OK);
-
+		try {
+			PopUpBookingDTO booking = bookingService.checkPopUpBooking(Long.parseLong(authentication.getName()), popUpNo);
+			return new ResponseEntity<>(booking, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.OK);
+        }
 	}
 }
