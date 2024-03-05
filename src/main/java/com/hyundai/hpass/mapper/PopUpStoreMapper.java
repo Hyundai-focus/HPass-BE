@@ -1,9 +1,7 @@
 package com.hyundai.hpass.mapper;
 
-import com.hyundai.hpass.dto.PopUpStoreDTO;
-
-import java.util.List;
+import com.hyundai.hpass.vo.PopUpStoreVO;
 
 public interface PopUpStoreMapper {
-    List<PopUpStoreDTO> getAllPopUpStore(String date);
+    void getAllPopUpStore(PopUpStoreVO popUpStoreVO);
 }

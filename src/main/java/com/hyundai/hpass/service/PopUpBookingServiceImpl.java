@@ -4,8 +4,10 @@ import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.dto.AdminPopupBookingDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
 import com.hyundai.hpass.mapper.PopUpBookingMapper;
+import com.hyundai.hpass.vo.PopUpBookingCheckVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -88,12 +90,21 @@ public class PopUpBookingServiceImpl implements PopUpBookingService {
 	}
 
 	@Override
-	public PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo) {
+	public PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo) throws Exception {
 		LocalDate seoulNow = LocalDate.now(ZoneId.of("Asia/Seoul"));
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedNow = seoulNow.format(formatter);
 
-		return bookingMapper.getPopUpBooking(memberNo, popUpNo, formattedNow);
+		PopUpBookingCheckVO popUpBookingCheckVO = new PopUpBookingCheckVO();
+		popUpBookingCheckVO.setMemberNo(memberNo);
+		popUpBookingCheckVO.setPopUpNo(popUpNo);
+		popUpBookingCheckVO.setBookingDate(formattedNow);
+		bookingMapper.getPopUpBooking(popUpBookingCheckVO);
+
+		if (popUpBookingCheckVO.getResult().isEmpty()) {
+			throw new Exception("");
+		}
+		return popUpBookingCheckVO.getResult().get(0);
 	}
 
 	@Override

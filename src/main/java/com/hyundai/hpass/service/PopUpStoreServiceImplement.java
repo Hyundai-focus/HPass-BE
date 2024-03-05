@@ -2,6 +2,7 @@ package com.hyundai.hpass.service;
 
 import com.hyundai.hpass.dto.PopUpStoreDTO;
 import com.hyundai.hpass.mapper.PopUpStoreMapper;
+import com.hyundai.hpass.vo.PopUpStoreVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class PopUpStoreServiceImplement implements PopUpStoreService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedNow = seoulNow.format(formatter);
 
-        return popUpStoreMapper.getAllPopUpStore(formattedNow);
+        PopUpStoreVO popUpStoreVO = new PopUpStoreVO();
+        popUpStoreVO.setDate(formattedNow);
+        popUpStoreMapper.getAllPopUpStore(popUpStoreVO);
+
+        return popUpStoreVO.getResult();
     }
 }

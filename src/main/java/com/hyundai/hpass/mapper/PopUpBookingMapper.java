@@ -3,6 +3,7 @@ package com.hyundai.hpass.mapper;
 import com.hyundai.hpass.domain.Criteria;
 import com.hyundai.hpass.dto.AdminPopupBookingDTO;
 import com.hyundai.hpass.dto.PopUpBookingDTO;
+import com.hyundai.hpass.vo.PopUpBookingCheckVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -52,9 +53,6 @@ public interface PopUpBookingMapper {
 	
 	public List<PopUpBookingDTO> getCountBooking();
 
-	PopUpBookingDTO getPopUpBooking(
-			@Param("memberNo") long memberNo,
-			@Param("popUpNo") long popUpNo,
-			@Param("bookingDate") String bookingDate);
+	void getPopUpBooking(PopUpBookingCheckVO popUpBookingCheckVO);
 
 }
