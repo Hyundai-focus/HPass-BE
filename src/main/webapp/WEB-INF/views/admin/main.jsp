@@ -91,7 +91,6 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="/resources/main/apexcharts.js"></script>
-        <script src="/resources/main/data.js"></script>
         <script src="/resources/main/scripts.js"></script>
 	</main>
 <!-- /page content -->
