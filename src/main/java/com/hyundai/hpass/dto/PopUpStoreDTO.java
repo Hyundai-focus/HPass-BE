@@ -8,6 +8,6 @@ public class PopUpStoreDTO {
     private String popUpName;
     private String popUpStartDate;
     private String popUpEndDate;
-    private String pupUpLocation;
+    private String popUpLocation;
     private String popUpImage;
 }
