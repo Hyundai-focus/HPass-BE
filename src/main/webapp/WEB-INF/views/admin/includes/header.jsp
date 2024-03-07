@@ -57,11 +57,11 @@
                     </a>
                     <a class="nav-link" href="/admin/subscription">
                         <div class="sb-nav-link-icon"></div>
-                        구독 현황
+                        구독 관리
                     </a>
                     <a class="nav-link" href="/admin/popup">
                         <div class="sb-nav-link-icon"></div>
-                        팝업스토어 현황
+                        팝업스토어 관리
                     </a>
                     <a
                             class="nav-link collapsed"
@@ -72,7 +72,7 @@
                             aria-controls="collapseLayouts"
                     >
                         <div class="sb-nav-link-icon"></div>
-                        신제품 현황
+                        신제품 관리
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div
@@ -95,7 +95,7 @@
                             aria-controls="collapseLayouts"
                     >
                         <div class="sb-nav-link-icon"></div>
-                        쿠폰 현황
+                        쿠폰 관리
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div
@@ -111,7 +111,7 @@
                     </div>
                     <a class="nav-link" href="/admin/visit">
                         <div class="sb-nav-link-icon"></div>
-                        매장 방문 현황
+                        매장 방문 관리
                     </a>
                 </div>
             </div>
