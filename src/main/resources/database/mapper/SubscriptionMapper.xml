@@ -71,7 +71,7 @@
         WITH All_Months AS (
             SELECT TO_CHAR(ADD_MONTHS((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION), LEVEL-1 ),'YYYY-MM') AS Month_Date
             FROM DUAL
-        CONNECT BY LEVEL <= MONTHS_BETWEEN(TO_DATE(SYSDATE,'YYYY-MM-DD'),TO_DATE((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION),'YYYY-MM-DD'))+1
+        CONNECT BY LEVEL <= MONTHS_BETWEEN(SYSDATE, TO_DATE('2023-03-01', 'YYYY-MM-DD'))+1
             )
         SELECT TO_CHAR(TO_DATE(AM.MONTH_DATE,'YYYY-MM'),'YY.MM') AS subsMonth,
                NVL(SUBS_CNT,0) AS subsAddCnt,
@@ -90,7 +90,7 @@
         WITH All_Months AS (
             SELECT TO_CHAR(ADD_MONTHS((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION), LEVEL-1 ),'YYYY-MM') AS Month_Date
             FROM DUAL
-        CONNECT BY LEVEL <= MONTHS_BETWEEN(TO_DATE(SYSDATE,'YYYY-MM-DD'),TO_DATE((SELECT MIN(SUBS_START_DT) FROM SUBSCRIPTION),'YYYY-MM-DD'))+1
+        CONNECT BY LEVEL <= MONTHS_BETWEEN(SYSDATE, TO_DATE('2023-03-01', 'YYYY-MM-DD'))+1
             )
         SELECT AM.MONTH_DATE AS subsMonth,
                NVL(SUBS_CNT,0) AS subsAddCnt,
@@ -115,7 +115,7 @@
             TO_CHAR(S.subs_start_dt, 'YYYY-MM-DD') AS subsStartDt,
             S.payment AS payment,
             (CASE WHEN S.last_date='9999-99-99' THEN '-'
-                  WHEN S.last_date < sysdate THEN '구독 만료'
+                  WHEN S.last_date < TO_CHAR(sysdate, 'YYYY-MM-DD') THEN '구독 만료'
                   ELSE S.last_date
                 END) subsStatus
         FROM subscription S
