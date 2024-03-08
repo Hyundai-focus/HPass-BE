@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+// 작성자: 최현서
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
