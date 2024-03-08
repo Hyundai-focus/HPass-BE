@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.hyundai.hpass.dto.TodayStoreInfoDTO;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,5 +87,11 @@ public class TodayStoreServiceImplement implements TodayStoreService {
 	public List<TodayVisitStore> getVisitStore() {
 		return storeMapper.getVisitStore();
 	}
+
+	@Override
+	public TodayStoreInfoDTO getTodayStoreInfo() {
+		return storeMapper.getTodayStoreInfo();
+	}
+
 }
 

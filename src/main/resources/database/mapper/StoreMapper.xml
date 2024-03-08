@@ -5,12 +5,10 @@
 <mapper namespace="com.hyundai.hpass.mapper.StoreMapper">
     <select id="selectOneForFloor" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT storeNo
-        FROM (
-            SELECT store_no AS storeNo
-            FROM Store
-            WHERE store_floor = #{Floor}
-            ORDER BY DBMS_RANDOM.RANDOM()
-        )
+        FROM (SELECT store_no AS storeNo
+              FROM Store
+              WHERE store_floor = #{Floor}
+              ORDER BY DBMS_RANDOM.RANDOM())
         WHERE ROWNUM = 1
     </select>
 
@@ -32,23 +30,25 @@
     </select>
 
     <delete id="deleteTodayStore" parameterType="java.lang.Long">
-        DELETE FROM today_store
-        WHERE store_no = #{storeNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+        DELETE
+        FROM today_store
+        WHERE store_no = #{storeNo}
+          AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </delete>
 
     <select id="memberOfTodayStore" parameterType="java.lang.Long">
         SELECT member_no
         FROM today_store
-        WHERE store_no = #{storeNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+        WHERE store_no = #{storeNo}
+          AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </select>
 
     <select id="selectTodayStoreInfo" parameterType="java.lang.Long">
-        SELECT
-            store_no AS storeNo,
-            store_brand AS storeBrand,
-            store_floor AS storeFloor,
-            store_img AS storeImg,
-            store_map AS storeMap
+        SELECT store_no    AS storeNo,
+               store_brand AS storeBrand,
+               store_floor AS storeFloor,
+               store_img   AS storeImg,
+               store_map   AS storeMap
         FROM store
         WHERE store_no = #{storeNo}
     </select>
@@ -61,38 +61,67 @@
     <select id="memberStoreVisitNum" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT count(today_store_no)
         FROM today_store
-        WHERE member_no = #{memberNo} AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+        WHERE member_no = #{memberNo}
+          AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
     </select>
 
     <select id="memberFloor" parameterType="java.lang.Long">
         SELECT a.store_floor
-        FROM store a INNER JOIN today_store b ON a.store_no = b.store_no
-        WHERE b.member_no = #{memberNo} AND trunc(SYSDATE) = trunc(b.today_store_dt)
+        FROM store a
+                 INNER JOIN today_store b ON a.store_no = b.store_no
+        WHERE b.member_no = #{memberNo}
+          AND trunc(SYSDATE) = trunc(b.today_store_dt)
         ORDER BY b.today_store_dt
     </select>
 
 
     <!-- 작성자: 황수연 - 오늘의 매장 조회 -->
     <select id="getTodayStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
-        SELECT
-		    t.store_no AS storeNo,
-		    s.store_brand AS storeBrand
-		FROM today_store t
-		JOIN store s ON t.store_no = s.store_no
-		AND t.member_no IS NULL
-		AND TRUNC(t.today_store_dt) = TRUNC(SYSDATE)
-		ORDER BY storeNo ASC
+        SELECT t.store_no    AS storeNo,
+               s.store_brand AS storeBrand
+        FROM today_store t
+                 JOIN store s ON t.store_no = s.store_no
+            AND t.member_no IS NULL
+            AND TRUNC(t.today_store_dt) = TRUNC(SYSDATE)
+        ORDER BY storeNo DESC
     </select>
-    
+
     <!-- 작성자: 황수연 - 방문한 매장 조회 -->
     <select id="getVisitStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
-        SELECT
-            today_store_no AS todayStoreNo,
-            store_no AS storeNo,
-            today_store_dt AS todayStoreDt,
-            member_no AS memberNo
-        FROM today_store
-        WHERE member_no IS NOT NULL
-        AND TRUNC(today_store_dt) = TRUNC(SYSDATE)
+          <![CDATA[
+        WITH ranked_visits AS (
+            SELECT today_store_no AS todayStoreNo,
+                   store_no AS storeNo,
+                   today_store_dt AS todayStoreDt,
+                   member_no AS memberNo,
+                   ROW_NUMBER() OVER (PARTITION BY member_no ORDER BY today_store_dt) AS visit_order
+            FROM today_store
+            WHERE TRUNC(today_store_dt) = TRUNC(SYSDATE)
+              AND member_no IS NOT NULL)
+        SELECT todayStoreNo,
+               storeNo,
+               TO_CHAR(todayStoreDt, 'HH24:MI:SS') AS visitTime,
+               memberNo,
+               (DECODE(visit_order,5,'방문 완료','-')) AS status
+        FROM ranked_visits
+        ORDER BY todayStoreDt DESC
+        ]]>
     </select>
+
+    <select id="getTodayStoreInfo" resultType="com.hyundai.hpass.dto.TodayStoreInfoDTO">
+    SELECT
+        (SELECT COUNT(*) FROM (SELECT member_no, TRUNC(today_store_dt)
+        from today_store
+        where member_no is not null AND TO_CHAR(today_store_dt,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+        group by TRUNC(today_store_dt), member_no
+        HAVING count(store_no) = 5)) AS todayFinishNo,
+        (SELECT COUNT(DISTINCT(member_no))
+        FROM today_store
+        where member_no is not null) AS todayNo,
+        (SELECT COUNT(DISTINCT(member_no))
+        FROM subscription
+        WHERE LAST_DATE > TO_CHAR(SYSDATE,'YYYY-MM-DD')) AS subsNo
+    FROM dual
+    </select>
+
 </mapper>

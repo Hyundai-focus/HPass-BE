@@ -8,7 +8,8 @@
 <script>
 $(document).ready( function () {
 	$('#myTable').DataTable({
-		order: [[0, "desc"]]
+		order: [[0, "desc"]],
+		"bInfo" : false
 	});
 } );
 </script>
@@ -89,7 +90,7 @@ $(document).ready( function () {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-						<button type="button" class="btn btn-primary" id="submitProduct">등록</button>
+						<button type="button" class="btn btn-primary" id="submitProduct" style="background-color: black">등록</button>
 					</div>
 				</div>
 			</div>

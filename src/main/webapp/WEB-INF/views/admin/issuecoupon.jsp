@@ -7,9 +7,8 @@
 <script>
 $(document).ready( function () {
     $('#myTable').DataTable({
-    	rowGroup: {
-            dataSrc: '신제품 번호'
-        }
+		order: [[0, "desc"]],
+		"bInfo" : false
     });
 } );
 </script>

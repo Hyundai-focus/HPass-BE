@@ -225,9 +225,11 @@ public class AdminController {
 
 		List<TodayVisitStore> today = todayStoreService.getTodayStore();
 		List<TodayVisitStore> visit = todayStoreService.getVisitStore();
+		TodayStoreInfoDTO info = todayStoreService.getTodayStoreInfo();
 
 		model.addAttribute("today", today);
 		model.addAttribute("visit", visit);
+		model.addAttribute("info", info);
 		return "admin/visit";
 	}
 

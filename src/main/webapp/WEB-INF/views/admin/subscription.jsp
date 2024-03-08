@@ -19,7 +19,8 @@
 <script>
     $(document).ready( function () {
         $('#myTable').DataTable({
-            order: [[0, "desc"]]
+            order: [[0, "desc"]],
+            "bInfo" : false
         });
     } );
 </script>

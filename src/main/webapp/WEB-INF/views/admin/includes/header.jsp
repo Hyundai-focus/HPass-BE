@@ -67,29 +67,6 @@
                             class="nav-link collapsed"
                             href="javascript:;"
                             data-bs-toggle="collapse"
-                            data-bs-target="#collapseLayouts"
-                            aria-expanded="false"
-                            aria-controls="collapseLayouts"
-                    >
-                        <div class="sb-nav-link-icon"></div>
-                        신제품 관리
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div
-                            class="collapse"
-                            id="collapseLayouts"
-                            aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordion"
-                    >
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/admin/product/list">신제품 목록</a>
-                            <a class="nav-link" href="/admin/product/apply">신청 현황</a>
-                        </nav>
-                    </div>
-                    <a
-                            class="nav-link collapsed"
-                            href="javascript:;"
-                            data-bs-toggle="collapse"
                             data-bs-target="#couponLayouts"
                             aria-expanded="false"
                             aria-controls="collapseLayouts"
@@ -107,6 +84,29 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="/admin/coupon/list">쿠폰 목록</a>
                             <a class="nav-link" href="/admin/coupon/issue">발급 현황</a>
+                        </nav>
+                    </div>
+                    <a
+                            class="nav-link collapsed"
+                            href="javascript:;"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts"
+                            aria-expanded="false"
+                            aria-controls="collapseLayouts"
+                    >
+                        <div class="sb-nav-link-icon"></div>
+                        신제품 관리
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div
+                            class="collapse"
+                            id="collapseLayouts"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion"
+                    >
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/admin/product/list">신제품 목록</a>
+                            <a class="nav-link" href="/admin/product/apply">신청 현황</a>
                         </nav>
                     </div>
                     <a class="nav-link" href="/admin/visit">
