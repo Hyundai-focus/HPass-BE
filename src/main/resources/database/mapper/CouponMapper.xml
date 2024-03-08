@@ -80,7 +80,8 @@
             C.coupon_content AS couponContent
         FROM coupon_history CH
         INNER JOIN coupon C
-        ON CH.coupon_no = C.coupon_no
+                    ON CH.coupon_no = C.coupon_no
+        FETCH FIRST 500 ROWS ONLY
     </select>
 
     <!-- 작성자: 황수연 - 사용된 쿠폰 전체 조회 -->

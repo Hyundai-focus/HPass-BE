@@ -122,6 +122,7 @@
                  INNER JOIN MEMBER M
                             ON S.member_no = M.member_no
         ORDER BY subs_start_dt DESC
+        FETCH FIRST 500 ROWS ONLY
         ]]>
     </select>
     <select id="getTotalCnt" resultType="java.lang.Integer">

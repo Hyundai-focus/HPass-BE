@@ -7,7 +7,8 @@
 <script>
 $(document).ready( function () {
     $('#myTable').DataTable({
-		order: [[0, "desc"]]
+		order: [[0, "desc"]],
+		"bInfo" : false
     });
 } );
 </script>
@@ -28,7 +29,7 @@ $(document).ready( function () {
 						<th scope="col" style="text-align: center;">팝업스토어 이름</th>
 						<th scope="col" style="text-align: center;">예약날짜</th>
 						<th scope="col" style="text-align: center;">예약시간</th>
-						<th scope="col" style="text-align: center;">예약삭제</th>
+						<th scope="col" style="text-align: center;">예약취소</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,7 +42,7 @@ $(document).ready( function () {
 								<td style="text-align: left;">${dto.bookingDt}</td>
 								<td>${dto.bookingTime}</td>
 								<td style="text-align: center; padding: 0; vertical-align: middle;">
-								    <button type="button" class="btn btn-outline-danger" onclick="deleteBooking('${dto.bookingNo}')" style="font-size: 12px; ">삭제</button>
+								    <button type="button" class="btn btn-outline-danger" onclick="deleteBooking('${dto.bookingNo}')" style="font-size: 12px; ">취소</button>
 								</td>
 							</tr>
 					</c:forEach>
@@ -53,7 +54,7 @@ $(document).ready( function () {
 	    function deleteBooking(bookingNo) {
 	    	bookingNo = bookingNo.substring(5);
 	    	
-	        if (confirm("예약을 삭제하시겠습니까?")) {
+	        if (confirm("예약을 취소하시겠습니까?")) {
 	            $.ajax({
 	                type: "DELETE",
 	                url: "/admin/popup/booking/" + bookingNo,

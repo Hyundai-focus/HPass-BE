@@ -17,4 +17,6 @@ public class TodayVisitStore {
 	private LocalDate todayStoreDt;
 	private long memberNo;
 	private String storeBrand;
+	private String status;
+	private String visitTime;
 }
