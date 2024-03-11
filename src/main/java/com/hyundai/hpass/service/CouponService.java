@@ -8,8 +8,11 @@ import com.hyundai.hpass.dto.MyCouponDTO;
 import java.util.List;
 
 public interface CouponService {
+    // 작성자 : 김기훈
     List<MyCouponDTO> getMyAllCoupon(int memberNo);
+    // 작성자 : 김기훈
     boolean issueCoupon(long memberNo, long couponNo);
+    // 작성자 : 김기훈
     boolean issueCouponByStore(long memberNo, long storeNo);
     int getUnusedCouponNum();
     
@@ -19,7 +22,9 @@ public interface CouponService {
     // 작성자: 황수연
     public List<CouponDTO> getAllUsedCoupons();
 
+    // 작성자 : 김기훈
     boolean isExistCoupon(long memberNo, long couponNo);
+    // 작성자 : 김기훈
     boolean useCoupon(long memberNo, long couponNo);
     List<Coupon> getAllCoupon();
 

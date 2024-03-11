@@ -23,6 +23,7 @@ public interface PopUpBookingService {
 	
 	public boolean deleteBooking(int bookingNo);
 
+	// 작성자 : 김기훈
 	PopUpBookingDTO checkPopUpBooking(long memberNo, long popUpNo) throws Exception;
 	
 	// 전체 게시물 개수

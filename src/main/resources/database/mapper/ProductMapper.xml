@@ -74,8 +74,7 @@
         SET stock = stock + 1
         WHERE product_no = #{productNo}
     </update>
-    
-    <!-- 작성자: 황수연 - product_history 전체 조회 -->
+
     <select id="getProductHistory" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
         <![CDATA[
         SELECT rnum, productHistoryNo, memberNo, productNo, productHistoryDt, productStatus
@@ -111,8 +110,7 @@
 		<include refid="criteria"></include>
 		product_history_no > 0
 	</select>
-    
-    <!-- 작성자: 황수연 - product 수령한 사람 전체 조회 -->
+
     <select id="getReceiveHistory" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
         <![CDATA[
 	    SELECT *
@@ -137,8 +135,7 @@
 		WHERE rnum > (#{page} - 1) * #{amount}
 	    ]]>
     </select>
-    
-    <!-- 작성자: 황수연 - 이번 달에 product 수령한 사람수 -->
+
     <select id="getCountProduct" resultType="com.hyundai.hpass.dto.ProductHistoryDTO">
         <![CDATA[
         WITH all_dates AS (

@@ -37,7 +37,8 @@ public interface PopUpBookingMapper {
 	public boolean isDuplicateBooking(PopUpBookingDTO dto);
 	
 	public Integer lockBookingRow(PopUpBookingDTO dto);
-	
+
+	// 작성자 : 김기훈
 	public List<PopUpBookingDTO> getMyBooking(
 			@Param("member") int member,
 			@Param("date") String date);
@@ -53,6 +54,7 @@ public interface PopUpBookingMapper {
 	
 	public List<PopUpBookingDTO> getCountBooking();
 
+	// 작성자 : 김기훈
 	void getPopUpBooking(PopUpBookingCheckVO popUpBookingCheckVO);
 
 }

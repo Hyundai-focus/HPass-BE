@@ -64,7 +64,6 @@
         WHERE coupon_used_dt IS NULL
     </select>
 
-    <!-- 작성자: 황수연 - coupon_history 전체 조회 -->
     <select id="getAllIssuedCoupons" resultType="com.hyundai.hpass.dto.IssueCouponDTO">
         SELECT
             CH.coupon_history_no AS couponHistoryNo,
@@ -84,7 +83,6 @@
         FETCH FIRST 500 ROWS ONLY
     </select>
 
-    <!-- 작성자: 황수연 - 사용된 쿠폰 전체 조회 -->
     <select id="getAllUsedCoupons" resultType="com.hyundai.hpass.dto.CouponDTO">
         SELECT
             coupon_no AS couponNo,
