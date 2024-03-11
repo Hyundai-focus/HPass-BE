@@ -110,7 +110,7 @@
         INSERT INTO coupon_history (coupon_history_no, coupon_no, member_no, coupon_is_used)
         SELECT coupon_history_seq.NEXTVAL, c.coupon_no, #{memberNo}, 0
         FROM coupon c
-        WHERE c.coupon_brand = 'H.pass 구독자 전용'
+        WHERE c.coupon_brand = 'H.Pass 구독자 전용'
           AND c.coupon_content = '전시회 50% 할인'
     </insert>
     <select id="getAllCoupon" resultType="com.hyundai.hpass.domain.Coupon">
