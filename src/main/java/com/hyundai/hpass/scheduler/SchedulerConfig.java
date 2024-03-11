@@ -12,7 +12,8 @@ import net.javacrumbs.shedlock.core.LockProvider;
 import net.javacrumbs.shedlock.provider.jdbctemplate.JdbcTemplateLockProvider;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 
-
+// 작성자: 김은서
+// 작성 내용: 스케쥴러 / 잠금 설정
 @Configuration
 @EnableScheduling
 @EnableSchedulerLock(defaultLockAtMostFor = "PT30M") // Java 8의 Duration 포맷 사용

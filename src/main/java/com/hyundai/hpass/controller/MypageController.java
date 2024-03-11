@@ -22,9 +22,12 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MypageController {
 	private final MypageService mypageService;
-
+	/**
+	 작성자: 김은서
+	 처리 내용: 유저정보 - 마이페이지
+	 */
 	@GetMapping("")
-	public ResponseEntity<MypageDTO> todayStoreList(
+	public ResponseEntity<MypageDTO> userInfo(
 		Authentication authentication
 	) {
 		MypageDTO res = mypageService.userInfo(Integer.parseInt(authentication.getName()));

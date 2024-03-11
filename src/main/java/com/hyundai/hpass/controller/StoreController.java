@@ -15,6 +15,7 @@ import com.hyundai.hpass.service.TodayStoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+//작성자 : 김은서
 @RestController
 @RequestMapping("/store")
 @RequiredArgsConstructor

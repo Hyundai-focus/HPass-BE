@@ -7,6 +7,7 @@ import com.hyundai.hpass.dto.PosProductInfoDTO;
 import com.hyundai.hpass.dto.PosProductStatusResDTO;
 import com.hyundai.hpass.dto.PosProductUserDTO;
 
+// 작성자 : 김은서
 public interface PosService {
 	List<PosProductInfoDTO> prodList(Long locNo);
 	List<PosProductStatusResDTO> prodStatus(Long productNo);
