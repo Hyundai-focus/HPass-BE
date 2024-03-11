@@ -40,8 +40,11 @@ public interface CouponMapper {
 
     // 작성자 : 김기훈
     void insertCouponBySubscription(@Param("memberNo") long memberNo);
+    // 작성자 : 최현서
     List<Coupon> getAllCoupon();
+    // 작성자 : 최현서
     int insertCouponAdmin(Coupon coupon);
+    // 작성자 : 최현서
     int deleteCoupon(int couponNo);
 
 }

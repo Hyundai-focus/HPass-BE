@@ -26,8 +26,10 @@ public interface CouponService {
     boolean isExistCoupon(long memberNo, long couponNo);
     // 작성자 : 김기훈
     boolean useCoupon(long memberNo, long couponNo);
+    // 작성자 : 최현서
     List<Coupon> getAllCoupon();
-
+    // 작성자 : 최현서
     int insertCoupon(Coupon coupon);
+    // 작성자 : 최현서
     boolean deleteCoupon(int couponNo);
 }

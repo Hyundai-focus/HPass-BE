@@ -21,6 +21,7 @@ public interface TodayStoreService {
 	
 	// 작성자: 황수연
 	public List<TodayVisitStore> getVisitStore();
+	// 작성자 : 최현서
 	TodayStoreInfoDTO getTodayStoreInfo();
 
 }

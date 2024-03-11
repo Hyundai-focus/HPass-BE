@@ -44,8 +44,11 @@ public interface ProductMapper {
 	
 	// 작성자: 황수연
 	public int totalCnt(Criteria cri);
+	// 작성자 : 최현서
 	int insertProduct(Product product);
+	// 작성자 : 최현서
 	int deleteProduct(int productNo);
+	// 작성자 : 최현서
 	List<AdminRegisterProductDTO> getRegisterList();
 
 }
