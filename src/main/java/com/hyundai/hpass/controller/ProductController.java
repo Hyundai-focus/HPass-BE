@@ -18,6 +18,7 @@ import com.hyundai.hpass.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+//작성자 : 김은서
 @RestController
 @RequestMapping("/product/new")
 @RequiredArgsConstructor

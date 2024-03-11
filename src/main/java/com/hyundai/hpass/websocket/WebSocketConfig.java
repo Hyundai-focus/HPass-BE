@@ -4,12 +4,14 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+// 작성자 : 김은서
+// 작성 내용 : 소켓 설정
 @Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(new HpassWebSocketHandler(), "/socket/*")
-			.setAllowedOrigins("http://localhost:3000", "https://h-pass-react-admin.vercel.app");
+			.setAllowedOrigins("https://h-pass-react-admin.vercel.app");
 	}
 }
