@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+// 작성자 : 김은서
+// 작성 내용 : 소켓 핸들러
 @Component
 public class HpassWebSocketHandler extends TextWebSocketHandler {
 	private ConcurrentHashMap<String, WebSocketSession> sessions = new ConcurrentHashMap<>(); //활성화된 세션들

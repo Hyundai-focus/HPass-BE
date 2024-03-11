@@ -10,7 +10,7 @@ import com.hyundai.hpass.dto.SubscriptionDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+// 작성자 : 최현서
 public interface SubscriptionMapper {
     void addSubscriber(@Param("payment") String payment, @Param("memberNo") int memberNo);
     Subscription findByMemberNo(int memberNo);

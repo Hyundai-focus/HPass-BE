@@ -7,7 +7,7 @@ import com.hyundai.hpass.domain.Product;
 import com.hyundai.hpass.dto.AdminRegisterProductDTO;
 import com.hyundai.hpass.dto.ProductHistoryDTO;
 import com.hyundai.hpass.dto.ProductUserInfoDTO;
-
+// 작성자 : 김은서
 public interface ProductService {
 	List<Product> getProductList();
 
@@ -33,7 +33,10 @@ public interface ProductService {
 	
 	// 작성자: 황수연
 	public List<ProductHistoryDTO> getSumProduct();
+	// 작성자 : 최현서
 	int insertProduct(Product product);
+	// 작성자 : 최현서
 	boolean deleteProduct(int productNo);
+	// 작성자 : 최현서
 	List<AdminRegisterProductDTO> getRegisterList();
 }

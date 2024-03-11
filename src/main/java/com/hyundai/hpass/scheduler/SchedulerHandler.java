@@ -8,7 +8,8 @@ import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import com.hyundai.hpass.mapper.StoreMapper;
 
 import lombok.RequiredArgsConstructor;
-
+//작성자 : 김은서
+//작성 내용 : 오늘의 매장 선정 자동 실행 함수
 @Component
 @RequiredArgsConstructor
 public class SchedulerHandler {

@@ -74,8 +74,6 @@
         ORDER BY b.today_store_dt
     </select>
 
-
-    <!-- 작성자: 황수연 - 오늘의 매장 조회 -->
     <select id="getTodayStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
         SELECT t.store_no    AS storeNo,
                s.store_brand AS storeBrand
@@ -86,7 +84,6 @@
         ORDER BY storeNo DESC
     </select>
 
-    <!-- 작성자: 황수연 - 방문한 매장 조회 -->
     <select id="getVisitStore" resultType="com.hyundai.hpass.dto.TodayVisitStore">
           <![CDATA[
         WITH ranked_visits AS (
