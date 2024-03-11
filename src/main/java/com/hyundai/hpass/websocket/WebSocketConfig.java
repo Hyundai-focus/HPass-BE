@@ -12,6 +12,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(new HpassWebSocketHandler(), "/socket/*")
-			.setAllowedOrigins("https://h-pass-react-admin.vercel.app");
+			.setAllowedOrigins("http://localhost:3000", "https://h-pass-react-admin.vercel.app");
 	}
 }

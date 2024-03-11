@@ -12,7 +12,7 @@ public class WebPosConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOrigins("https://h-pass-react-admin.vercel.app")
+			.allowedOrigins("http://localhost:3000", "https://h-pass-react-admin.vercel.app")
 			.allowCredentials(true);
 	}
 }
