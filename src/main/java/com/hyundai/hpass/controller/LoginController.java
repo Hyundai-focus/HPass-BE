@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+// 작성자: 최현서
 @RestController
 @RequiredArgsConstructor
 @Log4j2

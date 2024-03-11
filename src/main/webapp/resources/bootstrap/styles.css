@@ -11251,3 +11251,8 @@ body {
   margin-top: 20px;
   margin-right: 20px;
 }
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+  color: white
+}

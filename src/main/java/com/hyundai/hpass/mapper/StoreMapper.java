@@ -2,6 +2,7 @@ package com.hyundai.hpass.mapper;
 
 import java.util.List;
 
+import com.hyundai.hpass.dto.TodayStoreInfoDTO;
 import org.apache.ibatis.annotations.Param;
 
 import com.hyundai.hpass.domain.Store;
@@ -33,4 +34,5 @@ public interface StoreMapper {
 
 	// 작성자: 황수연
 	public List<TodayVisitStore> getVisitStore();
+	TodayStoreInfoDTO getTodayStoreInfo();
 }

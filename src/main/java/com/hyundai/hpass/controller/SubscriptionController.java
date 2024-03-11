@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
+// 작성자: 최현서
 @RestController
 @RequestMapping("/subscription")
 @RequiredArgsConstructor

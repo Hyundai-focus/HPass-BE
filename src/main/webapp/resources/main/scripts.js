@@ -73,7 +73,7 @@ var spark1 = {
     },
   },
   subtitle: {
-    text: "이번 달 일일 매장 방문",
+    text: "이번 달 오늘의 매장 방문 완료",
     offsetX: 5,
     style: {
       fontSize: "14px",

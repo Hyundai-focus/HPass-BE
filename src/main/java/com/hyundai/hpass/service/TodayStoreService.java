@@ -2,6 +2,7 @@ package com.hyundai.hpass.service;
 
 import java.util.List;
 
+import com.hyundai.hpass.dto.TodayStoreInfoDTO;
 import com.hyundai.hpass.dto.TodayStoreVisitResDto;
 import com.hyundai.hpass.dto.TodayVisitStore;
 
@@ -16,6 +17,6 @@ public interface TodayStoreService {
 	
 	// 작성자: 황수연
 	public List<TodayVisitStore> getVisitStore();
-
+	TodayStoreInfoDTO getTodayStoreInfo();
 
 }
