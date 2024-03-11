@@ -93,7 +93,7 @@
                    member_no AS memberNo,
                    ROW_NUMBER() OVER (PARTITION BY member_no ORDER BY today_store_dt) AS visit_order
             FROM today_store
-            WHERE TRUNC(today_store_dt) = TRUNC(SYSDATE)
+            WHERE TRUNC(today_store_dt) BETWEEN TRUNC(SYSDATE-1) AND TRUNC(SYSDATE)
               AND member_no IS NOT NULL)
         SELECT todayStoreNo,
                storeNo,
