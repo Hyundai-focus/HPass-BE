@@ -8,7 +8,7 @@ import com.hyundai.hpass.dto.AdminSubsDTO;
 import com.hyundai.hpass.dto.SubscriptionDTO;
 
 import java.util.List;
-
+// 작성자 : 최현서
 public interface SubscriptionService {
     void addSubscriber(String payment, int memberNo);
     Subscription getSubscribeInfo(int memberNo);
