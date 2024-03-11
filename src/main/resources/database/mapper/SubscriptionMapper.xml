@@ -48,7 +48,7 @@
             )
         SELECT
             TO_CHAR(dr.date_value, 'YYYY-MM-DD') AS mainDt,
-            NVL(COUNT(DISTINCT(ch.coupon_no)), 0) AS couponUseCnt,
+            NVL(COUNT(DISTINCT(ch.coupon_history_no)), 0) AS couponUseCnt,
             NVL(COUNT(DISTINCT(ts.today_store_no)),0) AS allVisitCnt,
             NVL(COUNT(DISTINCT(ph.product_history_no)),0) AS productCnt
         FROM date_range dr
