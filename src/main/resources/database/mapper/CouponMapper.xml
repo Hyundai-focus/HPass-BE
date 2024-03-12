@@ -65,21 +65,23 @@
     </select>
 
     <select id="getAllIssuedCoupons" resultType="com.hyundai.hpass.dto.IssueCouponDTO">
-        SELECT
-            CH.coupon_history_no AS couponHistoryNo,
-            CH.coupon_no AS couponNo,
-            CH.member_no AS memberNo,
-            CASE
-                WHEN CH.coupon_is_used = '1' THEN '사용 완료'
-                WHEN CH.coupon_is_used = '0' THEN '미사용'
-                ELSE '기타 상태'
-                END AS couponIsUsed,
-            CH.coupon_used_dt AS couponUsedDt,
-            C.coupon_brand AS couponBrand,
-            C.coupon_content AS couponContent
-        FROM coupon_history CH
-        INNER JOIN coupon C
-                    ON CH.coupon_no = C.coupon_no
+        SELECT couponHistoryNo, couponNo, memberNo, couponIsUsed, couponUsedDt, couponBrand, couponContent FROM
+            (SELECT
+                 CH.coupon_history_no AS couponHistoryNo,
+                 CH.coupon_no AS couponNo,
+                 CH.member_no AS memberNo,
+                 CASE
+                     WHEN CH.coupon_is_used = '1' THEN '사용 완료'
+                     WHEN CH.coupon_is_used = '0' THEN '미사용'
+                     ELSE '기타 상태'
+                     END AS couponIsUsed,
+                 CH.coupon_used_dt AS couponUsedDt,
+                 C.coupon_brand AS couponBrand,
+                 C.coupon_content AS couponContent
+             FROM coupon_history CH
+                      INNER JOIN coupon C
+                                 ON CH.coupon_no = C.coupon_no
+             ORDER BY CH.coupon_history_no DESC)
         FETCH FIRST 500 ROWS ONLY
     </select>
 
